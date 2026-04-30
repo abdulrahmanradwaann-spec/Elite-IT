@@ -22,12 +22,91 @@ if (!localStorage.getItem('elite_students')) {
     localStorage.setItem('elite_students', JSON.stringify(STUDENT_DB));
 }
 
-// 1. Service Worker Registration
+// 1. Advanced Service Worker Registration with Update Detection
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js').catch(err => console.log('SW Error:', err));
+        navigator.serviceWorker.register('./service-worker.js').then(reg => {
+            console.log('[PWA] Service Worker Registered');
+
+            // Detect updates to the service worker
+            reg.onupdatefound = () => {
+                const installingWorker = reg.installing;
+                installingWorker.onstatechange = () => {
+                    if (installingWorker.state === 'installed') {
+                        if (navigator.serviceWorker.controller) {
+                            // New version found! Automatic update logic
+                            console.log('[PWA] New version available, updating...');
+                            showToast('تم تحديث النظام تلقائياً للنسخة الأحدث', 'success');
+                            setTimeout(() => window.location.reload(), 2000);
+                        }
+                    }
+                };
+            };
+        }).catch(err => console.log('[PWA] Registration Failed:', err));
+    });
+
+    // Handle service worker updates across tabs
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        // This fires when the service worker controlling this page changes
+        // (e.g. a new version has skipped waiting and become active)
+        console.log('[PWA] Controller changed, reloading...');
     });
 }
+
+// 2. Online/Offline Status Monitoring
+window.addEventListener('online', () => {
+    showToast('تم استعادة الاتصال بالإنترنت', 'success');
+    document.body.classList.remove('offline-mode');
+});
+
+window.addEventListener('offline', () => {
+    showToast('أنت الآن تعمل بدون إنترنت (وضع الأوفلاين)', 'error');
+    document.body.classList.add('offline-mode');
+});
+
+// 3. PWA Installation Logic
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+    // Optionally, send analytics event that PWA install promo was shown.
+    console.log('[PWA] Installation prompt stashed');
+    
+    // Create an installation button in the sidebar if it doesn't exist
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks && !document.getElementById('install-pwa-btn')) {
+        const installLi = document.createElement('li');
+        installLi.className = 'nav-item';
+        installLi.id = 'install-pwa-btn';
+        installLi.innerHTML = `
+            <a href="#" class="nav-link" style="color: var(--success); background: rgba(0, 255, 136, 0.05); border: 1px dashed var(--success);">
+                <i class="fas fa-download"></i>
+                <span>تثبيت التطبيق</span>
+            </a>
+        `;
+        installLi.onclick = (el) => {
+            el.preventDefault();
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('[PWA] User accepted the install prompt');
+                        installLi.remove();
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        };
+        navLinks.appendChild(installLi);
+    }
+});
+
+window.addEventListener('appinstalled', (evt) => {
+    console.log('[PWA] App installed successfully');
+    showToast('تم تثبيت التطبيق بنجاح على جهازك', 'success');
+});
 
 // 2. Global State
 const PROTECTED_PAGES = ['student.html']; // Only student.html is protected now
@@ -54,10 +133,8 @@ function checkSession() {
 }
 
 function initGlobalUI() {
-    // Fade-in animation
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.6s ease-in-out';
-    setTimeout(() => document.body.style.opacity = '1', 100);
+    // Fade-in removed for Static UI
+    document.body.style.opacity = '1';
 
     // Active Link Highlighting
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
@@ -106,7 +183,7 @@ function showToast(msg, type = 'success') {
     toast.style.cssText = `
         padding: 15px 25px; border-radius: 12px; border: 1px solid var(--glass-border);
         color: #fff; font-weight: 600; display: flex; align-items: center; gap: 12px;
-        box-shadow: var(--shadow-soft); animation: slideUp 0.3s forwards;
+        box-shadow: var(--shadow-soft);
     `;
     
     const icon = type === 'success' ? 'check-circle' : 'exclamation-circle';
@@ -127,9 +204,7 @@ window.handleLogout = function() {
     setTimeout(() => window.location.href = 'login.html', 1000);
 };
 
-// 5. Global CSS for animations
+// 5. Global CSS for animations removed for Static UI
 const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-`;
+style.textContent = ``;
 document.head.appendChild(style);
