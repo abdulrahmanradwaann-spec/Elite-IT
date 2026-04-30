@@ -51,6 +51,12 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     background-color: var(--bg-dark);
+    /* Prevent text resize on orientation change */
+    -webkit-text-size-adjust: 100%;
+}
+
+@media (max-width: 480px) {
+    html { font-size: 14px; }
 }
 
 body {
@@ -60,6 +66,7 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     line-height: 1.6;
+    /* Prevent user selection for a more app-like feel if needed, but keeping it for UX */
 }
 
 html[dir="ltr"] body { font-family: var(--font-en); }
@@ -67,8 +74,8 @@ html[dir="ltr"] body { font-family: var(--font-en); }
 /* Background Orbs (Premium Feel) */
 .bg-glow {
     position: fixed;
-    width: 400px;
-    height: 400px;
+    width: clamp(200px, 50vw, 400px);
+    height: clamp(200px, 50vw, 400px);
     border-radius: 50%;
     filter: blur(150px);
     z-index: -1;
@@ -108,7 +115,7 @@ html[dir="ltr"] .sidebar {
 
 .main-content {
     flex: 1;
-    padding: 40px;
+    padding: clamp(20px, 5vw, 40px);
     margin-right: var(--sidebar-width);
     transition: margin 0.3s ease;
     width: 100%;
@@ -122,7 +129,11 @@ html[dir="ltr"] .main-content {
 @media (max-width: 1024px) {
     .sidebar { transform: translateX(100%); }
     html[dir="ltr"] .sidebar { transform: translateX(-100%); }
-    .main-content { margin: 0 !important; padding: 24px; padding-bottom: 100px; }
+    .main-content { 
+        margin: 0 !important; 
+        padding: 20px; 
+        padding-bottom: 100px; 
+    }
 }
 
 /* Sidebar Branding */
@@ -315,7 +326,9 @@ tr:hover td { background: rgba(255, 255, 255, 0.01); }
 /* Utils */
 .text-center { text-align: center; }
 .mt-30 { margin-top: 30px; }
+.mt-20 { margin-top: 20px; }
 .mb-20 { margin-bottom: 20px; }
+.w-100 { width: 100% !important; }
 .hidden { display: none !important; }
 
 /* Authentication UI */
