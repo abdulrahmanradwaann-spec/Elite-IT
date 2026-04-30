@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#a277ff">
+    <title>إعداد الحساب</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="center-content">
+    <div id="toast-container"></div>
+    
+    <div class="login-card glass">
+        <div class="logo-center text-center">
+            <img src="logo.png" alt="Logo" class="app-logo-login">
+            <h2 data-i18n="setupTitle">إعداد الحساب</h2>
+        </div>
+        <form id="setupForm">
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="setupPass" placeholder="كلمة المرور (6 أحرف على الأقل)" data-i18n="passReq" required minlength="6">
+            </div>
+            <div class="input-group mt-10">
+                <i class="fas fa-check-double"></i>
+                <input type="password" id="setupConfirm" placeholder="تأكيد كلمة المرور" data-i18n="passConfirm" required>
+            </div>
+            <button type="submit" class="btn-primary w-100 mt-20" data-i18n="setupAction">إنشاء كلمة المرور</button>
+        </form>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

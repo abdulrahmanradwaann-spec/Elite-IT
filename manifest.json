@@ -1,0 +1,35 @@
+{
+  "name": "نخبة تقنية المعلومات 2026",
+  "short_name": "نخبة التقنية",
+  "description": "نظام إدارة الطلاب المتطور - تجربة تعليمية ذكية ومتكاملة",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#050508",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "./logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "جدول الامتحانات",
+      "url": "./exams.html",
+      "icons": [{ "src": "./logo.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "حسابي",
+      "url": "./student.html",
+      "icons": [{ "src": "./logo.png", "sizes": "192x192" }]
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | بوابة النخبة</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <div class="auth-container">
+        <div class="auth-card card-master">
+            <div class="text-center mb-20">
+                <div style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--primary); border: 2px solid var(--primary);">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h2 style="font-weight: 800; font-size: 1.8rem;">دخول الطلاب</h2>
+                <p style="color: var(--text-muted);">يرجى إدخال البيانات للوصول لملفك الخاص</p>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginStep1">
+                <div class="input-group">
+                    <label>رقم القيد الجامعي</label>
+                    <input type="text" id="studentId" class="input-field" placeholder="مثلاً: 24090111010">
+                </div>
+                <button onclick="handleIdVerification()" class="btn btn-primary w-100" style="justify-content: center;">
+                    <span>التحقق من الهوية</span>
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+
+            <div id="loginStep2" class="hidden">
+                <div class="input-group">
+                    <label id="passwordLabel">كلمة المرور</label>
+                    <input type="password" id="studentPass" class="input-field" placeholder="أدخل كلمة المرور">
+                </div>
+                <button onclick="handleFinalLogin()" class="btn btn-primary w-100" style="justify-content: center;">
+                    <span>دخول النظام</span>
+                    <i class="fas fa-sign-in-alt"></i>
+                </button>
+                <p id="firstTimeHint" class="hidden text-muted mt-20" style="font-size: 0.8rem; text-align: center;">
+                    مرحباً بك لأول مرة! يرجى تعيين كلمة مرور جديدة لحسابك.
+                </p>
+            </div>
+
+            <div class="mt-30 text-center">
+                <a href="index.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">
+                    <i class="fas fa-home"></i> العودة للرئيسية
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        let currentStudent = null;
+
+        function handleIdVerification() {
+            const idInput = document.getElementById('studentId').value.trim();
+            const students = JSON.parse(localStorage.getItem('elite_students'));
+            
+            currentStudent = students.find(s => s.id === idInput);
+
+            if (currentStudent) {
+                document.getElementById('loginStep1').classList.add('hidden');
+                document.getElementById('loginStep2').classList.remove('hidden');
+                
+                // If it's a first-time login (using default password)
+                if (currentStudent.password === 'auto123') {
+                    document.getElementById('passwordLabel').innerText = 'تعيين كلمة مرور جديدة';
+                    document.getElementById('firstTimeHint').classList.remove('hidden');
+                }
+                showToast('تم العثور على ملف الطالب', 'success');
+            } else {
+                showToast('رقم القيد غير موجود في النظام', 'error');
+            }
+        }
+
+        function handleFinalLogin() {
+            const passInput = document.getElementById('studentPass').value.trim();
+            
+            if (!passInput) {
+                showToast('يرجى إدخال كلمة المرور', 'error');
+                return;
+            }
+
+            // Handle Password Creation or Verification
+            const students = JSON.parse(localStorage.getItem('elite_students'));
+            const studentIndex = students.findIndex(s => s.id === currentStudent.id);
+
+            if (currentStudent.password === 'auto123') {
+                // Set new password
+                students[studentIndex].password = passInput;
+                localStorage.setItem('elite_students', JSON.stringify(students));
+                currentStudent.password = passInput;
+                showToast('تم تعيين كلمة المرور بنجاح', 'success');
+            } else {
+                if (currentStudent.password !== passInput) {
+                    showToast('كلمة المرور غير صحيحة', 'error');
+                    return;
+                }
+            }
+
+            // Success: Create Session
+            localStorage.setItem('student_session', JSON.stringify(currentStudent));
+            showToast('مرحباً بك في نظام النخبة', 'success');
+            setTimeout(() => window.location.href = 'student.html', 1000);
+        }
+    </script>
+    <style>
+        .w-100 { width: 100%; }
+    </style>
+</body>
+</html>

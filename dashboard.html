@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#a277ff">
+    <title>لوحة الطالب</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div id="toast-container"></div>
+    <div class="app-wrapper">
+        <!-- Sidebar for Desktop -->
+        <aside class="sidebar glass">
+            <div class="sidebar-logo">
+                <img src="logo.png" alt="Logo" class="app-logo-nav"> 
+                <span data-i18n="portalName" style="font-weight: 800;">نخبة تقنية المعلومات</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" class="active"><i class="fas fa-chart-pie"></i> <span data-i18n="dashboardTitle">الرئيسية</span></a></li>
+                <li><a href="#"><i class="fas fa-book"></i> <span data-i18n="activitiesTitle">الأنشطة الدراسية</span></a></li>
+                <li><a href="#"><i class="fas fa-folder-open"></i> <span>ملفاتي</span></a></li>
+                <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>التقويم الجامعي</span></a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <nav class="navbar glass">
+                <div class="logo hidden-desktop" style="display:none;">
+                    <img src="logo.png" alt="Logo" class="app-logo-nav">
+                </div>
+                <div class="nav-controls" style="margin-left: auto;">
+                    <button id="langToggle" class="btn-icon"><i class="fas fa-globe"></i></button>
+                    <button id="themeToggle" class="btn-icon"><i class="fas fa-moon"></i></button>
+                    <button id="logoutBtn" class="btn-danger" data-i18n="logout">تسجيل خروج</button>
+                </div>
+            </nav>
+
+            <main class="container">
+                <!-- Welcome Section -->
+                <div class="mb-20">
+                    <h1 style="font-size: 2rem;">مرحباً بك، <span id="welcomeName" class="glow-text"></span> 👋</h1>
+                    <p class="fade-text">لوحة التحكم الشخصية الخاصة بك</p>
+                </div>
+
+                <div class="dashboard-grid mt-20">
+                    <!-- Profile -->
+                    <div class="card glass profile-card">
+                        <img id="studentAvatar" src="" alt="Avatar" class="avatar">
+                        <h2 id="studentName"></h2>
+                        <p><i class="fas fa-hashtag"></i> <span id="studentIdDisplay"></span></p>
+                        <p><i class="fas fa-laptop-code"></i> <span id="studentDept"></span></p>
+                        <div class="mt-10 fade-text" style="font-size: 0.85rem;">آخر ظهور: <span id="lastLoginDisplay">الآن</span></div>
+                    </div>
+
+                    <!-- ID Card -->
+                    <div class="card smart-card id-card-container">
+                        <h3 data-i18n="digitalId" style="position:relative; z-index:2;">البطاقة الرقمية</h3>
+                        <div class="id-card" id="digitalIdCard" style="position:relative; z-index:2;">
+                            <div class="id-header">
+                                <img src="logo.png" alt="Logo" class="id-logo">
+                                <h4 data-i18n="uniName">القرآن الكريم والعلوم الإسلامية</h4>
+                            </div>
+                            <div class="id-body">
+                                <img id="idCardAvatar" src="" alt="Avatar" class="id-avatar">
+                                <div class="id-info">
+                                    <h5 id="idCardName"></h5>
+                                    <p data-i18n="idNum">رقم القيد:</p> <strong id="idCardNum"></strong>
+                                </div>
+                                <div id="qrcode" class="qr-code"></div>
+                            </div>
+                        </div>
+                        <div class="id-actions" style="position:relative; z-index:2;">
+                            <button id="downloadPngBtn" class="btn-primary"><i class="fas fa-download"></i> حفظ البطاقة</button>
+                        </div>
+                    </div>
+
+                    <!-- Activity Log -->
+                    <div class="card glass" style="grid-column: 1 / -1;">
+                        <h3>سجل النشاط الحديث</h3>
+                        <div class="activity-list mt-10" id="activityLogContainer">
+                            <!-- Activities injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer>
+                <p data-i18n="footerText">المطور: فريق نخبة تقنيات المعلومات &copy; 2026</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation for Mobile -->
+    <div class="bottom-bar">
+        <a href="#" class="active"><i class="fas fa-home"></i>الرئيسية</a>
+        <a href="#"><i class="fas fa-id-card"></i>البطاقة</a>
+        <a href="#"><i class="fas fa-folder"></i>ملفات</a>
+        <a href="#"><i class="fas fa-calendar"></i>التقويم</a>
+    </div>
+
+    <!-- Assistant Modal -->
+    <div id="assistantModal" class="modal hidden">
+        <div class="modal-content glass">
+            <span class="close-modal" id="closeAssistant">&times;</span>
+            <div class="assistant-header text-center">
+                <i class="fas fa-robot" style="font-size: 3rem; color: var(--primary-color);"></i>
+                <h3 class="mt-10">المساعد الذكي (Nokhba AI)</h3>
+                <p class="fade-text" style="font-size: 0.85rem;">كيف يمكنني مساعدتك اليوم؟</p>
+            </div>
+            <div class="assistant-body mt-20">
+                <div class="assistant-message">
+                    <p>مرحباً بك! أنا هنا لمساعدتك في تنظيم وقتك، وتذكيرك بمهامك الجامعية، وتقديم نصائح للمذاكرة الفعالة.</p>
+                </div>
+                <div class="assistant-suggestions mt-10">
+                    <button class="btn-secondary w-100 mt-10" onclick="showTip('study')"><i class="fas fa-book-reader"></i> نصيحة للمذاكرة</button>
+                    <button class="btn-secondary w-100 mt-10" onclick="showTip('time')"><i class="fas fa-clock"></i> تنظيم الوقت</button>
+                    <button class="btn-secondary w-100 mt-10" onclick="showTip('focus')"><i class="fas fa-brain"></i> زيادة التركيز</button>
+                </div>
+                <div id="assistantTip" class="mt-20 fade-text text-center glow-text" style="font-weight: bold; display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Smart Assistant FAB -->
+    <div class="fab-assistant" id="assistantBtn" title="المساعد الذكي">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
