@@ -72,3 +72,57 @@ self.addEventListener('fetch', event => {
     })
   );
 });
+
+// 4. Push - Handle incoming push messages
+self.addEventListener('push', event => {
+  let data = {
+    title: 'نخبة تقنية المعلومات',
+    body: 'لديك إشعار جديد',
+    icon: './logo.png'
+  };
+
+  if (event.data) {
+    try {
+      data = event.data.json();
+    } catch (e) {
+      data.body = event.data.text();
+    }
+  }
+
+  const options = {
+    body: data.body,
+    icon: data.icon || './logo.png',
+    badge: data.icon || './logo.png',
+    vibrate: [100, 50, 100],
+    data: {
+      url: data.url || './index.html'
+    }
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(data.title, options)
+  );
+});
+
+// 5. Notification Click - Handle click actions
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+
+  const urlToOpen = event.notification.data.url || './index.html';
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
+      // Check if there is already a window/tab open with the target URL
+      for (let i = 0; i < windowClients.length; i++) {
+        const client = windowClients[i];
+        if (client.url === urlToOpen && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      // If no window is open, open a new one
+      if (clients.openWindow) {
+        return clients.openWindow(urlToOpen);
+      }
+    })
+  );
+});
