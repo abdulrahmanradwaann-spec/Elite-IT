@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الإشعارات | النخبة 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="glass-2026">
+    <div class="auth-container">
+        <div class="card-master auth-card animate-fade-up" style="max-width: 500px;">
+            <div class="text-center mb-20">
+                <i class="fas fa-bell-circle fa-3x" style="color: var(--primary);"></i>
+                <h2 class="mt-20">مركز التحكم بالإشعارات</h2>
+                <p class="text-muted">إرسال تنبيهات يدوية للطلاب</p>
+            </div>
+
+            <div class="input-group">
+                <label>عنوان الإشعار</label>
+                <input type="text" id="notif-title" class="input-field" placeholder="مثلاً: 🚗 رحلة جديدة متاحة">
+            </div>
+
+            <div class="input-group">
+                <label>نص الرسالة</label>
+                <textarea id="notif-body" class="input-field" rows="3" placeholder="أدخل تفاصيل التنبيه هنا..."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>رابط التوجيه (اختياري)</label>
+                <select id="notif-url" class="input-field">
+                    <option value="index.html">الرئيسية</option>
+                    <option value="exams.html">جدول الاختبارات</option>
+                    <option value="trips.html">الرحلات</option>
+                    <option value="projects.html">المشاريع</option>
+                </select>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; margin: 20px 0; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                <span>تفعيل الإرسال الآن</span>
+                <label class="switch">
+                    <input type="checkbox" id="notif-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+
+            <button onclick="triggerManualNotification()" class="btn btn-primary w-100" style="justify-content: center;">
+                <i class="fas fa-paper-plane"></i>
+                <span>إرسال الإشعار للمستخدمين</span>
+            </button>
+
+            <div class="mt-20 text-center">
+                <a href="index.html" class="text-muted" style="text-decoration: none;">
+                    <i class="fas fa-arrow-right"></i> العودة للرئيسية
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Toggle Switch Styles */
+        .switch { position: relative; display: inline-block; width: 60px; height: 34px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--primary); }
+        input:focus + .slider { box-shadow: 0 0 1px var(--primary); }
+        input:checked + .slider:before { transform: translateX(26px); }
+    </style>
+
+    <script src="app.js"></script>
+    <script>
+        async function triggerManualNotification() {
+            const isEnabled = document.getElementById('notif-toggle').checked;
+            if (!isEnabled) {
+                showToast('يرجى تفعيل زر الإرسال أولاً', 'error');
+                return;
+            }
+
+            const title = document.getElementById('notif-title').value;
+            const body = document.getElementById('notif-body').value;
+            const url = document.getElementById('notif-url').value;
+
+            if (!title || !body) {
+                showToast('يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+
+            // Check Permission
+            if (Notification.permission !== 'granted') {
+                const permission = await Notification.requestPermission();
+                if (permission !== 'granted') {
+                    showToast('يجب السماح بالإشعارات في المتصفح', 'error');
+                    return;
+                }
+            }
+
+            // Send message to Service Worker to trigger notification
+            if (navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage({
+                    type: 'TRIGGER_NOTIFICATION',
+                    payload: { title, body, url }
+                });
+                showToast('تم إرسال الإشعار بنجاح ✅', 'success');
+                
+                // Clear fields
+                document.getElementById('notif-title').value = '';
+                document.getElementById('notif-body').value = '';
+                document.getElementById('notif-toggle').checked = false;
+            } else {
+                showToast('خطأ: Service Worker غير نشط', 'error');
+            }
+        }
+    </script>
+</body>
+</html>

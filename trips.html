@@ -178,6 +178,22 @@
         </nav>
     </div>
 
+    <div class="lang-switcher">
+        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
+            <i class="fas fa-globe"></i>
+            <span id="lang-text">English</span>
+        </button>
+    </div>
+
     <script src="app.js"></script>
+    <script src="i18n.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add animation classes
+            document.querySelectorAll('.empty-state-card').forEach((card) => {
+                card.classList.add('animate-fade-up');
+            });
+        });
+    </script>
 </body>
 </html>

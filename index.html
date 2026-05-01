@@ -97,7 +97,15 @@
         </nav>
     </div>
 
+    <div class="lang-switcher">
+        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
+            <i class="fas fa-globe"></i>
+            <span id="lang-text">English</span>
+        </button>
+    </div>
+
     <script src="app.js"></script>
+    <script src="i18n.js"></script>
     <script>
         // Splash logic (5s)
         window.addEventListener('load', () => {
@@ -117,6 +125,12 @@
                 const firstName = data.name ? data.name.split(' ')[0] : 'الطالب';
                 document.querySelector('.welcome-msg').innerHTML = `أهلاً بك، <span style="color: var(--primary);">${firstName}</span>`;
             }
+            
+            // Add animation classes to cards
+            document.querySelectorAll('.card-master').forEach((card, index) => {
+                card.classList.add('animate-fade-up');
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
         });
     </script>
 </body>

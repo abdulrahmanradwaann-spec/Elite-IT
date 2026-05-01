@@ -204,7 +204,8 @@ window.handleLogout = function() {
     setTimeout(() => window.location.href = 'login.html', 1000);
 };
 
-// 5. Global CSS for animations removed for Static UI
-const style = document.createElement('style');
-style.textContent = ``;
-document.head.appendChild(style);
+// 5. Global State Initialization
+document.addEventListener('DOMContentLoaded', () => {
+    // Ensure all dynamic UI elements are initialized
+    console.log('[App] System initialized');
+});

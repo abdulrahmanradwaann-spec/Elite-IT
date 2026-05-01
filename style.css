@@ -1,13 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
 
+/* 
+ * Elite IT Portal - 2026 Premium Theme
+ * Neon Glow | Glassmorphism | Dynamic Gradients
+ */
+
 :root {
-    /* Master 2026 Dark Palette */
+    /* 2026 Master Colors */
     --primary: #6366f1;
     --primary-glow: rgba(99, 102, 241, 0.3);
     --secondary: #0ea5e9;
     --secondary-glow: rgba(14, 165, 233, 0.3);
     --accent: #f43f5e;
-    
+    --neon-purple: #8b5cf6;
+    --neon-blue: #3b82f6;
+    --neon-cyan: #06b6d4;
+    --neon-emerald: #10b981;
+
     /* Backgrounds */
     --bg-dark: #050508;
     --bg-surface: #0f111a;
