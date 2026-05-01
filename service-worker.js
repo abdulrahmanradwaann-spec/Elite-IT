@@ -76,14 +76,16 @@ self.addEventListener('fetch', event => {
 // 4. Push - Handle incoming push messages
 self.addEventListener('push', event => {
   let data = {
-    title: 'نخبة تقنية المعلومات',
-    body: 'لديك إشعار جديد',
-    icon: './logo.png'
+    title: '🔧 تحديثات وتحسينات النظام',
+    body: 'مرحباً عزيزي الطالب، نعمل حالياً على تحسين التطبيق وتطويره ليكون أفضل وأسرع وأكثر استقراراً. شكراً لثقتك بنا.',
+    icon: './logo.png',
+    tag: 'system-maintenance'
   };
 
   if (event.data) {
     try {
-      data = event.data.json();
+      const pushData = event.data.json();
+      data = { ...data, ...pushData };
     } catch (e) {
       data.body = event.data.text();
     }
@@ -93,9 +95,12 @@ self.addEventListener('push', event => {
     body: data.body,
     icon: data.icon || './logo.png',
     badge: data.icon || './logo.png',
-    vibrate: [100, 50, 100],
+    vibrate: [200, 100, 200],
+    tag: data.tag || 'generic-notification',
+    requireInteraction: data.tag === 'system-maintenance',
     data: {
-      url: data.url || './index.html'
+      url: data.url || './dashboard.html',
+      timestamp: Date.now()
     }
   };
 
@@ -125,4 +130,23 @@ self.addEventListener('notificationclick', event => {
       }
     })
   );
+});
+
+// 6. Message Handling - Communication between UI and SW
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'TRIGGER_NOTIFICATION') {
+    const { title, body, url, icon } = event.data.payload;
+    
+    const options = {
+      body: body,
+      icon: icon || './logo.png',
+      badge: icon || './logo.png',
+      vibrate: [100, 50, 100],
+      data: {
+        url: url || './index.html'
+      }
+    };
+
+    self.registration.showNotification(title, options);
+  }
 });

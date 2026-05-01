@@ -49,6 +49,13 @@
                 <span>إرسال الإشعار للمستخدمين</span>
             </button>
 
+            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <button onclick="triggerOfficialUpdate()" class="btn glass-2026 w-100" style="justify-content: center; border: 1px solid var(--primary-glow); color: var(--primary);">
+                    <i class="fas fa-tools"></i>
+                    <span>إرسال تنبيه "تحديث النظام" الرسمي</span>
+                </button>
+            </div>
+
             <div class="mt-20 text-center">
                 <a href="index.html" class="text-muted" style="text-decoration: none;">
                     <i class="fas fa-arrow-right"></i> العودة للرئيسية
@@ -107,6 +114,22 @@
                 document.getElementById('notif-title').value = '';
                 document.getElementById('notif-body').value = '';
                 document.getElementById('notif-toggle').checked = false;
+            } else {
+                showToast('خطأ: Service Worker غير نشط', 'error');
+            }
+        }
+
+        async function triggerOfficialUpdate() {
+            const title = "🔧 تحديثات وتحسينات النظام";
+            const body = "مرحباً عزيزي الطالب، نعمل حالياً على تحسين التطبيق وتطويره ليكون أفضل وأسرع وأكثر استقراراً. شكراً لثقتك بنا.";
+            const url = "index.html";
+
+            if (navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage({
+                    type: 'TRIGGER_NOTIFICATION',
+                    payload: { title, body, url, icon: './logo.png' }
+                });
+                showToast('تم إرسال إشعار التحديث الرسمي ✅', 'success');
             } else {
                 showToast('خطأ: Service Worker غير نشط', 'error');
             }
