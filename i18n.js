@@ -1,6 +1,6 @@
 const translations = {
     ar: {
-        "lang-text": "English",
+        "lang-text": "العربية",
         "brand-text": "نخبة IT",
         "home": "الرئيسية",
         "exams": "جدول الاختبارات",
@@ -40,59 +40,19 @@ const translations = {
         "install-app": "تثبيت التطبيق",
         "logout": "تسجيل الخروج",
         "login": "تسجيل الدخول"
-    },
-    en: {
-        "lang-text": "العربية",
-        "brand-text": "Elite IT",
-        "home": "Home",
-        "exams": "Exam Schedule",
-        "projects": "Projects",
-        "trips": "Trips",
-        "account": "Profile",
-        "welcome": "Welcome to <span style='color: var(--primary);'>Elite</span>",
-        "welcome-user": "Welcome, <span style='color: var(--primary);'>{name}</span>",
-        "sub-header": "Unified Academic System - University of Holy Quran & Islamic Sciences",
-        "exams-title": "Final <span style='color: var(--primary);'>Exam Schedule</span>",
-        "exams-desc": "Second Semester - Level Two (IT)",
-        "exams-btn": "View Exam Schedule",
-        "status-done": "Completed",
-        "table-subject": "Subject",
-        "table-date": "Date",
-        "table-day": "Day",
-        "table-lecturer": "Lecturer",
-        "projects-title": "Software <span class='text-gradient'>Project Management</span>",
-        "projects-sub": "Track your project progress and connect with your team",
-        "no-projects": "No projects available at the moment",
-        "projects-coming": "The projects section is ready to showcase students' technical creations. Projects and applications will be added very soon.",
-        "coming-soon": "Coming Soon",
-        "trips-title": "Trips & <span class='text-gradient'>Events</span>",
-        "trips-sub": "Explore the world outside classrooms",
-        "no-trips": "No trips documented yet",
-        "trips-coming": "The trips and events section is awaiting your adventures. Exploration experiences will be shared soon.",
-        "profile-title": "Academic <span style='color: var(--primary);'>Profile</span>",
-        "profile-sub": "Personal student data and activities",
-        "profile-active": "Active Account",
-        "profile-uni": "University",
-        "profile-uni-name": "Holy Quran and Islamic Sciences",
-        "profile-dept": "Department / Level",
-        "profile-dept-name": "Information Technology | Level 2",
-        "profile-skills": "Activities & Skills",
-        "no-skills": "No activities registered yet. This section will be updated soon based on your achievements.",
-        "footer-dev": "Developer: Elite IT Team &copy; 2026",
-        "install-app": "Install App",
-        "logout": "Logout",
-        "login": "Login"
     }
 };
 
-let currentLang = localStorage.getItem('app_lang') || 'ar';
+// Force Arabic
+const currentLang = 'ar';
+localStorage.setItem('app_lang', 'ar');
 
 function applyTranslations() {
     const t = translations[currentLang];
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
     
     document.documentElement.lang = currentLang;
-    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir = 'rtl';
 
     // Update text elements by ID
     const langText = document.getElementById('lang-text');
@@ -116,12 +76,9 @@ function applyTranslations() {
         const icon = link.querySelector('i');
         const span = link.querySelector('span');
         if (icon && span) {
-            // Find key by looking for any class that matches our map
             const iconClasses = icon.className.split(' ');
             let key = null;
             for (const cls of iconClasses) {
-                const fullCls = `fas ${cls}`; // simplified check
-                // Try exact match or just the specific icon class
                 if (navMap[icon.className]) key = navMap[icon.className];
                 else if (navMap[`fas ${cls}`]) key = navMap[`fas ${cls}`];
             }
@@ -138,7 +95,6 @@ function applyTranslations() {
             const name = data.name ? data.name.split(' ')[0] : 'الطالب';
             welcome.innerHTML = t['welcome-user'].replace('{name}', name);
         } else {
-            // Check if it's a page title or general welcome
             if (currentPath === 'index.html' || currentPath === '') {
                 welcome.innerHTML = t['welcome'];
             } else if (currentPath === 'exams.html') {
@@ -193,7 +149,6 @@ function applyTranslations() {
         const profileActive = document.querySelector('.status-badge:last-child span');
         if (profileActive) profileActive.innerText = t['profile-active'];
         
-        // Fix labels without :contains
         document.querySelectorAll('.card-master p').forEach(p => {
             const text = p.innerText.toUpperCase();
             if (text.includes('الجامعة') || text.includes('UNIVERSITY')) {
@@ -229,14 +184,9 @@ function applyTranslations() {
     }
 }
 
+// Disable toggle
 function toggleLanguage() {
-    currentLang = currentLang === 'ar' ? 'en' : 'ar';
-    localStorage.setItem('app_lang', currentLang);
-    applyTranslations();
-    
-    if (window.showToast) {
-        window.showToast(currentLang === 'ar' ? 'تم تغيير اللغة للعربية' : 'Language changed to English');
-    }
+    console.log("Language is locked to Arabic.");
 }
 
 document.addEventListener('DOMContentLoaded', applyTranslations);

@@ -94,14 +94,19 @@ self.addEventListener('push', event => {
   const options = {
     body: data.body,
     icon: data.icon || './logo.png',
-    badge: data.icon || './logo.png',
-    vibrate: [200, 100, 200],
-    tag: data.tag || 'generic-notification',
-    requireInteraction: data.tag === 'system-maintenance',
+    badge: data.badge || './icon.svg',
+    image: data.image || './images/maintenance-banner.png',
+    vibrate: [300, 100, 300, 100, 300],
+    tag: data.tag || 'system-maintenance',
+    requireInteraction: true,
     data: {
       url: data.url || './dashboard.html',
       timestamp: Date.now()
-    }
+    },
+    actions: [
+      { action: 'open', title: 'فتح النظام', icon: 'https://img.icons8.com/color/48/external-link.png' },
+      { action: 'close', title: 'تجاهل', icon: 'https://img.icons8.com/color/48/close-window.png' }
+    ]
   };
 
   event.waitUntil(
