@@ -130,5 +130,108 @@
         });
     </script>
     <script src="bridge/overlay-engine.js"></script>
+    <!-- MICRO OVERLAY PATCH — PRIVATE GRADES SYSTEM (QURAN FINAL GRADES) -->
+    <style>
+        @keyframes gradeFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .quran-grade-card {
+            margin-top: 30px;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.15));
+            border-radius: 24px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            animation: gradeFadeIn 0.8s ease-out forwards;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .quran-grade-header {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .quran-grade-header i {
+            color: #10b981;
+        }
+        .quran-grade-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+        }
+        .quran-subject-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .quran-score-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            padding: 6px 16px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                try {
+                    // QuranFinalGradePlugin - Mapped by exact Student ID
+                    const gradesData = {
+                        "24090111002": 92,  // أنور
+                        "24090111003": 97,  // جمال
+                        "24090111004": 90,  // حبيب الله
+                        "24090111005": 99,  // عبد الرحمن
+                        "24090111006": 84,  // علي
+                        "24090111007": 82,  // عمر
+                        "24090111010": 100, // محسن
+                        "24090111013": 79,  // محمد
+                        "24090111014": 95,  // موفق
+                        "24090111016": 90,  // يوسف
+                        "24090111017": 99,  // يونس محمد
+                        "24090111018": 100  // يونس أحمد
+                    };
+
+                    const session = localStorage.getItem('student_session');
+                    if (session) {
+                        const data = JSON.parse(session);
+                        const studentId = data.id;
+                        
+                        // Default score for any test account without a matched ID
+                        let finalScore = gradesData[studentId] || 98; 
+
+                        const cardMaster = document.querySelector('.card-master');
+                        // Check if we haven't already added it to prevent duplicates
+                        if (cardMaster && !document.querySelector('.quran-grade-card')) {
+                            const gradeSection = document.createElement('div');
+                            gradeSection.className = 'quran-grade-card animate-fade-up';
+                            gradeSection.innerHTML = `
+                                <div class="quran-grade-header">
+                                    <i class="fas fa-award"></i> الدرجات النهائية
+                                </div>
+                                <div class="quran-grade-content">
+                                    <div class="quran-subject-name">القرآن الكريم</div>
+                                    <div class="quran-score-badge">${finalScore} / 100</div>
+                                </div>
+                            `;
+                            cardMaster.appendChild(gradeSection);
+                        }
+                    }
+                } catch (e) {
+                    console.error('Quran Final Grade Plugin Error:', e);
+                }
+            }, 300); // Small delay to ensure all core UI is rendered first
+        });
+    </script>
 </body>
 </html>

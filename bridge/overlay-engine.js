@@ -17,6 +17,9 @@ class OverlayEngine {
   async init() {
     console.log("🚀 [Elite IT] Initializing 2026 Overlay Engine...");
     
+    // Aesthetic Layer: Inject Ultra Aesthetics Patch
+    this.injectAestheticsPatch();
+
     // Performance Layer: Lazy load the overlay scripts
     await this.loadScripts();
     
@@ -27,6 +30,16 @@ class OverlayEngine {
     if (window.FeatureAnnouncement) new window.FeatureAnnouncement();
     
     this.setupNotificationBridge();
+  }
+
+  injectAestheticsPatch() {
+    // 1. Inject CSS Patch
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'overlay/themes/ultra-aesthetics.css';
+    link.id = 'ultra-aesthetics-patch';
+    document.head.appendChild(link);
+    console.log("✨ [Aesthetics] Ultra UI Patch Applied. (To remove, delete this injection)");
   }
 
   loadScripts() {

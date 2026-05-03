@@ -131,5 +131,71 @@
         });
     </script>
     <script src="bridge/overlay-engine.js"></script>
+    <!-- MICRO OVERLAY PATCH — EXAM COMPLETION INDICATOR -->
+    <style>
+        @keyframes patchFadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .exam-completed-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 6px;
+            animation: patchFadeIn 0.6s ease-out forwards;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
+            width: fit-content;
+        }
+        .exam-completed-badge i {
+            margin-left: 5px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                // System Date
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                const rows = document.querySelectorAll('.table-container table tbody tr');
+                
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    if (cells.length >= 2) {
+                        const subjectCell = cells[0];
+                        const dateText = cells[1].innerText.trim();
+                        
+                        // Parse YYYY/MM/DD
+                        if (/^\d{4}\/\d{2}\/\d{2}$/.test(dateText)) {
+                            const [year, month, day] = dateText.split('/');
+                            const examDate = new Date(year, month - 1, day);
+                            examDate.setHours(0, 0, 0, 0);
+
+                            // Logic: Exam Date <= Today
+                            if (examDate <= today) {
+                                // Add line break
+                                subjectCell.appendChild(document.createElement('br'));
+                                
+                                // Add Badge
+                                const badge = document.createElement('div');
+                                badge.className = 'exam-completed-badge';
+                                badge.innerHTML = '<i class="fas fa-check-circle"></i> تم الامتحان';
+                                
+                                subjectCell.appendChild(badge);
+                            }
+                        }
+                    }
+                });
+            } catch (e) {
+                console.error('Exam Completion Patch Error:', e);
+            }
+        });
+    </script>
 </body>
 </html>
