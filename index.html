@@ -17,7 +17,7 @@
     <div id="splash-screen">
         <div class="text-center">
             <img src="logo.png" alt="Logo" class="splash-logo">
-            <h1 style="margin-top: 30px; font-size: 2.5rem; font-weight: 800; background: linear-gradient(45deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">نخبة تقنية المعلومات</h1>
+            <h1 style="margin-top: 30px; font-weight: 800; background: linear-gradient(45deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">نخبة تقنية المعلومات</h1>
             <p style="color: var(--text-muted); font-weight: 600; margin-top: 15px;">بوابة الطالب الجامعية - 2026</p>
         </div>
     </div>
@@ -42,16 +42,24 @@
             </ul>
 
             <!-- Secure User Section -->
-            <a href="student.html" class="sidebar-user" id="userSidebarLink">
-                <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
-                    <i class="fas fa-user-graduate"></i>
+            <div class="sidebar-bottom">
+                <a href="student.html" class="sidebar-user" id="userSidebarLink">
+                    <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="user-info">
+                        <h6 id="sidebarName">طالب النخبة</h6>
+                        <p id="sidebarId">---</p>
+                    </div>
+                    <i class="fas fa-chevron-left" style="margin-right: auto; font-size: 0.8rem; color: var(--text-muted);"></i>
+                </a>
+                <div class="mt-20">
+                    <a href="#" onclick="handleLogout()" class="nav-link" style="color: var(--error);">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>تسجيل الخروج</span>
+                    </a>
                 </div>
-                <div class="user-info">
-                    <h6 id="sidebarName">طالب النخبة</h6>
-                    <p id="sidebarId">---</p>
-                </div>
-                <i class="fas fa-chevron-left" style="margin-right: auto; font-size: 0.8rem; color: var(--text-muted);"></i>
-            </a>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -98,7 +106,12 @@
         </nav>
     </div>
 
-
+    <div class="lang-switcher">
+        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
+            <i class="fas fa-globe"></i>
+            <span id="lang-text">English</span>
+        </button>
+    </div>
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -115,10 +128,11 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
+                splash.style.transform = 'scale(1.1)';
                 splash.style.opacity = '0';
-                splash.style.transition = 'opacity 1s cubic-bezier(0.4, 0, 0.2, 1)';
-                setTimeout(() => splash.style.display = 'none', 1000);
-            }, 4500); // Start fade out at 4.5s
+                splash.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                setTimeout(() => { splash.style.display = 'none'; splash.style.transform = ''; }, 1000);
+            }, 4500);
         });
 
         // Dashboard Personalization

@@ -26,15 +26,23 @@
                 <li class="nav-item"><a href="projects.html" class="nav-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a></li>
                 <li class="nav-item"><a href="trips.html" class="nav-link"><i class="fas fa-bus"></i><span>الرحلات</span></a></li>
             </ul>
-            <a href="student.html" class="sidebar-user" id="userSidebarLink">
-                <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
-                    <i class="fas fa-user-graduate"></i>
+            <div class="sidebar-bottom">
+                <a href="student.html" class="sidebar-user" id="userSidebarLink">
+                    <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="user-info">
+                        <h6 id="sidebarName">طالب النخبة</h6>
+                        <p id="sidebarId">---</p>
+                    </div>
+                </a>
+                <div class="mt-20">
+                    <a href="#" onclick="handleLogout()" class="nav-link" style="color: var(--error);">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>تسجيل الخروج</span>
+                    </a>
                 </div>
-                <div class="user-info">
-                    <h6 id="sidebarName">طالب النخبة</h6>
-                    <p id="sidebarId">---</p>
-                </div>
-            </a>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -112,7 +120,12 @@
         </nav>
     </div>
 
-
+    <div class="lang-switcher">
+        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
+            <i class="fas fa-globe"></i>
+            <span id="lang-text">English</span>
+        </button>
+    </div>
 
     <script src="app.js"></script>
     <script src="i18n.js"></script>

@@ -8,101 +8,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .progress-container {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            margin: 15px 0;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 10px;
-            transition: width 1s ease-in-out;
-        }
-        .team-avatars {
-            display: flex;
-            align-items: center;
-            margin-top: 15px;
-        }
-        .team-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid var(--bg-surface);
-            margin-right: -10px;
-            background: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            color: #fff;
-            font-weight: 700;
-        }
-        .empty-state-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 450px;
-            text-align: center;
-            border-radius: 32px;
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
-        }
-        .empty-icon-container {
-            position: relative;
-            width: 110px;
-            height: 110px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-            color: var(--primary);
-            margin-bottom: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2), inset 0 0 0 1px var(--glass-border);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .empty-state-card:hover .empty-icon-container {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-        }
-        .icon-badge {
-            position: absolute;
-            bottom: -10px;
-            right: -10px;
-            width: 45px;
-            height: 45px;
-            background: var(--secondary);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: #fff;
-            box-shadow: 0 8px 20px var(--secondary-glow);
-            transition: transform 0.3s ease;
-        }
-        .empty-state-card:hover .icon-badge {
-            transform: scale(1.1);
-        }
-        .bg-element {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            filter: blur(80px);
-        }
-    </style>
     <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
 </head>
 <body>
@@ -112,19 +17,35 @@
     </div>
 
     <div class="app-container">
-        <!-- Sidebar (Shared) -->
-        <aside class="sidebar glass">
+        <!-- Sidebar -->
+        <aside class="sidebar">
             <div class="sidebar-brand">
                 <img src="logo.png" alt="Logo" class="sidebar-logo">
-                <span class="brand-name">النخبة</span>
+                <span class="brand-text">نخبة IT</span>
             </div>
             <ul class="nav-links">
                 <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i><span>الرئيسية</span></a></li>
                 <li class="nav-item"><a href="exams.html" class="nav-link"><i class="fas fa-calendar-alt"></i><span>جدول الاختبارات</span></a></li>
                 <li class="nav-item"><a href="projects.html" class="nav-link active"><i class="fas fa-briefcase"></i><span>المشاريع</span></a></li>
-                <li class="nav-item"><a href="trips.html" class="nav-link"><i class="fas fa-bus"></i><span>تنظيم الرحلات</span></a></li>
-                <li class="nav-item"><a href="student.html" class="nav-link"><i class="fas fa-user-graduate"></i><span>صفحة الطالب</span></a></li>
+                <li class="nav-item"><a href="trips.html" class="nav-link"><i class="fas fa-bus"></i><span>الرحلات</span></a></li>
             </ul>
+            <div class="sidebar-bottom">
+                <a href="student.html" class="sidebar-user" id="userSidebarLink">
+                    <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="user-info">
+                        <h6 id="sidebarName">طالب النخبة</h6>
+                        <p id="sidebarId">---</p>
+                    </div>
+                </a>
+                <div class="mt-20">
+                    <a href="#" onclick="handleLogout()" class="nav-link" style="color: var(--error);">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>تسجيل الخروج</span>
+                    </a>
+                </div>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -150,13 +71,13 @@
                     </div>
 
                     <!-- Text Content -->
-                    <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; color: #fff;" data-ar="لا توجد مشاريع متاحة حالياً" data-en="No projects available at the moment">لا توجد مشاريع متاحة حالياً</h2>
-                    <p style="color: var(--text-muted); max-width: 450px; margin: 0 auto 35px; line-height: 1.7; font-size: 1.05rem;" data-ar="قسم المشاريع جاهز ومخصص لعرض إبداعات الطلاب التقنية. سيتم إضافة المشاريع والتطبيقات قريباً جداً لتكون مرجعاً للجميع." data-en="The projects section is ready to showcase students' technical creations. Projects and applications will be added very soon to serve as a reference for everyone.">
+                    <h2 style="font-weight: 800; margin-bottom: 15px; color: #fff;" data-ar="لا توجد مشاريع متاحة حالياً" data-en="No projects available at the moment">لا توجد مشاريع متاحة حالياً</h2>
+                    <p style="color: var(--text-muted); max-width: 450px; margin: 0 auto 35px; line-height: 1.7;" data-ar="قسم المشاريع جاهز ومخصص لعرض إبداعات الطلاب التقنية. سيتم إضافة المشاريع والتطبيقات قريباً جداً لتكون مرجعاً للجميع." data-en="The projects section is ready to showcase students' technical creations. Projects and applications will be added very soon to serve as a reference for everyone.">
                         قسم المشاريع جاهز ومخصص لعرض إبداعات الطلاب التقنية. سيتم إضافة المشاريع والتطبيقات قريباً جداً لتكون مرجعاً للجميع.
                     </p>
 
                     <!-- Button -->
-                    <button class="btn btn-primary" style="opacity: 0.9; cursor: default; padding: 12px 32px; border-radius: 20px; font-size: 1.05rem;">
+                    <button class="btn btn-primary" style="opacity: 0.9; cursor: default;">
                         <i class="fas fa-rocket" style="margin-left: 8px;"></i>
                         <span data-ar="قريباً" data-en="Coming Soon">قريباً</span>
                     </button>
@@ -171,13 +92,19 @@
         <!-- Bottom Nav (Mobile) -->
         <nav class="bottom-nav">
             <a href="index.html" class="bottom-link"><i class="fas fa-home"></i><span>الرئيسية</span></a>
-            <a href="exams.html" class="bottom-link"><i class="fas fa-calendar-alt"></i><span>الاختبارات</span></a>
+            <a href="exams.html" class="bottom-link"><i class="fas fa-calendar-alt"></i><span>الجدول</span></a>
             <a href="projects.html" class="bottom-link active"><i class="fas fa-briefcase"></i><span>المشاريع</span></a>
-            <a href="student.html" class="bottom-link"><i class="fas fa-user"></i><span>حسابي</span></a>
+            <a href="trips.html" class="bottom-link"><i class="fas fa-bus"></i><span>الرحلات</span></a>
+            <a href="student.html" class="bottom-link"><i class="fas fa-user-circle"></i><span>حسابي</span></a>
         </nav>
     </div>
 
-
+    <div class="lang-switcher">
+        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
+            <i class="fas fa-globe"></i>
+            <span id="lang-text">English</span>
+        </button>
+    </div>
 
     <script src="app.js"></script>
     <script src="i18n.js"></script>

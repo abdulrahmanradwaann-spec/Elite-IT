@@ -74,6 +74,7 @@
 
 /* Applied Styles */
 .animate-fade-up {
+    opacity: 0;
     animation: fadeInUp 0.6s var(--spring-easing) forwards;
 }
 
@@ -124,4 +125,17 @@ html[dir="ltr"] .lang-switcher {
 @media (max-width: 768px) {
     .welcome-msg { font-size: 1.8rem; }
     .card-master { padding: 25px; }
+}
+@media (max-width: 480px) {
+    .welcome-msg { font-size: 1.5rem; }
+    .card-master { padding: 20px; border-radius: 20px; }
+    .lang-switcher { top: 12px; left: 12px; }
+    html[dir="ltr"] .lang-switcher { right: 12px; left: auto; }
+    .btn-lang { padding: 6px 12px; font-size: 0.8rem; }
+}
+@media (max-width: 360px) {
+    .welcome-msg { font-size: 1.3rem; }
+    .card-master { padding: 16px; border-radius: 16px; }
+    .lang-switcher { top: 8px; left: 8px; }
+    html[dir="ltr"] .lang-switcher { right: 8px; left: auto; }
 }

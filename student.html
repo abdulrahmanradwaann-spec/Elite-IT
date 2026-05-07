@@ -27,21 +27,22 @@
                 <li class="nav-item"><a href="trips.html" class="nav-link"><i class="fas fa-bus"></i><span>الرحلات</span></a></li>
             </ul>
             
-            <a href="student.html" class="sidebar-user active" id="userSidebarLink">
-                <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
-                    <i class="fas fa-user-graduate"></i>
-                </div>
-                <div class="user-info">
-                    <h6 id="sidebarName">طالب النخبة</h6>
-                    <p id="sidebarId">---</p>
-                </div>
-            </a>
-
-            <div class="mt-30">
-                <a href="#" onclick="handleLogout()" class="nav-link" style="color: var(--error);">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>تسجيل الخروج</span>
+            <div class="sidebar-bottom">
+                <a href="student.html" class="sidebar-user active" id="userSidebarLink">
+                    <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="user-info">
+                        <h6 id="sidebarName">طالب النخبة</h6>
+                        <p id="sidebarId">---</p>
+                    </div>
                 </a>
+                <div class="mt-20">
+                    <a href="#" onclick="handleLogout()" class="nav-link" style="color: var(--error);">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>تسجيل الخروج</span>
+                    </a>
+                </div>
             </div>
         </aside>
 
@@ -54,11 +55,11 @@
 
             <div class="card-master" style="max-width: 900px;">
                 <div style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap; margin-bottom: 40px;">
-                    <div style="width: 140px; height: 140px; border-radius: 40px; background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--primary); border: 2px solid var(--primary);">
+                    <div style="width: clamp(100px, 25vw, 140px); height: clamp(100px, 25vw, 140px); border-radius: clamp(24px, 6vw, 40px); background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: clamp(2.5rem, 8vw, 4rem); color: var(--primary); border: 2px solid var(--primary);">
                         <i class="fas fa-user-circle"></i>
                     </div>
                     <div>
-                        <h2 id="studentFullName" style="font-size: 2.2rem; font-weight: 800; margin-bottom: 10px;">طالب النخبة</h2>
+                        <h2 id="studentFullName" style="font-size: clamp(1.3rem, 5vw, 2.2rem); font-weight: 800; margin-bottom: 10px;">طالب النخبة</h2>
                         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                             <span class="status-badge" style="background: rgba(99, 102, 241, 0.1); color: var(--primary); border-color: var(--primary);">
                                 <i class="fas fa-id-card"></i>
@@ -72,20 +73,20 @@
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
-                    <div style="padding: 24px; background: rgba(255, 255, 255, 0.02); border-radius: 20px; border: 1px solid var(--glass-border);">
-                        <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">الجامعة</p>
-                        <h4 style="font-size: 1.1rem; font-weight: 700;">القرآن الكريم والعلوم الإسلامية</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(16px, 3vw, 24px);">
+                    <div style="padding: clamp(16px, 3vw, 24px); background: rgba(255, 255, 255, 0.02); border-radius: 20px; border: 1px solid var(--glass-border);">
+                        <p style="color: var(--text-muted); font-size: clamp(0.75rem, 2vw, 0.85rem); font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">الجامعة</p>
+                        <h4 style="font-size: clamp(0.95rem, 2.5vw, 1.1rem); font-weight: 700;">القرآن الكريم والعلوم الإسلامية</h4>
                     </div>
-                    <div style="padding: 24px; background: rgba(255, 255, 255, 0.02); border-radius: 20px; border: 1px solid var(--glass-border);">
-                        <p style="color: var(--text-muted); font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">القسم / المستوى</p>
-                        <h4 style="font-size: 1.1rem; font-weight: 700;">تقنية المعلومات | المستوى الثاني</h4>
+                    <div style="padding: clamp(16px, 3vw, 24px); background: rgba(255, 255, 255, 0.02); border-radius: 20px; border: 1px solid var(--glass-border);">
+                        <p style="color: var(--text-muted); font-size: clamp(0.75rem, 2vw, 0.85rem); font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">القسم / المستوى</p>
+                        <h4 style="font-size: clamp(0.95rem, 2.5vw, 1.1rem); font-weight: 700;">تقنية المعلومات | المستوى الثاني</h4>
                     </div>
                 </div>
 
-                <div class="mt-30" style="padding: 24px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(14, 165, 233, 0.1)); border-radius: 24px; border: 1px solid var(--primary-glow);">
-                    <h3 style="font-weight: 800; margin-bottom: 15px;"><i class="fas fa-brain" style="margin-left: 10px;"></i> النشاطات والمهارات</h3>
-                    <p style="color: var(--text-muted);">لا توجد نشاطات مسجلة حالياً. سيتم تحديث هذا القسم قريباً بناءً على إنجازاتك في الكلية.</p>
+                <div class="mt-30" style="padding: clamp(16px, 3vw, 24px); background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(14, 165, 233, 0.1)); border-radius: clamp(16px, 3vw, 24px); border: 1px solid var(--primary-glow);">
+                    <h3 style="font-weight: 800; margin-bottom: 15px; font-size: clamp(1rem, 3vw, 1.3rem);"><i class="fas fa-brain" style="margin-left: 10px;"></i> النشاطات والمهارات</h3>
+                    <p style="color: var(--text-muted); font-size: clamp(0.85rem, 2.5vw, 1rem);">لا توجد نشاطات مسجلة حالياً. سيتم تحديث هذا القسم قريباً بناءً على إنجازاتك في الكلية.</p>
                 </div>
             </div>
 
@@ -103,7 +104,12 @@
         </nav>
     </div>
 
-
+    <div class="lang-switcher">
+        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
+            <i class="fas fa-globe"></i>
+            <span id="lang-text">English</span>
+        </button>
+    </div>
 
     <script src="app.js"></script>
     <script src="i18n.js"></script>
