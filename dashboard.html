@@ -12,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
+    <link rel="stylesheet" href="polish-overlay.css">
 </head>
 <body>
     <div id="toast-container"></div>
@@ -39,7 +40,7 @@
                 <div class="nav-controls" style="margin-left: auto;">
                     <button id="langToggle" class="btn-icon"><i class="fas fa-globe"></i></button>
                     <button id="themeToggle" class="btn-icon"><i class="fas fa-moon"></i></button>
-                    <button id="logoutBtn" class="btn-danger" data-i18n="logout">تسجيل خروج</button>
+                    <button id="logoutBtn" class="btn btn-danger" data-i18n="logout">تسجيل خروج</button>
                 </div>
             </nav>
 
@@ -78,7 +79,7 @@
                             </div>
                         </div>
                         <div class="id-actions" style="position:relative; z-index:2;">
-                            <button id="downloadPngBtn" class="btn-primary"><i class="fas fa-download"></i> حفظ البطاقة</button>
+                            <button id="downloadPngBtn" class="btn btn-primary"><i class="fas fa-download"></i> حفظ البطاقة</button>
                         </div>
                     </div>
 
@@ -120,9 +121,9 @@
                     <p>مرحباً بك! أنا هنا لمساعدتك في تنظيم وقتك، وتذكيرك بمهامك الجامعية، وتقديم نصائح للمذاكرة الفعالة.</p>
                 </div>
                 <div class="assistant-suggestions mt-10">
-                    <button class="btn-secondary w-100 mt-10" onclick="showTip('study')"><i class="fas fa-book-reader"></i> نصيحة للمذاكرة</button>
-                    <button class="btn-secondary w-100 mt-10" onclick="showTip('time')"><i class="fas fa-clock"></i> تنظيم الوقت</button>
-                    <button class="btn-secondary w-100 mt-10" onclick="showTip('focus')"><i class="fas fa-brain"></i> زيادة التركيز</button>
+                    <button class="btn btn-secondary btn-block mt-10" onclick="showTip('study')"><i class="fas fa-book-reader"></i> نصيحة للمذاكرة</button>
+                    <button class="btn btn-secondary btn-block mt-10" onclick="showTip('time')"><i class="fas fa-clock"></i> تنظيم الوقت</button>
+                    <button class="btn btn-secondary btn-block mt-10" onclick="showTip('focus')"><i class="fas fa-brain"></i> زيادة التركيز</button>
                 </div>
                 <div id="assistantTip" class="mt-20 fade-text text-center glow-text" style="font-weight: bold; display: none;"></div>
             </div>

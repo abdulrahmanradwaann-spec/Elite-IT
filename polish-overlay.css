@@ -1,0 +1,367 @@
+/* 
+ * Elite IT Smart Campus PWA — UI Polish Overlay
+ * Non-destructive visual enhancement layer
+ * CSS + Animation ONLY — no structural changes
+ */
+
+/* ==========================================
+   1. NAVIGATION ENHANCEMENT
+   ========================================== */
+
+/* Sidebar — Active State Polish */
+.sidebar .nav-link.active {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(14, 165, 233, 0.08));
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.1);
+}
+
+.sidebar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateX(-4px);
+}
+
+html[dir="ltr"] .sidebar .nav-link:hover {
+    transform: translateX(4px);
+}
+
+.sidebar .nav-link {
+    border: 1px solid transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sidebar User Card — Hover */
+.sidebar-user {
+    transition: all 0.2s ease;
+}
+
+.sidebar-user:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--primary-glow);
+    transform: translateY(-2px);
+}
+
+/* Bottom Navigation — Visual Polish */
+.bottom-nav {
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.bottom-link {
+    position: relative;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bottom-link.active i {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px var(--primary-glow));
+}
+
+/* Bottom Nav Active Pill Indicator */
+.bottom-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 4px;
+    box-shadow: 0 0 12px var(--primary-glow);
+}
+
+/* ==========================================
+   2. INTERACTION POLISH
+   ========================================== */
+
+/* Click Feedback */
+.btn:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease;
+}
+
+.btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Button Hover — Soft Lift */
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Secondary Button Polish */
+.btn-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary-glow);
+}
+
+/* Card Hover */
+.card-master {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================
+   3. MOTION SYSTEM
+   ========================================== */
+
+/* Smooth Page Content Fade In */
+.main-content {
+    animation: pageFadeIn 0.35s ease-out both;
+}
+
+@keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dashboard Header Animation */
+.dashboard-header {
+    animation: headerSlideIn 0.3s ease-out both;
+}
+
+@keyframes headerSlideIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Content Cards Enter Animation */
+section,
+.empty-state-wrapper,
+.stats-grid,
+.modules-grid,
+.table-container {
+    animation: cardEnter 0.4s ease-out both;
+}
+
+@keyframes cardEnter {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Delayed Entries for Child Elements */
+.stats-grid > *,
+.modules-grid > * {
+    animation: childFadeIn 0.35s ease-out both;
+}
+
+.stats-grid > *:nth-child(1) { animation-delay: 0.1s; }
+.stats-grid > *:nth-child(2) { animation-delay: 0.15s; }
+.stats-grid > *:nth-child(3) { animation-delay: 0.2s; }
+.stats-grid > *:nth-child(4) { animation-delay: 0.25s; }
+
+.modules-grid > *:nth-child(1) { animation-delay: 0.15s; }
+.modules-grid > *:nth-child(2) { animation-delay: 0.2s; }
+.modules-grid > *:nth-child(3) { animation-delay: 0.25s; }
+
+@keyframes childFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Empty State Card Enter */
+.empty-state-card {
+    animation: emptyStateIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes emptyStateIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ==========================================
+   4. COLOR REFINEMENT
+   ========================================== */
+
+/* Soft Background Gradient via html to avoid stacking issues */
+html::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+        radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(14, 165, 233, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Status Badge Refinement */
+.status-badge {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+}
+
+.status-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Table Row Hover */
+tr:hover td {
+    background: rgba(99, 102, 241, 0.03);
+    transition: background 0.2s ease;
+}
+
+/* ==========================================
+   5. GLASSMORPHISM REFINEMENT
+   ========================================== */
+
+.glass {
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+.card-master,
+.auth-card,
+.login-card {
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+
+/* ==========================================
+   6. LOGIN PAGE POLISH
+   ========================================== */
+
+.auth-card .input-field:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* ==========================================
+   7. SPLASH SCREEN ENHANCEMENT
+   ========================================== */
+
+/* Glowing Orb Behind Logo */
+#splash-screen::before {
+    content: '';
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.2), rgba(14, 165, 233, 0.08) 50%, transparent 70%);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: splashOrb 3s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes splashOrb {
+    0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.5; }
+    100% { transform: translate(-50%, -50%) scale(1.25); opacity: 1; }
+}
+
+/* Logo Breathing Animation */
+.splash-logo {
+    position: relative;
+    z-index: 2;
+    animation: splashLogo 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes splashLogo {
+    0% { transform: scale(1); box-shadow: 0 0 30px var(--primary-glow); }
+    100% { transform: scale(1.06); box-shadow: 0 0 60px var(--primary-glow), 0 0 100px rgba(99, 102, 241, 0.15); }
+}
+
+/* Title Entrance */
+#splash-screen h1 {
+    position: relative;
+    z-index: 2;
+    animation: splashTitleIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes splashTitleIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Subtitle Entrance */
+#splash-screen p {
+    position: relative;
+    z-index: 2;
+    animation: splashSubIn 0.8s ease-out 0.3s both;
+}
+
+@keyframes splashSubIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Loading Dots */
+#splash-screen::after {
+    content: '';
+    position: absolute;
+    bottom: clamp(40px, 10vh, 80px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow:
+        -16px 0 rgba(99, 102, 241, 0.35),
+        16px 0 rgba(99, 102, 241, 0.35);
+    animation: splashDots 1.6s ease-in-out infinite;
+    z-index: 2;
+}
+
+@keyframes splashDots {
+    0%, 100% { box-shadow: -16px 0 rgba(99, 102, 241, 0.35), 16px 0 rgba(99, 102, 241, 0.35); }
+    25% { box-shadow: -16px 0 var(--primary), 16px 0 rgba(99, 102, 241, 0.35); }
+    50% { box-shadow: -16px 0 var(--primary), 16px 0 var(--primary); }
+    75% { box-shadow: -16px 0 rgba(99, 102, 241, 0.35), 16px 0 var(--primary); }
+}
+
+/* Exit Transition Polish (works with JS inline styles) */
+#splash-screen > .text-center {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* ==========================================
+    8. RESPONSIVE ADJUSTMENTS
+   ========================================== */
+
+@media (max-width: 480px) {
+    .sidebar .nav-link:hover {
+        transform: none;
+    }
+    
+    .bottom-link.active::after {
+        width: 12px;
+        height: 2px;
+    }
+
+    #splash-screen::before {
+        width: 200px;
+        height: 200px;
+    }
+
+    #splash-screen::after {
+        width: 6px;
+        height: 6px;
+        box-shadow:
+            -12px 0 rgba(99, 102, 241, 0.35),
+            12px 0 rgba(99, 102, 241, 0.35);
+    }
+
+    @keyframes splashDots {
+        0%, 100% { box-shadow: -12px 0 rgba(99, 102, 241, 0.35), 12px 0 rgba(99, 102, 241, 0.35); }
+        25% { box-shadow: -12px 0 var(--primary), 12px 0 rgba(99, 102, 241, 0.35); }
+        50% { box-shadow: -12px 0 var(--primary), 12px 0 var(--primary); }
+        75% { box-shadow: -12px 0 rgba(99, 102, 241, 0.35), 12px 0 var(--primary); }
+    }
+}
+
+@media (max-width: 360px) {
+    #splash-screen::before {
+        width: 150px;
+        height: 150px;
+    }
+}
