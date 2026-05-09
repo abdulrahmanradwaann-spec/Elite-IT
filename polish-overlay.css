@@ -5,14 +5,235 @@
  */
 
 /* ==========================================
-   1. NAVIGATION ENHANCEMENT
-   ========================================== */
+    0. PREMIUM COLOR PALETTE OVERRIDE
+    ========================================== */
 
-/* Sidebar — Active State Polish */
+:root {
+    --primary: #8b5cf6;
+    --primary-glow: rgba(139, 92, 246, 0.35);
+    --secondary: #06b6d4;
+    --secondary-glow: rgba(6, 182, 212, 0.3);
+    --success: #10b981;
+    --success-glow: rgba(16, 185, 129, 0.3);
+    --error: #ef4444;
+    --warning: #f59e0b;
+    
+    --bg-surface: #080814;
+    --bg-card: #0f0f24;
+    --glass-bg: rgba(12, 12, 30, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.06);
+    --glass-blur: 24px;
+
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.5);
+    --neon-glow: 0 0 25px var(--primary-glow);
+}
+
+/* ==========================================
+    1. TYPOGRAPHY & SPACING
+    ========================================== */
+
+body {
+    letter-spacing: 0.3px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+}
+
+p {
+    line-height: 1.75;
+}
+
+/* ==========================================
+    2. BACKGROUND ENHANCEMENT
+    ========================================== */
+
+html::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+        radial-gradient(ellipse at 15% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 50%, rgba(6, 182, 212, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.02) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* شعار { } احترافي — القسم الأول في الرئيسية فقط */
+.card-master[style*="max-width: 450px"] {
+    position: relative;
+}
+
+.card-master[style*="max-width: 450px"]::after {
+    content: '{ }';
+    position: absolute;
+    bottom: 12px;
+    left: 16px;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: rgba(139, 92, 246, 0.05);
+    font-family: 'Courier New', Consolas, monospace;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    letter-spacing: 3px;
+}
+
+html[dir="ltr"] .card-master[style*="max-width: 450px"]::after {
+    left: auto;
+    right: 16px;
+}
+
+/* ==========================================
+    3. CARD & GLASS ENHANCEMENT
+    ========================================== */
+
+.card-master {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.card-master:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(139, 92, 246, 0.06) !important;
+    border-color: rgba(139, 92, 246, 0.15) !important;
+}
+
+.widget-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.widget-card:hover {
+    transform: translateY(-3px) !important;
+    border-color: rgba(139, 92, 246, 0.12) !important;
+}
+
+.glass {
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-master,
+.auth-card,
+.login-card {
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+/* ==========================================
+    4. BUTTON ENHANCEMENT
+    ========================================== */
+
+.btn {
+    border-radius: 14px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.02em;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), #a78bfa);
+    box-shadow: 0 8px 28px rgba(139, 92, 246, 0.25);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(139, 92, 246, 0.35);
+}
+
+.btn-primary:active {
+    transform: scale(0.97);
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.2);
+}
+
+.btn-secondary {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(139, 92, 246, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary:active {
+    transform: scale(0.97);
+}
+
+.btn-danger {
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.2);
+}
+
+.btn-danger:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:active {
+    transform: scale(0.97);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #10b981, #34d399);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
+    color: #fff;
+}
+
+.btn-success:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(16, 185, 129, 0.35);
+}
+
+.btn-success:active {
+    transform: scale(0.97);
+}
+
+.btn-glass {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.btn-glass:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(139, 92, 246, 0.15);
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-icon {
+    border-radius: 12px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-icon:hover {
+    background: var(--primary) !important;
+    color: #fff !important;
+    border-color: var(--primary) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ==========================================
+    5. SIDEBAR ENHANCEMENT
+    ========================================== */
+
+.sidebar .nav-link {
+    border: 1px solid transparent;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px;
+}
+
 .sidebar .nav-link.active {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(14, 165, 233, 0.08));
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.1);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.06));
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.1);
 }
 
 .sidebar .nav-link:hover {
@@ -24,14 +245,8 @@ html[dir="ltr"] .sidebar .nav-link:hover {
     transform: translateX(4px);
 }
 
-.sidebar .nav-link {
-    border: 1px solid transparent;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Sidebar User Card — Hover */
 .sidebar-user {
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar-user:hover {
@@ -40,77 +255,216 @@ html[dir="ltr"] .sidebar .nav-link:hover {
     transform: translateY(-2px);
 }
 
-/* Bottom Navigation — Visual Polish */
+/* ==========================================
+    6. BOTTOM NAVIGATION — Premium Glass Nav 2026
+    ========================================== */
+
 .bottom-nav {
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgb(5, 5, 15) !important;
+    backdrop-filter: blur(30px) saturate(200%) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
+    border-top: 1px solid rgba(139, 92, 246, 0.2) !important;
+    height: calc(var(--bottom-nav-height) + 8px) !important;
+    padding: 0 8px env(safe-area-inset-bottom, 8px) !important;
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(139, 92, 246, 0.06) !important;
+}
+
+.bottom-nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 5%;
+    width: 90%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.35), rgba(6, 182, 212, 0.25), transparent);
+    pointer-events: none;
 }
 
 .bottom-link {
-    position: relative;
-    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    flex: 1 !important;
+    max-width: 80px !important;
+    padding: 8px 4px !important;
+    color: rgba(148, 163, 184, 0.5) !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    font-size: 0.65rem !important;
+    -webkit-tap-highlight-color: transparent !important;
+    border-radius: 18px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: 1 !important;
+}
+
+.bottom-link i {
+    font-size: 1.4rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.bottom-link span {
+    font-size: 0.55rem !important;
+    line-height: 1 !important;
+    text-align: center !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.bottom-link.active {
+    color: #fff !important;
 }
 
 .bottom-link.active i {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 10px var(--primary-glow));
+    transform: scale(1.2) !important;
+    color: var(--primary) !important;
+    filter: drop-shadow(0 0 16px var(--primary-glow)) !important;
 }
 
-/* Bottom Nav Active Pill Indicator */
+.bottom-link.active span {
+    color: var(--primary) !important;
+    font-weight: 900 !important;
+}
+
+.bottom-link.active::before {
+    content: '' !important;
+    position: absolute !important;
+    inset: 2px !important;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.18), rgba(6, 182, 212, 0.06)) !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(139, 92, 246, 0.25) !important;
+    box-shadow: 0 4px 24px rgba(139, 92, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+    z-index: 0 !important;
+    animation: activePillIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) both !important;
+}
+
+@keyframes activePillIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+}
+
 .bottom-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 16px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    border-radius: 4px;
-    box-shadow: 0 0 12px var(--primary-glow);
+    content: '' !important;
+    position: absolute !important;
+    top: 2px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 40px !important;
+    height: 40px !important;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.25), transparent 70%) !important;
+    border-radius: 50% !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
+    animation: activeGlowPulse 2s ease-in-out infinite !important;
+}
+
+@keyframes activeGlowPulse {
+    0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(0.85); }
+    50% { opacity: 0.9; transform: translateX(-50%) scale(1.2); }
+}
+
+.bottom-link:active {
+    transform: scale(0.9) !important;
+}
+
+.bottom-link:not(.active):hover i {
+    color: rgba(148, 163, 184, 0.9) !important;
+    transform: translateY(-3px) !important;
+}
+
+.bottom-link:not(.active):hover {
+    background: rgba(255, 255, 255, 0.03) !important;
 }
 
 /* ==========================================
-   2. INTERACTION POLISH
-   ========================================== */
+    7. FORM ENHANCEMENT
+    ========================================== */
 
-/* Click Feedback */
-.btn:active {
-    transform: scale(0.97);
-    transition: transform 0.1s ease;
-}
-
-.btn {
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Button Hover — Soft Lift */
-.btn:hover {
-    transform: translateY(-2px);
-}
-
-/* Secondary Button Polish */
-.btn-secondary {
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.03);
-}
-
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--primary-glow);
-}
-
-/* Card Hover */
-.card-master {
+.input-field {
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ==========================================
-   3. MOTION SYSTEM
-   ========================================== */
+.input-field:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12), 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
 
-/* Smooth Page Content Fade In */
+.input-field:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.auth-card .input-field:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* ==========================================
+    8. STATUS & BADGE ENHANCEMENT
+    ========================================== */
+
+.status-badge {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.status-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Success badge glow */
+.status-badge i.fa-check-circle {
+    filter: drop-shadow(0 0 6px var(--success-glow));
+}
+
+/* ==========================================
+    9. TABLE ENHANCEMENT
+    ========================================== */
+
+tr:hover td {
+    background: rgba(139, 92, 246, 0.03);
+    transition: background 0.2s ease;
+}
+
+th {
+    letter-spacing: 0.03em;
+    font-weight: 700;
+}
+
+/* ==========================================
+    10. LINK ENHANCEMENT
+    ========================================== */
+
+a {
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary);
+}
+
+/* ==========================================
+    11. TOAST & NOTIFICATION ENHANCEMENT
+    ========================================== */
+
+.toast {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ==========================================
+    12. MOTION SYSTEM
+    ========================================== */
+
 .main-content {
     animation: pageFadeIn 0.35s ease-out both;
 }
@@ -120,7 +474,6 @@ html[dir="ltr"] .sidebar .nav-link:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Dashboard Header Animation */
 .dashboard-header {
     animation: headerSlideIn 0.3s ease-out both;
 }
@@ -130,7 +483,6 @@ html[dir="ltr"] .sidebar .nav-link:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Content Cards Enter Animation */
 section,
 .empty-state-wrapper,
 .stats-grid,
@@ -144,7 +496,6 @@ section,
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Delayed Entries for Child Elements */
 .stats-grid > *,
 .modules-grid > * {
     animation: childFadeIn 0.35s ease-out both;
@@ -164,7 +515,6 @@ section,
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Empty State Card Enter */
 .empty-state-card {
     animation: emptyStateIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
@@ -175,75 +525,15 @@ section,
 }
 
 /* ==========================================
-   4. COLOR REFINEMENT
-   ========================================== */
+    13. SPLASH SCREEN ENHANCEMENT
+    ========================================== */
 
-/* Soft Background Gradient via html to avoid stacking issues */
-html::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: 
-        radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.04) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 50%, rgba(14, 165, 233, 0.03) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
-}
-
-/* Status Badge Refinement */
-.status-badge {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    transition: all 0.2s ease;
-}
-
-.status-badge:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Table Row Hover */
-tr:hover td {
-    background: rgba(99, 102, 241, 0.03);
-    transition: background 0.2s ease;
-}
-
-/* ==========================================
-   5. GLASSMORPHISM REFINEMENT
-   ========================================== */
-
-.glass {
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-}
-
-.card-master,
-.auth-card,
-.login-card {
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-}
-
-/* ==========================================
-   6. LOGIN PAGE POLISH
-   ========================================== */
-
-.auth-card .input-field:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
-    background: rgba(255, 255, 255, 0.06);
-}
-
-/* ==========================================
-   7. SPLASH SCREEN ENHANCEMENT
-   ========================================== */
-
-/* Glowing Orb Behind Logo */
 #splash-screen::before {
     content: '';
     position: absolute;
     width: 280px;
     height: 280px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.2), rgba(14, 165, 233, 0.08) 50%, transparent 70%);
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.08) 50%, transparent 70%);
     border-radius: 50%;
     top: 50%;
     left: 50%;
@@ -258,7 +548,6 @@ tr:hover td {
     100% { transform: translate(-50%, -50%) scale(1.25); opacity: 1; }
 }
 
-/* Logo Breathing Animation */
 .splash-logo {
     position: relative;
     z-index: 2;
@@ -267,10 +556,9 @@ tr:hover td {
 
 @keyframes splashLogo {
     0% { transform: scale(1); box-shadow: 0 0 30px var(--primary-glow); }
-    100% { transform: scale(1.06); box-shadow: 0 0 60px var(--primary-glow), 0 0 100px rgba(99, 102, 241, 0.15); }
+    100% { transform: scale(1.06); box-shadow: 0 0 60px var(--primary-glow), 0 0 100px rgba(139, 92, 246, 0.15); }
 }
 
-/* Title Entrance */
 #splash-screen h1 {
     position: relative;
     z-index: 2;
@@ -282,7 +570,6 @@ tr:hover td {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Subtitle Entrance */
 #splash-screen p {
     position: relative;
     z-index: 2;
@@ -294,7 +581,6 @@ tr:hover td {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Loading Dots */
 #splash-screen::after {
     content: '';
     position: absolute;
@@ -306,27 +592,26 @@ tr:hover td {
     border-radius: 50%;
     background: var(--primary);
     box-shadow:
-        -16px 0 rgba(99, 102, 241, 0.35),
-        16px 0 rgba(99, 102, 241, 0.35);
+        -16px 0 rgba(139, 92, 246, 0.35),
+        16px 0 rgba(139, 92, 246, 0.35);
     animation: splashDots 1.6s ease-in-out infinite;
     z-index: 2;
 }
 
 @keyframes splashDots {
-    0%, 100% { box-shadow: -16px 0 rgba(99, 102, 241, 0.35), 16px 0 rgba(99, 102, 241, 0.35); }
-    25% { box-shadow: -16px 0 var(--primary), 16px 0 rgba(99, 102, 241, 0.35); }
+    0%, 100% { box-shadow: -16px 0 rgba(139, 92, 246, 0.35), 16px 0 rgba(139, 92, 246, 0.35); }
+    25% { box-shadow: -16px 0 var(--primary), 16px 0 rgba(139, 92, 246, 0.35); }
     50% { box-shadow: -16px 0 var(--primary), 16px 0 var(--primary); }
-    75% { box-shadow: -16px 0 rgba(99, 102, 241, 0.35), 16px 0 var(--primary); }
+    75% { box-shadow: -16px 0 rgba(139, 92, 246, 0.35), 16px 0 var(--primary); }
 }
 
-/* Exit Transition Polish (works with JS inline styles) */
 #splash-screen > .text-center {
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 /* ==========================================
-    8. RESPONSIVE ADJUSTMENTS
-   ========================================== */
+    14. RESPONSIVE ADJUSTMENTS
+    ========================================== */
 
 @media (max-width: 480px) {
     .sidebar .nav-link:hover {
@@ -334,8 +619,22 @@ tr:hover td {
     }
     
     .bottom-link.active::after {
-        width: 12px;
-        height: 2px;
+        width: 30px !important;
+        height: 30px !important;
+        top: 3px !important;
+    }
+
+    .bottom-link i {
+        font-size: 1.2rem !important;
+    }
+
+    .bottom-link span {
+        font-size: 0.5rem !important;
+    }
+
+    .bottom-link {
+        max-width: 64px !important;
+        padding: 6px 2px !important;
     }
 
     #splash-screen::before {
@@ -347,15 +646,15 @@ tr:hover td {
         width: 6px;
         height: 6px;
         box-shadow:
-            -12px 0 rgba(99, 102, 241, 0.35),
-            12px 0 rgba(99, 102, 241, 0.35);
+            -12px 0 rgba(139, 92, 246, 0.35),
+            12px 0 rgba(139, 92, 246, 0.35);
     }
 
     @keyframes splashDots {
-        0%, 100% { box-shadow: -12px 0 rgba(99, 102, 241, 0.35), 12px 0 rgba(99, 102, 241, 0.35); }
-        25% { box-shadow: -12px 0 var(--primary), 12px 0 rgba(99, 102, 241, 0.35); }
+        0%, 100% { box-shadow: -12px 0 rgba(139, 92, 246, 0.35), 12px 0 rgba(139, 92, 246, 0.35); }
+        25% { box-shadow: -12px 0 var(--primary), 12px 0 rgba(139, 92, 246, 0.35); }
         50% { box-shadow: -12px 0 var(--primary), 12px 0 var(--primary); }
-        75% { box-shadow: -12px 0 rgba(99, 102, 241, 0.35), 12px 0 var(--primary); }
+        75% { box-shadow: -12px 0 rgba(139, 92, 246, 0.35), 12px 0 var(--primary); }
     }
 }
 
