@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>التحقق الأمني | نخبة تقنية المعلومات</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
+    <link rel="stylesheet" href="polish-overlay.css">
+</head>
+<body class="security-page">
+
+    <!-- Background Orbs -->
+    <div class="security-orb s-orb-1"></div>
+    <div class="security-orb s-orb-2"></div>
+    <div class="security-orb s-orb-3"></div>
+
+    <!-- Grid Overlay -->
+    <div class="security-grid"></div>
+
+    <!-- Ambient Overlay -->
+    <div class="security-overlay"></div>
+
+    <!-- Main Card -->
+    <div class="security-wrap">
+        <div class="security-card">
+
+            <!-- Steps Indicator -->
+            <div class="s-steps">
+                <span class="s-step active" data-step="1"></span>
+                <span class="s-step-line"></span>
+                <span class="s-step" data-step="2"></span>
+                <span class="s-step-line"></span>
+                <span class="s-step" data-step="3"></span>
+                <span class="s-step-line"></span>
+                <span class="s-step" data-step="4"></span>
+            </div>
+
+            <!-- Shield Icon -->
+            <div class="security-shield">
+                <i class="fas fa-shield-halved"></i>
+            </div>
+
+            <!-- Title -->
+            <h1 class="security-title">تم اكتشاف تسجيل دخول من جهاز جديد</h1>
+            <p class="security-desc">لأمان حساب الطالب، يرجى تأكيد الهوية للمتابعة</p>
+
+            <div class="security-divider"></div>
+
+            <!-- Step 0: Student ID -->
+            <div class="security-step" id="stepId">
+                <div class="s-input-group">
+                    <label class="s-label">رقم القيد</label>
+                    <div class="s-input-wrap">
+                        <i class="fas fa-hashtag s-input-icon"></i>
+                        <input type="text" class="s-input" id="sStudentId" placeholder="أدخل رقم القيد الخاص بالطالب" maxlength="10" inputmode="numeric">
+                    </div>
+                    <span class="s-hint">
+                        <i class="fas fa-info-circle"></i>
+                        أدخل رقم القيد للتحقق من هوية الطالب
+                    </span>
+                </div>
+            </div>
+
+            <!-- Device Warning -->
+            <div class="device-warning hidden" id="deviceWarning">
+                <div class="dw-icon-wrap">
+                    <i class="fas fa-triangle-exclamation"></i>
+                </div>
+                <div class="dw-content">
+                    <h3 class="dw-title">تم اكتشاف جهاز غير معروف</h3>
+                    <p class="dw-desc">رقم القيد هذا مسجل لدخول من جهاز مختلف عن السابق، يرجى تأكيد الهوية</p>
+                    <div class="dw-details">
+                        <div class="dw-detail-item">
+                            <i class="fas fa-laptop"></i>
+                            <div>
+                                <span class="dw-dl">الجهاز</span>
+                                <span class="dw-dv">Windows PC — Chrome 125</span>
+                            </div>
+                        </div>
+                        <div class="dw-detail-item">
+                            <i class="fas fa-globe"></i>
+                            <div>
+                                <span class="dw-dl">الموقع</span>
+                                <span class="dw-dv">العراق — بغداد</span>
+                            </div>
+                        </div>
+                        <div class="dw-detail-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <span class="dw-dl">الوقت</span>
+                                <span class="dw-dv" id="dwTime">الآن</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Password -->
+            <div class="security-step hidden" id="stepPass">
+                <div class="s-input-group">
+                    <label class="s-label">كلمة السر</label>
+                    <div class="s-input-wrap">
+                        <i class="fas fa-lock s-input-icon"></i>
+                        <input type="password" class="s-input" id="sPass" placeholder="أدخل كلمة السر الخاصة بالحساب">
+                        <button class="s-toggle" onclick="toggleSPass()" type="button">
+                            <i class="fas fa-eye" id="sPassIcon"></i>
+                        </button>
+                    </div>
+                    <span class="s-hint">
+                        <i class="fas fa-info-circle"></i>
+                        كلمة السر خاصة بصاحب رقم القيد
+                    </span>
+                </div>
+            </div>
+
+            <!-- Step 2: Fingerprint -->
+            <div class="security-step hidden" id="stepFinger">
+                <div class="finger-wrap">
+                    <div class="finger-ring">
+                        <div class="finger-holo"></div>
+                        <div class="finger-circle">
+                            <i class="fas fa-fingerprint finger-icon"></i>
+                        </div>
+                    </div>
+                    <p class="finger-label">قم بتأكيد هويتك بالبصمة</p>
+                    <p class="finger-sub">المس مستشعر البصمة للمتابعة</p>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="security-actions">
+                <button class="s-btn s-btn-primary" id="sMainBtn" onclick="nextSStep()">
+                    <i class="fas fa-shield-check"></i>
+                    <span>تحقق من القيد</span>
+                </button>
+                <button class="s-btn s-btn-cancel" onclick="history.back();">إلغاء العملية</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Success Overlay -->
+    <div class="s-success hidden" id="sSuccess">
+        <div class="s-success-ring">
+            <i class="fas fa-check"></i>
+        </div>
+        <h2 class="s-success-title">تم التحقق بنجاح</h2>
+        <p class="s-success-desc">الهوية مؤكدة ✓</p>
+        <p class="s-success-sub">تم تسجيل الدخول بشكل آمن</p>
+    </div>
+
+    <script>
+        var currentStep = 0; // 0 = ID, 1 = warning shown, 2 = password, 3 = fingerprint
+
+        function toggleSPass() {
+            var input = document.getElementById('sPass');
+            var icon = document.getElementById('sPassIcon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        }
+
+        function updateSteps(stepIndex) {
+            var dots = document.querySelectorAll('.s-step');
+            dots.forEach(function(d, i) {
+                d.classList.toggle('active', i <= stepIndex);
+                d.classList.toggle('done', i < stepIndex);
+            });
+        }
+
+        function nextSStep() {
+            var btn = document.getElementById('sMainBtn');
+            var stepId = document.getElementById('stepId');
+            var stepPass = document.getElementById('stepPass');
+            var stepFinger = document.getElementById('stepFinger');
+            var deviceWarning = document.getElementById('deviceWarning');
+            var success = document.getElementById('sSuccess');
+
+            if (currentStep === 0) {
+                stepId.classList.add('hidden');
+                deviceWarning.classList.remove('hidden');
+                deviceWarning.classList.add('show');
+                currentStep = 1;
+                btn.innerHTML = '<i class="fas fa-arrow-right"></i><span>المتابعة إلى التحقق</span>';
+                updateSteps(1);
+                return;
+            }
+
+            if (currentStep === 1) {
+                deviceWarning.classList.remove('show');
+                deviceWarning.classList.add('hidden');
+                stepPass.classList.remove('hidden');
+                currentStep = 2;
+                btn.innerHTML = '<i class="fas fa-shield-check"></i><span>تأكيد الهوية</span>';
+                updateSteps(2);
+                setTimeout(function() {
+                    document.getElementById('sPass').focus();
+                }, 350);
+                return;
+            }
+
+            if (currentStep === 2) {
+                stepPass.classList.add('hidden');
+                stepFinger.classList.remove('hidden');
+                currentStep = 3;
+                btn.innerHTML = '<i class="fas fa-fingerprint"></i><span>التحقق بالبصمة</span>';
+                updateSteps(3);
+                return;
+            }
+
+            if (currentStep === 3) {
+                success.classList.remove('hidden');
+                setTimeout(function() { success.classList.add('show'); }, 50);
+                btn.disabled = true;
+                btn.style.opacity = '0.4';
+                btn.style.pointerEvents = 'none';
+                stepFinger.classList.add('verified');
+                updateSteps(4);
+            }
+        }
+    </script>
+
+</body>
+</html>

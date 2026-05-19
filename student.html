@@ -55,18 +55,21 @@
             </header>
 
             <div class="card-master" style="max-width: 900px;">
-                <div style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap; margin-bottom: 40px;">
-                    <div style="width: clamp(100px, 25vw, 140px); height: clamp(100px, 25vw, 140px); border-radius: clamp(24px, 6vw, 40px); background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: clamp(2.5rem, 8vw, 4rem); color: var(--primary); border: 2px solid var(--primary);">
-                        <i class="fas fa-user-circle"></i>
+                <div class="profile-section">
+                    <div class="profile-avatar-wrapper">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="profile-avatar-ring"></div>
                     </div>
-                    <div>
+                    <div class="profile-info">
                         <h2 id="studentFullName" style="font-size: clamp(1.3rem, 5vw, 2.2rem); font-weight: 800; margin-bottom: 10px;">طالب النخبة</h2>
-                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div class="profile-badges">
                             <span class="status-badge" style="background: rgba(99, 102, 241, 0.1); color: var(--primary); border-color: var(--primary);">
                                 <i class="fas fa-id-card"></i>
                                 <span id="studentIdBadge">---</span>
                             </span>
-                            <span class="status-badge">
+                            <span class="status-badge" style="background: rgba(16, 185, 129, 0.08); color: #10b981; border-color: rgba(16, 185, 129, 0.25);">
                                 <i class="fas fa-check-circle"></i>
                                 <span>حساب نشط</span>
                             </span>
@@ -74,20 +77,52 @@
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(16px, 3vw, 24px);">
-                    <div style="padding: clamp(16px, 3vw, 24px); background: rgba(255, 255, 255, 0.02); border-radius: 20px; border: 1px solid var(--glass-border);">
-                        <p style="color: var(--text-muted); font-size: clamp(0.75rem, 2vw, 0.85rem); font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">الجامعة</p>
-                        <h4 style="font-size: clamp(0.95rem, 2.5vw, 1.1rem); font-weight: 700;">القرآن الكريم والعلوم الإسلامية</h4>
+                <div class="academic-grid">
+                    <div class="academic-card">
+                        <div class="academic-card-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="academic-card-body">
+                            <span class="academic-card-label">الجامعة</span>
+                            <span class="academic-card-value">القرآن الكريم والعلوم الإسلامية</span>
+                        </div>
                     </div>
-                    <div style="padding: clamp(16px, 3vw, 24px); background: rgba(255, 255, 255, 0.02); border-radius: 20px; border: 1px solid var(--glass-border);">
-                        <p style="color: var(--text-muted); font-size: clamp(0.75rem, 2vw, 0.85rem); font-weight: 700; margin-bottom: 8px; text-transform: uppercase;">القسم / المستوى</p>
-                        <h4 style="font-size: clamp(0.95rem, 2.5vw, 1.1rem); font-weight: 700;">تقنية المعلومات | المستوى الثاني</h4>
+                    <div class="academic-card">
+                        <div class="academic-card-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="academic-card-body">
+                            <span class="academic-card-label">القسم / المستوى</span>
+                            <span class="academic-card-value">تقنية المعلومات | المستوى الثاني</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="mt-30" style="padding: clamp(16px, 3vw, 24px); background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(14, 165, 233, 0.1)); border-radius: clamp(16px, 3vw, 24px); border: 1px solid var(--primary-glow);">
-                    <h3 style="font-weight: 800; margin-bottom: 15px; font-size: clamp(1rem, 3vw, 1.3rem);"><i class="fas fa-brain" style="margin-left: 10px;"></i> النشاطات والمهارات</h3>
-                    <p style="color: var(--text-muted); font-size: clamp(0.85rem, 2.5vw, 1rem);">لا توجد نشاطات مسجلة حالياً. سيتم تحديث هذا القسم قريباً بناءً على إنجازاتك في الكلية.</p>
+                <div class="activities-section">
+                    <input type="checkbox" id="activitiesToggle" class="activities-toggle-input">
+                    <label for="activitiesToggle" class="activities-header">
+                        <div class="activities-header-left">
+                            <i class="fas fa-brain"></i>
+                            <span>النشاطات والمهارات</span>
+                        </div>
+                        <div class="activities-header-arrow">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </label>
+                    <div class="activities-body">
+                        <div class="activities-empty">
+                            <i class="fas fa-inbox"></i>
+                            <p>لا توجد نشاطات مسجلة حالياً. سيتم تحديث هذا القسم قريباً بناءً على إنجازاتك في الكلية.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نسيـت رمز الدخول -->
+                <div class="forgot-row">
+                    <label for="fingerprintToggle" class="forgot-link">
+                        <i class="fas fa-fingerprint"></i>
+                        <span>نسيت رمز الدخول؟</span>
+                    </label>
                 </div>
             </div>
 
@@ -112,6 +147,82 @@
         </button>
     </div>
 
+    <!-- ===== Fingerprint Modal ===== -->
+    <input type="checkbox" id="fingerprintToggle" hidden>
+    <div class="fp-overlay">
+        <div class="fp-modal">
+            <label for="fingerprintToggle" class="fp-close"><i class="fas fa-times"></i></label>
+            
+            <div class="fp-stage" id="fpStageFingerprint">
+                <div class="fp-ring-container">
+                    <div class="fp-ring fp-ring-1"></div>
+                    <div class="fp-ring fp-ring-2"></div>
+                    <div class="fp-ring fp-ring-3"></div>
+                    <div class="fp-icon-wrapper">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                </div>
+                <h3 class="fp-title">تسجيل الدخول بالبصمة</h3>
+                <p class="fp-subtitle">قم بتأكيد هويتك للمتابعة</p>
+                
+                <label for="fpSuccessTrigger" class="fp-btn" id="fpSimulateBtn">
+                    <span>بدء التحقق</span>
+                </label>
+            </div>
+
+            <input type="checkbox" id="fpSuccessTrigger" hidden>
+            <div class="fp-stage" id="fpStageSuccess">
+                <div class="fp-success-ring">
+                    <div class="fp-success-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                <h3 class="fp-title" style="color: #22c55e !important;">تم التحقق بنجاح</h3>
+                <p class="fp-subtitle">يجري تجهيز واجهة إعادة التعيين...</p>
+            </div>
+
+            <input type="checkbox" id="fpShowReset" hidden>
+            <div class="fp-stage" id="fpStageReset">
+                <div class="fp-reset-form">
+                    <div class="fp-reset-header">
+                        <i class="fas fa-lock"></i>
+                        <h3>إعادة إنشاء رمز الدخول</h3>
+                    </div>
+                    <div class="fp-field">
+                        <div class="fp-field-inner">
+                            <i class="fas fa-key"></i>
+                            <input type="password" id="fpNewPass" placeholder=" " autocomplete="new-password">
+                            <label for="fpNewPass">رمز الدخول الجديد</label>
+                        </div>
+                    </div>
+                    <div class="fp-field">
+                        <div class="fp-field-inner">
+                            <i class="fas fa-check-double"></i>
+                            <input type="password" id="fpConfirmPass" placeholder=" " autocomplete="new-password">
+                            <label for="fpConfirmPass">تأكيد رمز الدخول</label>
+                        </div>
+                    </div>
+                    <button class="fp-submit-btn" onclick="document.getElementById('fpSuccessTrigger').checked=false;document.getElementById('fpShowReset').checked=false;document.getElementById('fingerprintToggle').checked=false;">
+                        <span>تأكيد الرمز الجديد</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <label for="fingerprintToggle" class="fp-overlay-bg"></label>
+    </div>
+
+    <!-- ===== Success Check Script (auto‑advance) ===== -->
+    <script>
+    document.addEventListener('change', function(e) {
+        if (e.target.id === 'fpSuccessTrigger' && e.target.checked) {
+            setTimeout(function() {
+                document.getElementById('fpShowReset').checked = true;
+            }, 1400);
+        }
+    });
+    </script>
+
     <script src="app.js"></script>
     <script src="i18n.js"></script>
     <script>
@@ -125,14 +236,12 @@
                 document.getElementById('studentIdBadge').innerText = data.id;
             }
             
-            // Add animation classes
             document.querySelectorAll('.card-master').forEach((card) => {
                 card.classList.add('animate-fade-up');
             });
         });
     </script>
     <script src="bridge/overlay-engine.js"></script>
-    <!-- MICRO OVERLAY PATCH — PRIVATE GRADES SYSTEM (QURAN FINAL GRADES) -->
     <style>
         @keyframes gradeFadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -188,32 +297,26 @@
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 try {
-                    // QuranFinalGradePlugin - Mapped by exact Student ID
                     const gradesData = {
-                        "24090111002": 92,  // أنور
-                        "24090111003": 97,  // جمال
-                        "24090111004": 90,  // حبيب الله
-                        "24090111005": 99,  // عبد الرحمن
-                        "24090111006": 84,  // علي
-                        "24090111007": 82,  // عمر
-                        "24090111010": 100, // محسن
-                        "24090111013": 79,  // محمد
-                        "24090111014": 95,  // موفق
-                        "24090111016": 90,  // يوسف
-                        "24090111017": 99,  // يونس محمد
-                        "24090111018": 100  // يونس أحمد
+                        "24090111002": 92,
+                        "24090111003": 97,
+                        "24090111004": 90,
+                        "24090111005": 99,
+                        "24090111006": 84,
+                        "24090111007": 82,
+                        "24090111010": 100,
+                        "24090111013": 79,
+                        "24090111014": 95,
+                        "24090111016": 90,
+                        "24090111017": 99,
+                        "24090111018": 100
                     };
-
                     const session = localStorage.getItem('student_session');
                     if (session) {
                         const data = JSON.parse(session);
                         const studentId = data.id;
-                        
-                        // Default score for any test account without a matched ID
-                        let finalScore = gradesData[studentId] || 98; 
-
+                        let finalScore = gradesData[studentId] || 98;
                         const cardMaster = document.querySelector('.card-master');
-                        // Check if we haven't already added it to prevent duplicates
                         if (cardMaster && !document.querySelector('.quran-grade-card')) {
                             const gradeSection = document.createElement('div');
                             gradeSection.className = 'quran-grade-card animate-fade-up';
@@ -232,7 +335,7 @@
                 } catch (e) {
                     console.error('Quran Final Grade Plugin Error:', e);
                 }
-            }, 300); // Small delay to ensure all core UI is rendered first
+            }, 300);
         });
     </script>
 </body>
