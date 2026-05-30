@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#a277ff">
+    <title>درجات الطلاب | نخبة تقنية المعلومات</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
+    <link rel="stylesheet" href="polish-overlay.css">
+</head>
+<body>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <img src="logo.png" alt="Logo" class="sidebar-logo">
+                <span class="brand-text">نخبة IT</span>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i><span>الرئيسية</span></a></li>
+                <li class="nav-item"><a href="exams.html" class="nav-link"><i class="fas fa-calendar-alt"></i><span>جدول الاختبارات</span></a></li>
+                <li class="nav-item"><a href="grades.html" class="nav-link active"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a></li>
+                <li class="nav-item"><a href="projects.html" class="nav-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a></li>
+                <li class="nav-item"><a href="trips.html" class="nav-link"><i class="fas fa-bus"></i><span>الرحلات</span></a></li>
+            </ul>
+            <div class="sidebar-bottom">
+                <a href="student.html" class="sidebar-user" id="userSidebarLink">
+                    <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="user-info">
+                        <h6 id="sidebarName">طالب النخبة</h6>
+                        <p id="sidebarId">---</p>
+                    </div>
+                </a>
+                <div class="mt-20">
+                    <a href="#" onclick="handleLogout()" class="nav-link" style="color: var(--error);">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>تسجيل الخروج</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1 class="welcome-msg">درجات <span class="text-gradient">الطلاب</span></h1>
+                <p class="text-muted">نظام الاستعلام عن الدرجات الإلكتروني</p>
+            </header>
+
+            <!-- Pull to Refresh Indicator -->
+            <div class="ptr-indicator" id="ptrIndicator">
+                <div class="ptr-spinner"></div>
+                <span>اسحب للتحديث</span>
+            </div>
+
+            <!-- Login Section -->
+            <div class="grades-login-wrapper" id="gradesLoginView">
+                <div class="grades-login-card">
+                    <div class="grades-login-icon-wrap">
+                        <div class="grades-login-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                    <h3 class="grades-login-title">تسجيل الدخول</h3>
+                    <p class="grades-login-subtitle">أدخل رقم القيد وكلمة المرور لعرض الدرجات</p>
+                    <form id="gradesLoginForm">
+                        <div class="grades-input-group">
+                            <i class="fas fa-id-card"></i>
+                            <input type="text" id="studentId" placeholder="رقم القيد" autocomplete="off">
+                        </div>
+                        <div class="grades-input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="studentPassword" placeholder="كلمة المرور" autocomplete="off">
+                            <button type="button" class="grades-password-toggle" id="passwordToggle" tabindex="-1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="grades-error" id="gradesError"></div>
+                        <button type="submit" class="grades-submit-btn" id="gradesSubmitBtn">
+                            <span class="grades-btn-text">عرض الدرجات</span>
+                            <div class="grades-btn-loader" style="display: none;">
+                                <div class="grades-spinner"></div>
+                            </div>
+                            <i class="fas fa-arrow-left grades-btn-arrow"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="grades-results-wrapper" id="gradesResultsView" style="display: none;">
+                <!-- Student Info Header -->
+                <div class="grades-student-header">
+                    <div class="grades-student-avatar">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="grades-student-meta">
+                        <h3 id="gradesStudentName">---</h3>
+                        <p id="gradesStudentId">---</p>
+                    </div>
+                </div>
+
+                <!-- GPA Card -->
+                <div class="grades-gpa-card">
+                    <div class="grades-gpa-ring">
+                        <svg class="grades-gpa-svg" viewBox="0 0 120 120">
+                            <circle class="grades-gpa-track" cx="60" cy="60" r="52" fill="none" stroke="rgba(139,92,246,0.08)" stroke-width="6"/>
+                            <circle class="grades-gpa-fill" id="gpaCircle" cx="60" cy="60" r="52" fill="none" stroke="var(--primary)" stroke-width="6"
+                                stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7" transform="rotate(-90 60 60)"/>
+                        </svg>
+                        <div class="grades-gpa-value">
+                            <span id="gradesGpaDisplay">---</span>
+                            <small>من <span id="gradesGpaMax">4.0</span></small>
+                        </div>
+                    </div>
+                    <div class="grades-gpa-info">
+                        <div class="grades-gpa-row">
+                            <span class="grades-gpa-label">المستوى</span>
+                            <span class="grades-gpa-label-value" id="gradesLevel">---</span>
+                        </div>
+                        <div class="grades-gpa-row">
+                            <span class="grades-gpa-label">التخصص</span>
+                            <span class="grades-gpa-label-value" id="gradesMajor">---</span>
+                        </div>
+                        <div class="grades-gpa-row">
+                            <span class="grades-gpa-label">القسم</span>
+                            <span class="grades-gpa-label-value" id="gradesDept">---</span>
+                        </div>
+                        <div class="grades-gpa-row">
+                            <span class="grades-gpa-label">الفصل</span>
+                            <span class="grades-gpa-label-value" id="gradesSemester">---</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grades Table -->
+                <div class="grades-table-container" id="gradesTableContainer">
+                    <div class="grades-table-header">
+                        <h4>سجل الدرجات</h4>
+                        <span class="grades-table-count" id="gradesCount">0 مواد</span>
+                    </div>
+                    <div class="grades-table-scroll">
+                        <table class="grades-table">
+                            <thead id="gradesTableHead">
+                                <tr>
+                                    <th>المادة</th>
+                                    <th>الدرجة</th>
+                                    <th>التقدير</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gradesTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Logout Button -->
+                <button class="grades-logout-btn" id="gradesLogoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>تسجيل خروج</span>
+                </button>
+            </div>
+
+            <footer class="footer">
+                <p>المطور: فريق نخبة تقنيات المعلومات &copy; 2026</p>
+            </footer>
+        </main>
+
+        <!-- Bottom Nav (Mobile) -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-link"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+            <a href="exams.html" class="bottom-link"><i class="fas fa-calendar-alt"></i><span>الجدول</span></a>
+            <a href="grades.html" class="bottom-link active"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a>
+            <a href="projects.html" class="bottom-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a>
+            <a href="trips.html" class="bottom-link"><i class="fas fa-bus"></i><span>الرحلات</span></a>
+            <a href="student.html" class="bottom-link"><i class="fas fa-user-circle"></i><span>حسابي</span></a>
+        </nav>
+    </div>
+
+    <div class="lang-switcher">
+        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
+            <i class="fas fa-globe"></i>
+            <span id="lang-text">English</span>
+        </button>
+    </div>
+
+    <script>
+    /* ==========================================
+       GRADES SYSTEM - يعتمد على بيانات الطلاب الحقيقية من localStorage
+       ========================================== */
+    function loadStudents() {
+        try {
+            const data = localStorage.getItem('elite_students');
+            return data ? JSON.parse(data) : [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    const QURAN_GRADES = {
+        "24090111002": 92,
+        "24090111003": 97,
+        "24090111004": 90,
+        "24090111005": 99,
+        "24090111006": 84,
+        "24090111007": 82,
+        "24090111010": 100,
+        "24090111013": 79,
+        "24090111014": 95,
+        "24090111016": 90,
+        "24090111017": 99,
+        "24090111018": 100
+    };
+
+    const FULL_GRADES = {
+        "24090111002": {
+            gpa: "2.20",
+            grades: [
+                { subject: "القرآن الكريم (4)", hours: 4, theory: 36, practical: 0, final: 56, total: 92, letter: "A", status: "pass" },
+                { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 27, practical: 0, final: 30, total: 57, letter: "D", status: "pass" },
+                { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 26, final: 14, total: 50, letter: "F", status: "fail" },
+                { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 14, final: 31, total: 55, letter: "F", status: "fail" }
+            ]
+        },
+        "24090111005": {
+            gpa: "3.50",
+            grades: [
+                { subject: "القرآن الكريم (4)", hours: 4, theory: 40, practical: 0, final: 59, total: 99, letter: "A+", status: "pass" },
+                { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 38, practical: 0, final: 42, total: 80, letter: "B", status: "pass" },
+                { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 34, final: 19, total: 63, letter: "D", status: "pass" },
+                { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 30, final: 31, total: 71, letter: "C", status: "pass" }
+            ]
+        }
+    };
+
+    function getLetter(grade) {
+        if (grade >= 95) return "A+";
+        if (grade >= 90) return "A";
+        if (grade >= 85) return "B+";
+        if (grade >= 80) return "B";
+        if (grade >= 75) return "C+";
+        if (grade >= 70) return "C";
+        if (grade >= 65) return "D";
+        return "F";
+    }
+
+    function buildGradesData(student) {
+        const full = FULL_GRADES[student.id];
+        if (full) {
+            return {
+                name: student.name,
+                level: "المستوى الثاني",
+                major: "تقنية المعلومات",
+                department: "تقنية المعلومات",
+                gpa: full.gpa,
+                gpaMax: "4.0",
+                semester: "الفصل الدراسي الثاني 2025-2026",
+                grades: full.grades
+            };
+        }
+
+        const quranGrade = QURAN_GRADES[student.id] || 95;
+        return {
+            name: student.name,
+            level: "المستوى الثاني",
+            major: "تقنية المعلومات",
+            department: "تقنية المعلومات",
+            gpa: "3.85",
+            gpaMax: "4.0",
+            semester: "الفصل الدراسي الثاني 2025-2026",
+            grades: [
+                { subject: "القرآن الكريم", grade: quranGrade, letter: getLetter(quranGrade), status: quranGrade >= 60 ? "pass" : "fail" }
+            ]
+        };
+    }
+
+    let currentStudent = null;
+    let currentStudentId = '';
+
+    /* ==========================================
+       PULL TO REFRESH
+       ========================================== */
+    let ptrStartY = 0;
+    let ptrPulling = false;
+    const ptrThreshold = 80;
+
+    document.addEventListener('touchstart', (e) => {
+        const results = document.getElementById('gradesResultsView');
+        if (results.style.display !== 'none') {
+            const scrollEl = document.querySelector('.grades-table-scroll') || results;
+            if (scrollEl.scrollTop <= 0) {
+                ptrStartY = e.touches[0].clientY;
+                ptrPulling = true;
+            }
+        }
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+        if (!ptrPulling) return;
+        const diff = e.touches[0].clientY - ptrStartY;
+        const indicator = document.getElementById('ptrIndicator');
+        if (diff > 0) {
+            indicator.style.transform = 'translateY(' + Math.min(diff * 0.5, ptrThreshold) + 'px)';
+            indicator.style.opacity = Math.min(diff / ptrThreshold, 1);
+            if (diff >= ptrThreshold) {
+                indicator.querySelector('span').textContent = 'أفلت للتحديث';
+            } else {
+                indicator.querySelector('span').textContent = 'اسحب للتحديث';
+            }
+        }
+    }, { passive: true });
+
+    document.addEventListener('touchend', () => {
+        if (!ptrPulling) return;
+        ptrPulling = false;
+        const indicator = document.getElementById('ptrIndicator');
+        if (indicator.style.opacity >= 1) {
+            indicator.querySelector('span').textContent = 'جاري التحديث...';
+            indicator.style.transform = 'translateY(0)';
+            setTimeout(() => {
+                showLoginView();
+                indicator.style.opacity = '0';
+                indicator.querySelector('span').textContent = 'اسحب للتحديث';
+            }, 600);
+        } else {
+            indicator.style.transform = 'translateY(0)';
+            indicator.style.opacity = '0';
+            indicator.querySelector('span').textContent = 'اسحب للتحديث';
+        }
+    }, { passive: true });
+
+    /* ==========================================
+       VIEW TOGGLE
+       ========================================== */
+    function showLoginView() {
+        document.getElementById('gradesLoginView').style.display = 'flex';
+        document.getElementById('gradesResultsView').style.display = 'none';
+        document.getElementById('gradesError').textContent = '';
+        document.getElementById('gradesLoginForm').reset();
+        currentStudent = null;
+        currentStudentId = '';
+    }
+
+    function showResultsView(student) {
+        document.getElementById('gradesLoginView').style.display = 'none';
+        document.getElementById('gradesResultsView').style.display = 'block';
+        document.getElementById('gradesResultsView').scrollTop = 0;
+        renderStudentData(student);
+    }
+
+    /* ==========================================
+       RENDER STUDENT DATA
+       ========================================== */
+    function renderStudentData(s) {
+        document.getElementById('gradesStudentName').textContent = s.name;
+        document.getElementById('gradesStudentId').textContent = 'رقم القيد: ' + currentStudentId;
+
+        document.getElementById('gradesLevel').textContent = s.level;
+        document.getElementById('gradesMajor').textContent = s.major;
+        document.getElementById('gradesDept').textContent = s.department;
+        document.getElementById('gradesSemester').textContent = s.semester;
+
+        const gpaVal = parseFloat(s.gpa);
+        const gpaMax = parseFloat(s.gpaMax);
+        document.getElementById('gradesGpaDisplay').textContent = s.gpa;
+        document.getElementById('gradesGpaMax').textContent = s.gpaMax;
+        document.getElementById('gradesGpaDisplay').style.color = gpaVal >= 3.5 ? '#10b981' : gpaVal >= 2.5 ? '#fbbf24' : '#ef4444';
+
+        const circle = document.getElementById('gpaCircle');
+        const circumference = 326.7;
+        const offset = circumference - (gpaVal / gpaMax) * circumference;
+        setTimeout(() => {
+            circle.style.strokeDashoffset = offset;
+            circle.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        }, 300);
+
+        circle.style.stroke = gpaVal >= 3.5 ? '#10b981' : gpaVal >= 2.5 ? '#fbbf24' : '#ef4444';
+
+        renderGradesTable(s.grades);
+    }
+
+    function renderGradesTable(grades) {
+        const tbody = document.getElementById('gradesTableBody');
+        const thead = document.getElementById('gradesTableHead');
+        const hasDetail = grades.length > 0 && grades[0].hours !== undefined;
+
+        if (hasDetail) {
+            thead.innerHTML = '<tr><th>المادة</th><th>النظري</th><th>العملي</th><th>النهائي</th><th>المجموع</th><th>التقدير</th></tr>';
+        } else {
+            thead.innerHTML = '<tr><th>المادة</th><th>الدرجة</th><th>التقدير</th><th>الحالة</th></tr>';
+        }
+
+        const realGrades = grades.filter(g => g.status === 'pass' || g.status === 'fail');
+        document.getElementById('gradesCount').textContent = realGrades.length + ' مادة متاحة';
+        tbody.innerHTML = '';
+
+        grades.forEach((g, i) => {
+            const tr = document.createElement('tr');
+            tr.style.animation = 'gradeRowIn 0.3s ease both';
+            tr.style.animationDelay = (i * 0.05) + 's';
+
+            if (g.status === 'soon') {
+                tr.innerHTML = `
+                    <td class="grade-subject">${g.subject}</td>
+                    <td style="color: rgba(161,161,170,0.4);">—</td>
+                    <td style="color: rgba(161,161,170,0.3);">—</td>
+                    <td><span class="grade-soon">قريباً</span></td>
+                `;
+            } else if (hasDetail) {
+                const totalColor = g.total >= 85 ? '#10b981' : g.total >= 70 ? '#fbbf24' : '#ef4444';
+                tr.innerHTML = `
+                    <td class="grade-subject">${g.subject}</td>
+                    <td>${g.theory}</td>
+                    <td>${g.practical}</td>
+                    <td>${g.final}</td>
+                    <td class="grade-num" style="color: ${totalColor}; font-weight: 700;">${g.total}</td>
+                    <td class="grade-letter">${g.letter}</td>
+                `;
+            } else {
+                const statusText = g.status === 'pass' ? 'ناجح' : 'راسب';
+                const statusClass = g.status === 'pass' ? 'grade-pass' : 'grade-fail';
+                const gradeColor = g.grade >= 85 ? '#10b981' : g.grade >= 70 ? '#fbbf24' : '#ef4444';
+
+                tr.innerHTML = `
+                    <td class="grade-subject">${g.subject}</td>
+                    <td class="grade-num" style="color: ${gradeColor}; font-weight: 700;">${g.grade}</td>
+                    <td class="grade-letter">${g.letter}</td>
+                    <td><span class="grade-status ${statusClass}">${statusText}</span></td>
+                `;
+            }
+            tbody.appendChild(tr);
+        });
+    }
+
+    /* ==========================================
+       LOGIN HANDLER
+       ========================================== */
+    document.getElementById('gradesLoginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const id = document.getElementById('studentId').value.trim();
+        const password = document.getElementById('studentPassword').value.trim();
+        const errorEl = document.getElementById('gradesError');
+        const submitBtn = document.getElementById('gradesSubmitBtn');
+
+        errorEl.textContent = '';
+
+        if (!id) {
+            errorEl.textContent = 'يرجى إدخال رقم القيد';
+            return;
+        }
+        if (!password) {
+            errorEl.textContent = 'يرجى إدخال كلمة المرور';
+            return;
+        }
+
+        submitBtn.classList.add('loading');
+        document.querySelector('.grades-btn-text').style.opacity = '0';
+        document.querySelector('.grades-btn-loader').style.display = 'flex';
+        document.querySelector('.grades-btn-arrow').style.opacity = '0';
+
+        setTimeout(() => {
+            const students = loadStudents();
+            const student = students.find(function(s) { return s.id === id; });
+
+            if (!student) {
+                errorEl.textContent = 'رقم القيد غير موجود في النظام';
+                submitBtn.classList.remove('loading');
+                document.querySelector('.grades-btn-text').style.opacity = '1';
+                document.querySelector('.grades-btn-loader').style.display = 'none';
+                document.querySelector('.grades-btn-arrow').style.opacity = '1';
+                return;
+            }
+
+            if (student.password !== password) {
+                errorEl.textContent = 'كلمة المرور غير صحيحة';
+                submitBtn.classList.remove('loading');
+                document.querySelector('.grades-btn-text').style.opacity = '1';
+                document.querySelector('.grades-btn-loader').style.display = 'none';
+                document.querySelector('.grades-btn-arrow').style.opacity = '1';
+                return;
+            }
+
+            currentStudentId = id;
+            const data = buildGradesData(student);
+            currentStudent = data;
+            showResultsView(data);
+
+            submitBtn.classList.remove('loading');
+            document.querySelector('.grades-btn-text').style.opacity = '1';
+            document.querySelector('.grades-btn-loader').style.display = 'none';
+            document.querySelector('.grades-btn-arrow').style.opacity = '1';
+        }, 1500);
+    });
+
+    /* ==========================================
+       PASSWORD TOGGLE
+       ========================================== */
+    document.getElementById('passwordToggle').addEventListener('click', function () {
+        const input = document.getElementById('studentPassword');
+        const icon = this.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.className = 'fas fa-eye-slash';
+        } else {
+            input.type = 'password';
+            icon.className = 'fas fa-eye';
+        }
+    });
+
+    /* ==========================================
+       LOGOUT
+       ========================================== */
+    document.getElementById('gradesLogoutBtn').addEventListener('click', function () {
+        this.classList.add('loading');
+        setTimeout(function() {
+            this.classList.remove('loading');
+            showLoginView();
+        }.bind(this), 400);
+    });
+
+    document.getElementById('studentPassword').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            document.getElementById('gradesLoginForm').dispatchEvent(new Event('submit'));
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        if (document.querySelector('.grades-login-wrapper')) {
+            document.body.style.background = 'radial-gradient(ellipse at 50% 0%, rgba(139,92,246,0.03) 0%, transparent 50%)';
+        }
+    });
+    </script>
+    <script src="app.js"></script>
+    <script src="i18n.js"></script>
+    <script src="bridge/overlay-engine.js"></script>
+</body>
+</html>

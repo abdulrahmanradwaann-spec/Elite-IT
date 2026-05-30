@@ -24,6 +24,7 @@
             <ul class="nav-links">
                 <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i><span>الرئيسية</span></a></li>
                 <li class="nav-item"><a href="exams.html" class="nav-link"><i class="fas fa-calendar-alt"></i><span>جدول الاختبارات</span></a></li>
+                <li class="nav-item"><a href="grades.html" class="nav-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a></li>
                 <li class="nav-item"><a href="projects.html" class="nav-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a></li>
                 <li class="nav-item"><a href="trips.html" class="nav-link"><i class="fas fa-bus"></i><span>الرحلات</span></a></li>
             </ul>
@@ -57,8 +58,9 @@
             <div class="card-master" style="max-width: 900px;">
                 <div class="profile-section">
                     <div class="profile-avatar-wrapper">
-                        <div class="profile-avatar">
-                            <i class="fas fa-user-graduate"></i>
+                        <div class="profile-avatar" id="profileAvatarContainer">
+                            <i class="fas fa-user-graduate" id="profileAvatarIcon"></i>
+                            <img src="" alt="" class="profile-avatar-img" id="profileAvatarImg">
                         </div>
                         <div class="profile-avatar-ring"></div>
                     </div>
@@ -134,6 +136,7 @@
         <nav class="bottom-nav">
             <a href="index.html" class="bottom-link"><i class="fas fa-home"></i><span>الرئيسية</span></a>
             <a href="exams.html" class="bottom-link"><i class="fas fa-calendar-alt"></i><span>الجدول</span></a>
+            <a href="grades.html" class="bottom-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a>
             <a href="projects.html" class="bottom-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a>
             <a href="trips.html" class="bottom-link"><i class="fas fa-bus"></i><span>الرحلات</span></a>
             <a href="student.html" class="bottom-link active"><i class="fas fa-user-circle"></i><span>حسابي</span></a>
@@ -234,6 +237,26 @@
                 document.getElementById('sidebarId').innerText = data.id;
                 document.getElementById('studentFullName').innerText = data.name;
                 document.getElementById('studentIdBadge').innerText = data.id;
+
+                const PROFILE_IMAGES = {
+                    "24090111005": "assets/abdulrahman.jpg"
+                };
+
+                const imgPath = PROFILE_IMAGES[data.id];
+                if (imgPath) {
+                    const img = document.getElementById('profileAvatarImg');
+                    const icon = document.getElementById('profileAvatarIcon');
+                    img.src = imgPath;
+                    img.alt = data.name;
+                    img.onload = function() {
+                        img.style.display = 'block';
+                        icon.style.display = 'none';
+                    };
+                    img.onerror = function() {
+                        img.style.display = 'none';
+                        icon.style.display = '';
+                    };
+                }
             }
             
             document.querySelectorAll('.card-master').forEach((card) => {
@@ -242,101 +265,5 @@
         });
     </script>
     <script src="bridge/overlay-engine.js"></script>
-    <style>
-        @keyframes gradeFadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .quran-grade-card {
-            margin-top: 30px;
-            padding: 24px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.15));
-            border-radius: 24px;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            animation: gradeFadeIn 0.8s ease-out forwards;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .quran-grade-header {
-            font-weight: 800;
-            font-size: clamp(1rem, 3vw, 1.4rem);
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .quran-grade-header i {
-            color: #10b981;
-        }
-        .quran-grade-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 15px 20px;
-            border-radius: 16px;
-            border: 1px solid var(--glass-border);
-        }
-        .quran-subject-name {
-            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-            font-weight: 700;
-        }
-        .quran-score-badge {
-            background: rgba(16, 185, 129, 0.15);
-            color: #10b981;
-            padding: 6px 16px;
-            border-radius: 12px;
-            font-size: clamp(1rem, 3vw, 1.4rem);
-            font-weight: 800;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
-            border: 1px solid rgba(16, 185, 129, 0.4);
-        }
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                try {
-                    const gradesData = {
-                        "24090111002": 92,
-                        "24090111003": 97,
-                        "24090111004": 90,
-                        "24090111005": 99,
-                        "24090111006": 84,
-                        "24090111007": 82,
-                        "24090111010": 100,
-                        "24090111013": 79,
-                        "24090111014": 95,
-                        "24090111016": 90,
-                        "24090111017": 99,
-                        "24090111018": 100
-                    };
-                    const session = localStorage.getItem('student_session');
-                    if (session) {
-                        const data = JSON.parse(session);
-                        const studentId = data.id;
-                        let finalScore = gradesData[studentId] || 98;
-                        const cardMaster = document.querySelector('.card-master');
-                        if (cardMaster && !document.querySelector('.quran-grade-card')) {
-                            const gradeSection = document.createElement('div');
-                            gradeSection.className = 'quran-grade-card animate-fade-up';
-                            gradeSection.innerHTML = `
-                                <div class="quran-grade-header">
-                                    <i class="fas fa-award"></i> الدرجات النهائية
-                                </div>
-                                <div class="quran-grade-content">
-                                    <div class="quran-subject-name">القرآن الكريم</div>
-                                    <div class="quran-score-badge">${finalScore} / 100</div>
-                                </div>
-                            `;
-                            cardMaster.appendChild(gradeSection);
-                        }
-                    }
-                } catch (e) {
-                    console.error('Quran Final Grade Plugin Error:', e);
-                }
-            }, 300);
-        });
-    </script>
 </body>
 </html>

@@ -118,15 +118,16 @@
 
             <!-- Step 2: Fingerprint -->
             <div class="security-step hidden" id="stepFinger">
-                <div class="finger-wrap">
-                    <div class="finger-ring">
+                <div class="finger-wrap" onclick="startFingerScan()" id="fingerWrap">
+                    <div class="finger-ring" id="fingerRing">
                         <div class="finger-holo"></div>
+                        <div class="finger-scan-line" id="fingerScanLine"></div>
                         <div class="finger-circle">
-                            <i class="fas fa-fingerprint finger-icon"></i>
+                            <i class="fas fa-fingerprint finger-icon" id="fingerIcon"></i>
                         </div>
                     </div>
-                    <p class="finger-label">قم بتأكيد هويتك بالبصمة</p>
-                    <p class="finger-sub">المس مستشعر البصمة للمتابعة</p>
+                    <p class="finger-label" id="fingerLabel">قم بتأكيد هويتك بالبصمة</p>
+                    <p class="finger-sub" id="fingerSub">المس مستشعر البصمة للمتابعة</p>
                 </div>
             </div>
 
@@ -216,13 +217,116 @@
             }
 
             if (currentStep === 3) {
-                success.classList.remove('hidden');
-                setTimeout(function() { success.classList.add('show'); }, 50);
+                startFingerScan();
+            }
+        }
+
+        var scanTimer = null;
+        var isScanning = false;
+
+        function setScanUI(state, msg, subMsg) {
+            var wrap = document.getElementById('fingerWrap');
+            var icon = document.getElementById('fingerIcon');
+            var label = document.getElementById('fingerLabel');
+            var sub = document.getElementById('fingerSub');
+            var line = document.getElementById('fingerScanLine');
+            var btn = document.getElementById('sMainBtn');
+
+            if (state === 'scanning') {
+                wrap.classList.remove('error', 'unsupported');
+                wrap.classList.add('scanning');
+                line.classList.add('active');
+                icon.style.color = '#06b6d4';
+                icon.style.filter = 'drop-shadow(0 0 20px rgba(6, 182, 212, 0.4))';
                 btn.disabled = true;
                 btn.style.opacity = '0.4';
                 btn.style.pointerEvents = 'none';
-                stepFinger.classList.add('verified');
-                updateSteps(4);
+            } else if (state === 'done') {
+                wrap.classList.remove('scanning', 'error', 'unsupported');
+                line.classList.remove('active');
+                icon.style.color = '#22c55e';
+                icon.style.filter = 'drop-shadow(0 0 25px rgba(34, 197, 94, 0.5))';
+                document.getElementById('fingerRing').style.borderColor = 'rgba(34, 197, 94, 0.2)';
+            } else if (state === 'error') {
+                wrap.classList.remove('scanning');
+                wrap.classList.remove('unsupported');
+                wrap.classList.add('error');
+                line.classList.remove('active');
+                icon.style.color = '#ef4444';
+                icon.style.filter = 'drop-shadow(0 0 20px rgba(239, 68, 68, 0.3))';
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'auto';
+                document.getElementById('fingerRing').style.borderColor = 'rgba(239, 68, 68, 0.2)';
+            } else if (state === 'unsupported') {
+                wrap.classList.remove('scanning');
+                wrap.classList.remove('error');
+                wrap.classList.add('unsupported');
+                line.classList.remove('active');
+                icon.style.color = 'rgba(148, 163, 184, 0.3)';
+                icon.style.filter = 'none';
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'auto';
+            }
+
+            if (msg) label.textContent = msg;
+            if (subMsg) sub.textContent = subMsg;
+            if (subMsg && state === 'done') sub.style.color = 'rgba(34, 197, 94, 0.6)';
+        }
+
+        function startFingerScan() {
+            if (isScanning) return;
+            isScanning = true;
+            setScanUI('scanning', 'جاري مسح البصمة...', 'يرجى لمس مستشعر البصمة');
+
+            tryBiometric().then(function(success) {
+                if (success) {
+                    setScanUI('done', 'تم التحقق من البصمة', '✓ تم التأكيد بنجاح');
+                    setTimeout(function() {
+                        document.getElementById('stepFinger').classList.add('verified');
+                        var successEl = document.getElementById('sSuccess');
+                        successEl.classList.remove('hidden');
+                        setTimeout(function() { successEl.classList.add('show'); }, 50);
+                        updateSteps(4);
+                    }, 600);
+                } else {
+                    isScanning = false;
+                    setScanUI('error', 'تعذر التحقق بالبصمة', 'يرجى المحاولة مرة أخرى أو استخدام كلمة السر');
+                }
+            });
+        }
+
+        async function tryBiometric() {
+            if (!window.PublicKeyCredential) {
+                setScanUI('unsupported', 'بصمة الهاتف غير متوفرة', 'جهازك لا يدعم التحقق بالبصمة');
+                return false;
+            }
+
+            try {
+                var available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+                if (!available) {
+                    setScanUI('unsupported', 'بصمة الهاتف غير متوفرة', 'الجهاز لا يحتوي على مستشعر بصمة');
+                    return false;
+                }
+
+                var challenge = new Uint8Array(32);
+                window.crypto.getRandomValues(challenge);
+                var rpId = window.location.hostname || window.location.host || 'localhost';
+
+                await navigator.credentials.get({
+                    publicKey: {
+                        challenge: challenge,
+                        rpId: rpId,
+                        userVerification: 'required',
+                        timeout: 60000
+                    }
+                });
+
+                return true;
+            } catch (e) {
+                console.log('Biometric error:', e);
+                return false;
             }
         }
     </script>
