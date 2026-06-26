@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>الدورات البرمجية | نخبة تقنية المعلومات</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
+    <link rel="stylesheet" href="polish-overlay.css">
+</head>
+<body>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <img src="logo.png" alt="Logo" class="sidebar-logo">
+                <span class="brand-text">نخبة IT</span>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i><span>الرئيسية</span></a></li>
+                <li class="nav-item"><a href="exams.html" class="nav-link"><i class="fas fa-calendar-alt"></i><span>جدول الاختبارات</span></a></li>
+                <li class="nav-item"><a href="grades.html" class="nav-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a></li>
+                <li class="nav-item"><a href="projects.html" class="nav-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a></li>
+                <li class="nav-item"><a href="trips.html" class="nav-link"><i class="fas fa-bus"></i><span>الرحلات</span></a></li>
+                <li class="nav-item"><a href="courses.html" class="nav-link active"><i class="fas fa-book-open"></i><span>الدورات</span></a></li>
+            </ul>
+            <div class="sidebar-bottom">
+                <a href="student.html" class="sidebar-user" id="userSidebarLink">
+                    <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="user-info">
+                        <h6 id="sidebarName">طالب النخبة</h6>
+                        <p id="sidebarId">---</p>
+                    </div>
+                </a>
+                <div class="mt-20">
+                    <a href="#" onclick="handleLogout()" class="nav-link" style="color: var(--error);">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>تسجيل الخروج</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1 class="welcome-msg">الدورات <span style="color: var(--primary);">البرمجية</span></h1>
+                <p class="header-sub">مصادر تعليمية مجانية لتطوير مهاراتك</p>
+            </header>
+
+            <div style="max-width: 1100px;">
+                <!-- Category Filter -->
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;" id="categoryFilter">
+                    <button class="cat-btn active" data-cat="all" onclick="filterCourses('all',this)"><i class="fas fa-th"></i> الكل</button>
+                    <button class="cat-btn" data-cat="web" onclick="filterCourses('web',this)"><i class="fas fa-code"></i> تطوير الويب</button>
+                    <button class="cat-btn" data-cat="mobile" onclick="filterCourses('mobile',this)"><i class="fas fa-mobile-alt"></i> تطوير الموبايل</button>
+                    <button class="cat-btn" data-cat="security" onclick="filterCourses('security',this)"><i class="fas fa-shield-halved"></i> الأمن السيبراني</button>
+                    <button class="cat-btn" data-cat="ai" onclick="filterCourses('ai',this)"><i class="fas fa-brain"></i> الذكاء الاصطناعي</button>
+                    <button class="cat-btn" data-cat="db" onclick="filterCourses('db',this)"><i class="fas fa-database"></i> قواعد البيانات</button>
+                </div>
+
+                <!-- Courses Grid -->
+                <div id="coursesGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;"></div>
+            </div>
+
+            <footer class="footer">
+                <p>المطور: فريق نخبة تقنية المعلومات &copy; 2026</p>
+            </footer>
+        </main>
+
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-link"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+            <a href="exams.html" class="bottom-link"><i class="fas fa-calendar-alt"></i><span>الجدول</span></a>
+            <a href="grades.html" class="bottom-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a>
+            <a href="courses.html" class="bottom-link active"><i class="fas fa-book-open"></i><span>الدورات</span></a>
+            <a href="projects.html" class="bottom-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a>
+            <a href="student.html" class="bottom-link"><i class="fas fa-user-circle"></i><span>حسابي</span></a>
+        </nav>
+    </div>
+
+    <div class="lang-switcher">
+        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
+            <i class="fas fa-globe"></i>
+            <span id="lang-text">English</span>
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="i18n.js"></script>
+    <script>
+        var COURSES = [
+            { cat:'web', title:'HTML & CSS من الصفر', desc:'تعلم بناء صفحات ويب احترافية من الصفر', level:'مبتدئ', duration:'20 ساعة', icon:'fa-html5', color:'#e34f26', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'web', title:'JavaScript المتقدم', desc:'أتقن JavaScript و DOM والأحداث', level:'متوسط', duration:'35 ساعة', icon:'fa-js', color:'#f7df1e', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'web', title:'React.js', desc:'بناء واجهات مستخدم تفاعلية مع React', level:'متوسط', duration:'40 ساعة', icon:'fa-react', color:'#61dafb', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'web', title:'Node.js و Express', desc:'تطوير خوادم وواجهات API', level:'متقدم', duration:'30 ساعة', icon:'fa-node-js', color:'#68a063', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'mobile', title:'Flutter', desc:'بناء تطبيقات موبايل لنظامي Android و iOS', level:'متوسط', duration:'45 ساعة', icon:'fa-mobile-screen', color:'#02569b', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'mobile', title:'React Native', desc:'تطوير تطبيقات موبايل بلغة JavaScript', level:'متوسط', duration:'38 ساعة', icon:'fa-mobile-alt', color:'#61dafb', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'security', title:'أساسيات الأمن السيبراني', desc:'مقدمة شاملة في أمن المعلومات والشبكات', level:'مبتدئ', duration:'25 ساعة', icon:'fa-shield-halved', color:'#10b981', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'security', title:'اختراق الأخلاقي', desc:'تعلم اختبار اختراق التطبيقات والشبكات', level:'متقدم', duration:'50 ساعة', icon:'fa-user-secret', color:'#ef4444', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'ai', title:'Python للمبتدئين', desc:'تعلم أساسيات البرمجة بلغة Python', level:'مبتدئ', duration:'22 ساعة', icon:'fa-python', color:'#3776ab', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'ai', title:'التعلم الآلي (Machine Learning)', desc:'خوارزميات التعلم الآلي مع Scikit-Learn', level:'متقدم', duration:'45 ساعة', icon:'fa-robot', color:'#8b5cf6', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'ai', title:'شبكات عصبية عميقة', desc:'Deep Learning مع TensorFlow و PyTorch', level:'متقدم', duration:'55 ساعة', icon:'fa-brain', color:'#06b6d4', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'db', title:'SQL fundamentals', desc:'تعلم استعلامات قواعد البيانات العلائقية', level:'مبتدئ', duration:'18 ساعة', icon:'fa-database', color:'#f59e0b', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'db', title:'MongoDB', desc:'قواعد بيانات NoSQL المرنة', level:'متوسط', duration:'22 ساعة', icon:'fa-leaf', color:'#47a248', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
+            { cat:'db', title:'تصميم قواعد البيانات', desc:'Normalization و ER Diagrams وأفضل الممارسات', level:'متوسط', duration:'20 ساعة', icon:'fa-table', color:'#8b5cf6', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' }
+        ];
+
+        var LEVEL_COLORS = { 'مبتدئ': '#10b981', 'متوسط': '#f59e0b', 'متقدم': '#ef4444' };
+
+        function renderCourses(filter) {
+            var grid = document.getElementById('coursesGrid');
+            var filtered = filter === 'all' ? COURSES : COURSES.filter(function(c) { return c.cat === filter; });
+            var html = '';
+            filtered.forEach(function(c) {
+                html += '<div class="card-master course-card" data-cat="' + c.cat + '">';
+                html += '<div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">';
+                html += '<div style="width:52px;height:52px;border-radius:16px;background:' + c.color + '15;border:1px solid ' + c.color + '25;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:' + c.color + ';flex-shrink:0;">';
+                html += '<i class="fab ' + c.icon + '"></i></div>';
+                html += '<div style="flex:1;"><h4 style="font-weight:800;color:#fff;margin:0 0 4px;font-size:1rem;">' + c.title + '</h4>';
+                html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
+                html += '<span style="font-size:0.7rem;padding:2px 8px;border-radius:10px;background:' + LEVEL_COLORS[c.level] + '15;color:' + LEVEL_COLORS[c.level] + ';font-weight:700;">' + c.level + '</span>';
+                html += '<span style="font-size:0.7rem;color:rgba(161,161,170,0.4);"><i class="fas fa-clock" style="margin-left:3px;"></i>' + c.duration + '</span>';
+                html += '</div></div></div>';
+                html += '<p style="font-size:0.85rem;color:rgba(161,161,170,0.55);line-height:1.7;margin-bottom:16px;">' + c.desc + '</p>';
+                html += '<a href="' + c.url + '" target="_blank" class="btn btn-primary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-size:0.88rem;">';
+                html += '<i class="fas fa-play-circle"></i><span>ابدأ التعلم</span></a>';
+                html += '</div>';
+            });
+            grid.innerHTML = html;
+        }
+
+        function filterCourses(cat, btn) {
+            document.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            renderCourses(cat);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var session = localStorage.getItem('student_session');
+            if (session) {
+                var data = JSON.parse(session);
+                document.getElementById('sidebarName').innerText = data.name;
+                document.getElementById('sidebarId').innerText = data.id;
+            }
+            renderCourses('all');
+        });
+    </script>
+    <script src="bridge/overlay-engine.js"></script>
+</body>
+</html>

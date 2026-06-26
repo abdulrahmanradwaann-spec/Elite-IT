@@ -27,6 +27,7 @@
                 <li class="nav-item"><a href="grades.html" class="nav-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a></li>
                 <li class="nav-item"><a href="projects.html" class="nav-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a></li>
                 <li class="nav-item"><a href="trips.html" class="nav-link"><i class="fas fa-bus"></i><span>الرحلات</span></a></li>
+                <li class="nav-item"><a href="support.html" class="nav-link"><i class="fas fa-headset"></i><span>الدعم الفني</span></a></li>
             </ul>
             
             <div class="sidebar-bottom">
@@ -65,7 +66,11 @@
                         <div class="profile-avatar-ring"></div>
                     </div>
                     <div class="profile-info">
-                        <h2 id="studentFullName" style="font-size: clamp(1.3rem, 5vw, 2.2rem); font-weight: 800; margin-bottom: 10px;">طالب النخبة</h2>
+                        <h2 id="studentFullName" style="font-size: clamp(1.3rem, 5vw, 2.2rem); font-weight: 800; margin-bottom: 10px;">طالب النخبة
+                            <span class="verified-badge-icon" id="verifiedBadge" style="display:none;" data-tooltip="موثّق من الجامعة">
+                                <i class="fas fa-check-circle"></i>
+                            </span>
+                        </h2>
                         <div class="profile-badges">
                             <span class="status-badge" style="background: rgba(99, 102, 241, 0.1); color: var(--primary); border-color: var(--primary);">
                                 <i class="fas fa-id-card"></i>
@@ -98,6 +103,36 @@
                             <span class="academic-card-value">تقنية المعلومات | المستوى الثاني</span>
                         </div>
                     </div>
+                </div>
+
+                <!-- GPA Ring -->
+                <div class="gpa-ring-section" id="gpaSection" style="display:none;">
+                    <div style="display:flex;align-items:center;gap:20px;padding:20px 24px;background:rgba(10,14,31,0.4);border:1px solid rgba(139,92,246,0.08);border-radius:18px;margin-bottom:20px;">
+                        <div style="position:relative;width:100px;height:100px;flex-shrink:0;">
+                            <svg viewBox="0 0 100 100" style="width:100%;height:100%;transform:rotate(-90deg);">
+                                <circle cx="50" cy="50" r="44" stroke="rgba(139,92,246,0.08)" stroke-width="6" fill="none"/>
+                                <circle cx="50" cy="50" r="44" stroke="url(#gpaGrad)" stroke-width="6" fill="none" stroke-linecap="round"
+                                    stroke-dasharray="276.46" id="gpaCircle"/>
+                                <defs><linearGradient id="gpaGrad"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+                            </svg>
+                            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                                <span id="gpaValue" style="font-size:1.4rem;font-weight:900;color:#fff;">--</span>
+                                <span style="font-size:0.65rem;color:rgba(161,161,170,0.4);">المعدل</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="font-weight:800;color:#fff;margin:0 0 6px;">المعدل التراكمي</h4>
+                            <p id="gpaLabel" style="font-size:0.82rem;color:rgba(161,161,170,0.5);margin:0;">--- </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verification Button -->
+                <div class="verify-action-row" id="verifyActionRow">
+                    <a href="security-verification.html" class="btn btn-primary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;margin-bottom:20px;" id="verifyBtn">
+                        <i class="fas fa-shield-halved"></i>
+                        <span>طلب التحقق من الهوية</span>
+                    </a>
                 </div>
 
                 <div class="activities-section">
@@ -235,27 +270,43 @@
                 const data = JSON.parse(session);
                 document.getElementById('sidebarName').innerText = data.name;
                 document.getElementById('sidebarId').innerText = data.id;
-                document.getElementById('studentFullName').innerText = data.name;
+                document.getElementById('studentFullName').childNodes[0].textContent = data.name + ' ';
                 document.getElementById('studentIdBadge').innerText = data.id;
 
-                const PROFILE_IMAGES = {
-                    "24090111005": "assets/abdulrahman.jpg"
-                };
-
+                // Profile Image
+                const PROFILE_IMAGES = { "24090111005": "assets/abdulrahman.jpg" };
                 const imgPath = PROFILE_IMAGES[data.id];
                 if (imgPath) {
                     const img = document.getElementById('profileAvatarImg');
                     const icon = document.getElementById('profileAvatarIcon');
                     img.src = imgPath;
                     img.alt = data.name;
-                    img.onload = function() {
-                        img.style.display = 'block';
-                        icon.style.display = 'none';
-                    };
-                    img.onerror = function() {
-                        img.style.display = 'none';
-                        icon.style.display = '';
-                    };
+                    img.onload = function() { img.style.display = 'block'; icon.style.display = 'none'; };
+                    img.onerror = function() { img.style.display = 'none'; icon.style.display = ''; };
+                }
+
+                // Verified Badge
+                var verified = JSON.parse(localStorage.getItem('elite_verified') || '[]');
+                var isVerified = verified.indexOf(data.id) !== -1;
+                if (isVerified) {
+                    document.getElementById('verifiedBadge').style.display = 'inline-flex';
+                    document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-check-circle"></i><span>تم التحقق بنجاح</span>';
+                    document.getElementById('verifyBtn').style.background = 'linear-gradient(135deg, #10b981, #34d399)';
+                    document.getElementById('verifyBtn').href = '#';
+                    document.getElementById('verifyBtn').onclick = function(e) { e.preventDefault(); };
+                }
+
+                // GPA from grades
+                var GRADES_DATA = { "24090111005": { gpa: 2.68, label: 'تصنيف مقبول' }, "24090111002": { gpa: 1.61, label: 'تصنيف ضعيف' } };
+                var gradesInfo = GRADES_DATA[data.id];
+                if (gradesInfo) {
+                    document.getElementById('gpaSection').style.display = 'block';
+                    document.getElementById('gpaValue').textContent = gradesInfo.gpa.toFixed(2);
+                    document.getElementById('gpaLabel').textContent = gradesInfo.label;
+                    var pct = Math.min(gradesInfo.gpa / 4, 1);
+                    var offset = 276.46 * (1 - pct);
+                    document.getElementById('gpaCircle').style.transition = 'stroke-dashoffset 1.5s cubic-bezier(0.4,0,0.2,1)';
+                    setTimeout(function() { document.getElementById('gpaCircle').setAttribute('stroke-dashoffset', offset); }, 300);
                 }
             }
             

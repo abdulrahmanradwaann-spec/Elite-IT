@@ -162,6 +162,8 @@ class OverlayEngine {
         card.style.transform = '';
       });
     });
+  }
+
   setupThemeToggle() {
     const saved = localStorage.getItem('elite_theme') || 'dark';
     document.documentElement.setAttribute('data-theme', saved);

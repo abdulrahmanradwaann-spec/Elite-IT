@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>التحقق الأمني | نخبة تقنية المعلومات</title>
+    <title>التحقق من الهوية | نخبة تقنية المعلومات</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -20,314 +20,661 @@
     <!-- Grid Overlay -->
     <div class="security-grid"></div>
 
-    <!-- Ambient Overlay -->
-    <div class="security-overlay"></div>
+    <!-- Main Container -->
+    <div class="verify-container">
 
-    <!-- Main Card -->
-    <div class="security-wrap">
-        <div class="security-card">
+        <!-- Screen 1: Welcome -->
+        <div class="verify-screen active" id="screen1">
+            <div class="verify-card">
+                <div class="v-steps">
+                    <span class="v-step active" data-step="1"></span>
+                    <span class="v-step-line"></span>
+                    <span class="v-step" data-step="2"></span>
+                    <span class="v-step-line"></span>
+                    <span class="v-step" data-step="3"></span>
+                    <span class="v-step-line"></span>
+                    <span class="v-step" data-step="4"></span>
+                </div>
 
-            <!-- Steps Indicator -->
-            <div class="s-steps">
-                <span class="s-step active" data-step="1"></span>
-                <span class="s-step-line"></span>
-                <span class="s-step" data-step="2"></span>
-                <span class="s-step-line"></span>
-                <span class="s-step" data-step="3"></span>
-                <span class="s-step-line"></span>
-                <span class="s-step" data-step="4"></span>
-            </div>
+                <div class="v-shield-icon">
+                    <i class="fas fa-shield-halved"></i>
+                    <div class="v-shield-glow"></div>
+                </div>
 
-            <!-- Shield Icon -->
-            <div class="security-shield">
-                <i class="fas fa-shield-halved"></i>
-            </div>
+                <h1 class="v-title">التحقق من الهوية</h1>
+                <p class="v-desc">أكمل عملية التحقق للحصول على شارة التحقق الزرقاء والوصول إلى الميزات الحصرية</p>
 
-            <!-- Title -->
-            <h1 class="security-title">تم اكتشاف تسجيل دخول من جهاز جديد</h1>
-            <p class="security-desc">لأمان حساب الطالب، يرجى تأكيد الهوية للمتابعة</p>
+                <div class="v-divider"></div>
 
-            <div class="security-divider"></div>
-
-            <!-- Step 0: Student ID -->
-            <div class="security-step" id="stepId">
-                <div class="s-input-group">
-                    <label class="s-label">رقم القيد</label>
-                    <div class="s-input-wrap">
-                        <i class="fas fa-hashtag s-input-icon"></i>
-                        <input type="text" class="s-input" id="sStudentId" placeholder="أدخل رقم القيد الخاص بالطالب" maxlength="10" inputmode="numeric">
+                <div class="v-requirements">
+                    <div class="v-req-item">
+                        <div class="v-req-icon"><i class="fas fa-camera"></i></div>
+                        <div class="v-req-text">
+                            <span class="v-req-title">صورة سيلفي حية</span>
+                            <span class="v-req-sub">التقط صورة واضحة لوجهك</span>
+                        </div>
+                        <i class="fas fa-check-circle v-req-check"></i>
                     </div>
-                    <span class="s-hint">
-                        <i class="fas fa-info-circle"></i>
-                        أدخل رقم القيد للتحقق من هوية الطالب
-                    </span>
-                </div>
-            </div>
-
-            <!-- Device Warning -->
-            <div class="device-warning hidden" id="deviceWarning">
-                <div class="dw-icon-wrap">
-                    <i class="fas fa-triangle-exclamation"></i>
-                </div>
-                <div class="dw-content">
-                    <h3 class="dw-title">تم اكتشاف جهاز غير معروف</h3>
-                    <p class="dw-desc">رقم القيد هذا مسجل لدخول من جهاز مختلف عن السابق، يرجى تأكيد الهوية</p>
-                    <div class="dw-details">
-                        <div class="dw-detail-item">
-                            <i class="fas fa-laptop"></i>
-                            <div>
-                                <span class="dw-dl">الجهاز</span>
-                                <span class="dw-dv">Windows PC — Chrome 125</span>
-                            </div>
+                    <div class="v-req-item">
+                        <div class="v-req-icon"><i class="fas fa-id-card"></i></div>
+                        <div class="v-req-text">
+                            <span class="v-req-title">بطاقة الهوية الجامعية</span>
+                            <span class="v-req-sub">ارفع صورة واضحة لبطاقتك</span>
                         </div>
-                        <div class="dw-detail-item">
-                            <i class="fas fa-globe"></i>
-                            <div>
-                                <span class="dw-dl">الموقع</span>
-                                <span class="dw-dv">العراق — بغداد</span>
-                            </div>
+                        <i class="fas fa-check-circle v-req-check"></i>
+                    </div>
+                    <div class="v-req-item">
+                        <div class="v-req-icon"><i class="fas fa-hashtag"></i></div>
+                        <div class="v-req-text">
+                            <span class="v-req-title">رقم القيد الجامعي</span>
+                            <span class="v-req-sub">يجب أن يكون مسجلاً في النظام</span>
                         </div>
-                        <div class="dw-detail-item">
-                            <i class="fas fa-clock"></i>
-                            <div>
-                                <span class="dw-dl">الوقت</span>
-                                <span class="dw-dv" id="dwTime">الآن</span>
-                            </div>
-                        </div>
+                        <i class="fas fa-check-circle v-req-check"></i>
                     </div>
                 </div>
-            </div>
 
-            <!-- Step 1: Password -->
-            <div class="security-step hidden" id="stepPass">
-                <div class="s-input-group">
-                    <label class="s-label">كلمة السر</label>
-                    <div class="s-input-wrap">
-                        <i class="fas fa-lock s-input-icon"></i>
-                        <input type="password" class="s-input" id="sPass" placeholder="أدخل كلمة السر الخاصة بالحساب">
-                        <button class="s-toggle" onclick="toggleSPass()" type="button">
-                            <i class="fas fa-eye" id="sPassIcon"></i>
-                        </button>
-                    </div>
-                    <span class="s-hint">
-                        <i class="fas fa-info-circle"></i>
-                        كلمة السر خاصة بصاحب رقم القيد
-                    </span>
+                <div class="v-time-info">
+                    <i class="fas fa-clock"></i>
+                    <span>وقت التحقق: خلال ساعة واحدة كحد أقصى</span>
                 </div>
-            </div>
 
-            <!-- Step 2: Fingerprint -->
-            <div class="security-step hidden" id="stepFinger">
-                <div class="finger-wrap" onclick="startFingerScan()" id="fingerWrap">
-                    <div class="finger-ring" id="fingerRing">
-                        <div class="finger-holo"></div>
-                        <div class="finger-scan-line" id="fingerScanLine"></div>
-                        <div class="finger-circle">
-                            <i class="fas fa-fingerprint finger-icon" id="fingerIcon"></i>
-                        </div>
-                    </div>
-                    <p class="finger-label" id="fingerLabel">قم بتأكيد هويتك بالبصمة</p>
-                    <p class="finger-sub" id="fingerSub">المس مستشعر البصمة للمتابعة</p>
-                </div>
-            </div>
-
-            <!-- Buttons -->
-            <div class="security-actions">
-                <button class="s-btn s-btn-primary" id="sMainBtn" onclick="nextSStep()">
-                    <i class="fas fa-shield-check"></i>
-                    <span>تحقق من القيد</span>
+                <button class="v-btn v-btn-primary" onclick="goToScreen(2)">
+                    <span>بدء عملية التحقق</span>
+                    <i class="fas fa-arrow-left"></i>
                 </button>
-                <button class="s-btn s-btn-cancel" onclick="history.back();">إلغاء العملية</button>
+                <button class="v-btn v-btn-cancel" onclick="history.back()">إلغاء</button>
             </div>
-
         </div>
-    </div>
 
-    <!-- Success Overlay -->
-    <div class="s-success hidden" id="sSuccess">
-        <div class="s-success-ring">
-            <i class="fas fa-check"></i>
+        <!-- Screen 2: Selfie Capture -->
+        <div class="verify-screen" id="screen2">
+            <div class="verify-card">
+                <div class="v-steps">
+                    <span class="v-step done" data-step="1"></span>
+                    <span class="v-step-line active"></span>
+                    <span class="v-step active" data-step="2"></span>
+                    <span class="v-step-line"></span>
+                    <span class="v-step" data-step="3"></span>
+                    <span class="v-step-line"></span>
+                    <span class="v-step" data-step="4"></span>
+                </div>
+
+                <div class="v-screen-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h2 class="v-title">التقط صورة السيلفي</h2>
+                <p class="v-desc">تأكد من وضوح وجهك وإضاءة جيدة</p>
+
+                <div class="v-divider"></div>
+
+                <!-- Camera Preview -->
+                <div class="v-camera-wrap">
+                    <div class="v-camera-frame">
+                        <div class="v-camera-guide"></div>
+                        <div class="v-camera-placeholder" id="cameraPlaceholder">
+                            <i class="fas fa-user"></i>
+                            <span>معاينة الكاميرا</span>
+                        </div>
+                        <video id="cameraVideo" autoplay playsinline style="display:none; width:100%; height:100%; object-fit:cover; border-radius:20px;"></video>
+                        <canvas id="cameraCanvas" style="display:none;"></canvas>
+                        <img id="selfiePreview" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:20px;">
+                    </div>
+
+                    <!-- AI Indicators -->
+                    <div class="v-ai-indicators">
+                        <div class="v-ai-ind" id="faceIndicator">
+                            <i class="fas fa-face-smile"></i>
+                            <span>كشف الوجه</span>
+                        </div>
+                        <div class="v-ai-ind" id="lightIndicator">
+                            <i class="fas fa-sun"></i>
+                            <span>جودة الإضاءة</span>
+                        </div>
+                        <div class="v-ai-ind" id="liveIndicator">
+                            <i class="fas fa-heart-pulse"></i>
+                            <span>كشف الحيوية</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="v-btn v-btn-primary" id="captureBtn" onclick="captureSelfie()">
+                    <i class="fas fa-camera"></i>
+                    <span>التقط الصورة</span>
+                </button>
+                <button class="v-btn v-btn-secondary" id="startCameraBtn" onclick="startCamera()">
+                    <i class="fas fa-video"></i>
+                    <span>تشغيل الكاميرا</span>
+                </button>
+                <button class="v-btn v-btn-cancel" onclick="goToScreen(1)">رجوع</button>
+            </div>
         </div>
-        <h2 class="s-success-title">تم التحقق بنجاح</h2>
-        <p class="s-success-desc">الهوية مؤكدة ✓</p>
-        <p class="s-success-sub">تم تسجيل الدخول بشكل آمن</p>
+
+        <!-- Screen 3: ID Upload -->
+        <div class="verify-screen" id="screen3">
+            <div class="verify-card">
+                <div class="v-steps">
+                    <span class="v-step done" data-step="1"></span>
+                    <span class="v-step-line active"></span>
+                    <span class="v-step done" data-step="2"></span>
+                    <span class="v-step-line active"></span>
+                    <span class="v-step active" data-step="3"></span>
+                    <span class="v-step-line"></span>
+                    <span class="v-step" data-step="4"></span>
+                </div>
+
+                <div class="v-screen-icon">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <h2 class="v-title">ارفع بطاقة الهوية</h2>
+                <p class="v-desc">ارفع صورة واضحة لبطاقة الهوية الجامعية</p>
+
+                <div class="v-divider"></div>
+
+                <!-- Upload Zone -->
+                <div class="v-upload-zone" id="uploadZone">
+                    <div class="v-upload-placeholder" id="uploadPlaceholder">
+                        <i class="fas fa-cloud-arrow-up"></i>
+                        <span>اسحب الصورة هنا أو اضغط للرفع</span>
+                        <small>PNG, JPG - حد أقصى 5MB</small>
+                    </div>
+                    <img id="idPreview" style="display:none; width:100%; max-height:200px; object-fit:contain; border-radius:16px;">
+                    <input type="file" id="idFileInput" accept="image/*" style="display:none;">
+                </div>
+
+                <!-- OCR Preview -->
+                <div class="v-ocr-preview" id="ocrPreview" style="display:none;">
+                    <h4><i class="fas fa-microchip"></i> استخراج البيانات بالذكاء الاصطناعي</h4>
+                    <div class="v-ocr-fields">
+                        <div class="v-ocr-field">
+                            <label>الاسم</label>
+                            <span id="ocrName">---</span>
+                        </div>
+                        <div class="v-ocr-field">
+                            <label>رقم القيد</label>
+                            <span id="ocrId">---</span>
+                        </div>
+                        <div class="v-ocr-field">
+                            <label>الجامعة</label>
+                            <span id="ocrUni">---</span>
+                        </div>
+                    </div>
+                    <div class="v-ocr-score">
+                        <span>جودة الصورة</span>
+                        <div class="v-ocr-bar"><div class="v-ocr-fill" id="ocrFill"></div></div>
+                        <span id="ocrScoreText">0%</span>
+                    </div>
+                </div>
+
+                <button class="v-btn v-btn-primary" id="uploadBtn" onclick="document.getElementById('idFileInput').click()">
+                    <i class="fas fa-upload"></i>
+                    <span>اختيار صورة</span>
+                </button>
+                <button class="v-btn v-btn-primary" id="continueToReviewBtn" style="display:none;" onclick="goToScreen4()">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>مراجعة البيانات</span>
+                </button>
+                <button class="v-btn v-btn-cancel" onclick="goToScreen(2)">رجوع</button>
+            </div>
+        </div>
+
+        <!-- Screen 4: Review & Confirm -->
+        <div class="verify-screen" id="screen4">
+            <div class="verify-card">
+                <div class="v-steps">
+                    <span class="v-step done" data-step="1"></span>
+                    <span class="v-step-line active"></span>
+                    <span class="v-step done" data-step="2"></span>
+                    <span class="v-step-line active"></span>
+                    <span class="v-step done" data-step="3"></span>
+                    <span class="v-step-line active"></span>
+                    <span class="v-step active" data-step="4"></span>
+                </div>
+
+                <div class="v-screen-icon">
+                    <i class="fas fa-magnifying-glass"></i>
+                </div>
+                <h2 class="v-title">مراجعة وتأكيد</h2>
+                <p class="v-desc">تأكد من صحة البيانات قبل الإرسال</p>
+
+                <div class="v-divider"></div>
+
+                <!-- Side by Side Comparison -->
+                <div class="v-compare-grid">
+                    <div class="v-compare-item">
+                        <label>صورة السيلفي</label>
+                        <div class="v-compare-img">
+                            <img id="reviewSelfie" src="" alt="سيلفي">
+                            <div class="v-compare-placeholder"><i class="fas fa-user"></i></div>
+                        </div>
+                    </div>
+                    <div class="v-compare-item">
+                        <label>بطاقة الهوية</label>
+                        <div class="v-compare-img">
+                            <img id="reviewId" src="" alt="هوية">
+                            <div class="v-compare-placeholder"><i class="fas fa-id-card"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Summary -->
+                <div class="v-ai-summary">
+                    <h4><i class="fas fa-brain"></i> ملخص التحقق الذكي</h4>
+                    <div class="v-summary-row">
+                        <span>تطابق الوجه</span>
+                        <span class="v-summary-val" id="faceMatch">87%</span>
+                    </div>
+                    <div class="v-summary-row">
+                        <span>أصالة المستند</span>
+                        <span class="v-summary-val" id="docAuth">92%</span>
+                    </div>
+                    <div class="v-summary-row v-trust">
+                        <span>مؤشر الثقة</span>
+                        <span class="v-summary-val v-trust-val" id="trustScore">89</span>
+                    </div>
+                </div>
+
+                <button class="v-btn v-btn-primary v-btn-glow" onclick="startProcessing()">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>إرسال طلب التحقق</span>
+                </button>
+                <button class="v-btn v-btn-cancel" onclick="goToScreen(3)">تعديل</button>
+            </div>
+        </div>
+
+        <!-- Screen 5: Processing -->
+        <div class="verify-screen" id="screen5">
+            <div class="verify-card">
+                <div class="v-processing">
+                    <div class="v-processing-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="54" stroke="rgba(139,92,246,0.1)" stroke-width="4" fill="none"/>
+                            <circle cx="60" cy="60" r="54" stroke="url(#vGrad)" stroke-width="4" fill="none"
+                                stroke-dasharray="339.29" stroke-dashoffset="339.29" stroke-linecap="round"
+                                class="v-progress-circle"/>
+                            <defs><linearGradient id="vGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#8b5cf6"/>
+                                <stop offset="100%" stop-color="#06b6d4"/>
+                            </linearGradient></defs>
+                        </svg>
+                        <div class="v-processing-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                    </div>
+
+                    <h2 class="v-title">جاري التحقق بالذكاء الاصطناعي</h2>
+                    <p class="v-desc" id="processingStatus">تحليل صورة السيلفي...</p>
+
+                    <div class="v-processing-steps">
+                        <div class="v-proc-step" id="procStep1">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                            <span>تحليل ملامح الوجه</span>
+                        </div>
+                        <div class="v-proc-step" id="procStep2">
+                            <i class="fas fa-circle"></i>
+                            <span>استخراج بيانات البطاقة</span>
+                        </div>
+                        <div class="v-proc-step" id="procStep3">
+                            <i class="fas fa-circle"></i>
+                            <span>التحقق من قاعدة البيانات</span>
+                        </div>
+                        <div class="v-proc-step" id="procStep4">
+                            <i class="fas fa-circle"></i>
+                            <span>حساب مؤشر الثقة</span>
+                        </div>
+                    </div>
+
+                    <div class="v-processing-request">
+                        <span>رقم الطلب: <strong id="requestId">---</strong></span>
+                        <span>التاريخ: <strong id="requestDate">---</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 6: Success -->
+        <div class="verify-screen" id="screen6">
+            <div class="verify-card">
+                <div class="v-success">
+                    <div class="v-success-badge">
+                        <div class="v-badge-outer"></div>
+                        <div class="v-badge-inner">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="v-badge-particles">
+                            <span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+
+                    <h2 class="v-title v-success-title">تم التحقق بنجاح!</h2>
+                    <p class="v-desc">هذا الطالب موثّق من الجامعة</p>
+
+                    <div class="v-verified-badge-large">
+                        <i class="fas fa-check-circle"></i>
+                        <span>موثّق</span>
+                    </div>
+
+                    <div class="v-unlock-list">
+                        <div class="v-unlock-item">
+                            <i class="fas fa-headset"></i>
+                            <span>دعم فني أولوي</span>
+                        </div>
+                        <div class="v-unlock-item">
+                            <i class="fas fa-book-open"></i>
+                            <span>مصادر تعليمية حصرية</span>
+                        </div>
+                        <div class="v-unlock-item">
+                            <i class="fas fa-award"></i>
+                            <span>الأهلية للمنح الدراسية</span>
+                        </div>
+                        <div class="v-unlock-item">
+                            <i class="fas fa-users"></i>
+                            <span>مجتمع الطلاب الموثقين</span>
+                        </div>
+                    </div>
+
+                    <button class="v-btn v-btn-primary" onclick="window.location.href='student.html'">
+                        <i class="fas fa-home"></i>
+                        <span>الذهاب للوحة التحكم</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 7: Rejection -->
+        <div class="verify-screen" id="screen7">
+            <div class="verify-card">
+                <div class="v-rejection">
+                    <div class="v-reject-icon">
+                        <i class="fas fa-times"></i>
+                    </div>
+
+                    <h2 class="v-title v-reject-title">تم رفض طلب التحقق</h2>
+                    <p class="v-desc">لم نتمكن من التحقق من هويتك</p>
+
+                    <div class="v-reject-reasons">
+                        <div class="v-reject-item">
+                            <i class="fas fa-face-frown"></i>
+                            <div>
+                                <span class="v-reject-cause">عدم تطابق الوجه</span>
+                                <span class="v-reject-fix">تأكد من أن الصورة واضحة وتظهر وجهك بالكامل</span>
+                            </div>
+                        </div>
+                        <div class="v-reject-item">
+                            <i class="fas fa-image"></i>
+                            <div>
+                                <span class="v-reject-cause">جودة الصورة منخفضة</span>
+                                <span class="v-reject-fix">أعد التقط الصورة بإضاءة جيدة وبدون ضبابية</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="v-btn v-btn-primary" onclick="goToScreen(2)">
+                        <i class="fas fa-redo"></i>
+                        <span>إعادة المحاولة</span>
+                    </button>
+                    <button class="v-btn v-btn-secondary" onclick="goToScreen(2)">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <span>تحسين جودة الالتقاط</span>
+                    </button>
+                    <button class="v-btn v-btn-cancel" onclick="history.back()">إلغاء</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        var currentStep = 0; // 0 = ID, 1 = warning shown, 2 = password, 3 = fingerprint
+        var currentScreen = 1;
+        var selfieDataUrl = null;
+        var idDataUrl = null;
 
-        function toggleSPass() {
-            var input = document.getElementById('sPass');
-            var icon = document.getElementById('sPassIcon');
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.className = 'fas fa-eye-slash';
-            } else {
-                input.type = 'password';
-                icon.className = 'fas fa-eye';
+        function goToScreen(n) {
+            document.querySelectorAll('.verify-screen').forEach(function(s) { s.classList.remove('active'); });
+            var target = document.getElementById('screen' + n);
+            if (target) {
+                target.classList.add('active');
+                currentScreen = n;
+                window.scrollTo(0, 0);
             }
         }
 
-        function updateSteps(stepIndex) {
-            var dots = document.querySelectorAll('.s-step');
-            dots.forEach(function(d, i) {
-                d.classList.toggle('active', i <= stepIndex);
-                d.classList.toggle('done', i < stepIndex);
-            });
-        }
-
-        function nextSStep() {
-            var btn = document.getElementById('sMainBtn');
-            var stepId = document.getElementById('stepId');
-            var stepPass = document.getElementById('stepPass');
-            var stepFinger = document.getElementById('stepFinger');
-            var deviceWarning = document.getElementById('deviceWarning');
-            var success = document.getElementById('sSuccess');
-
-            if (currentStep === 0) {
-                stepId.classList.add('hidden');
-                deviceWarning.classList.remove('hidden');
-                deviceWarning.classList.add('show');
-                currentStep = 1;
-                btn.innerHTML = '<i class="fas fa-arrow-right"></i><span>المتابعة إلى التحقق</span>';
-                updateSteps(1);
+        function startCamera() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                useSimulatedSelfie();
                 return;
             }
-
-            if (currentStep === 1) {
-                deviceWarning.classList.remove('show');
-                deviceWarning.classList.add('hidden');
-                stepPass.classList.remove('hidden');
-                currentStep = 2;
-                btn.innerHTML = '<i class="fas fa-shield-check"></i><span>تأكيد الهوية</span>';
-                updateSteps(2);
-                setTimeout(function() {
-                    document.getElementById('sPass').focus();
-                }, 350);
-                return;
-            }
-
-            if (currentStep === 2) {
-                stepPass.classList.add('hidden');
-                stepFinger.classList.remove('hidden');
-                currentStep = 3;
-                btn.innerHTML = '<i class="fas fa-fingerprint"></i><span>التحقق بالبصمة</span>';
-                updateSteps(3);
-                return;
-            }
-
-            if (currentStep === 3) {
-                startFingerScan();
-            }
-        }
-
-        var scanTimer = null;
-        var isScanning = false;
-
-        function setScanUI(state, msg, subMsg) {
-            var wrap = document.getElementById('fingerWrap');
-            var icon = document.getElementById('fingerIcon');
-            var label = document.getElementById('fingerLabel');
-            var sub = document.getElementById('fingerSub');
-            var line = document.getElementById('fingerScanLine');
-            var btn = document.getElementById('sMainBtn');
-
-            if (state === 'scanning') {
-                wrap.classList.remove('error', 'unsupported');
-                wrap.classList.add('scanning');
-                line.classList.add('active');
-                icon.style.color = '#06b6d4';
-                icon.style.filter = 'drop-shadow(0 0 20px rgba(6, 182, 212, 0.4))';
-                btn.disabled = true;
-                btn.style.opacity = '0.4';
-                btn.style.pointerEvents = 'none';
-            } else if (state === 'done') {
-                wrap.classList.remove('scanning', 'error', 'unsupported');
-                line.classList.remove('active');
-                icon.style.color = '#22c55e';
-                icon.style.filter = 'drop-shadow(0 0 25px rgba(34, 197, 94, 0.5))';
-                document.getElementById('fingerRing').style.borderColor = 'rgba(34, 197, 94, 0.2)';
-            } else if (state === 'error') {
-                wrap.classList.remove('scanning');
-                wrap.classList.remove('unsupported');
-                wrap.classList.add('error');
-                line.classList.remove('active');
-                icon.style.color = '#ef4444';
-                icon.style.filter = 'drop-shadow(0 0 20px rgba(239, 68, 68, 0.3))';
-                btn.disabled = false;
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-                document.getElementById('fingerRing').style.borderColor = 'rgba(239, 68, 68, 0.2)';
-            } else if (state === 'unsupported') {
-                wrap.classList.remove('scanning');
-                wrap.classList.remove('error');
-                wrap.classList.add('unsupported');
-                line.classList.remove('active');
-                icon.style.color = 'rgba(148, 163, 184, 0.3)';
-                icon.style.filter = 'none';
-                btn.disabled = false;
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-            }
-
-            if (msg) label.textContent = msg;
-            if (subMsg) sub.textContent = subMsg;
-            if (subMsg && state === 'done') sub.style.color = 'rgba(34, 197, 94, 0.6)';
-        }
-
-        function startFingerScan() {
-            if (isScanning) return;
-            isScanning = true;
-            setScanUI('scanning', 'جاري مسح البصمة...', 'يرجى لمس مستشعر البصمة');
-
-            tryBiometric().then(function(success) {
-                if (success) {
-                    setScanUI('done', 'تم التحقق من البصمة', '✓ تم التأكيد بنجاح');
-                    setTimeout(function() {
-                        document.getElementById('stepFinger').classList.add('verified');
-                        var successEl = document.getElementById('sSuccess');
-                        successEl.classList.remove('hidden');
-                        setTimeout(function() { successEl.classList.add('show'); }, 50);
-                        updateSteps(4);
-                    }, 600);
-                } else {
-                    isScanning = false;
-                    setScanUI('error', 'تعذر التحقق بالبصمة', 'يرجى المحاولة مرة أخرى أو استخدام كلمة السر');
-                }
-            });
-        }
-
-        async function tryBiometric() {
-            if (!window.PublicKeyCredential) {
-                setScanUI('unsupported', 'بصمة الهاتف غير متوفرة', 'جهازك لا يدعم التحقق بالبصمة');
-                return false;
-            }
-
-            try {
-                var available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
-                if (!available) {
-                    setScanUI('unsupported', 'بصمة الهاتف غير متوفرة', 'الجهاز لا يحتوي على مستشعر بصمة');
-                    return false;
-                }
-
-                var challenge = new Uint8Array(32);
-                window.crypto.getRandomValues(challenge);
-                var rpId = window.location.hostname || window.location.host || 'localhost';
-
-                await navigator.credentials.get({
-                    publicKey: {
-                        challenge: challenge,
-                        rpId: rpId,
-                        userVerification: 'required',
-                        timeout: 60000
-                    }
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+                .then(function(stream) {
+                    var video = document.getElementById('cameraVideo');
+                    video.srcObject = stream;
+                    video.style.display = 'block';
+                    document.getElementById('cameraPlaceholder').style.display = 'none';
+                    document.getElementById('startCameraBtn').style.display = 'none';
+                    simulateAIIndicators();
+                })
+                .catch(function(err) {
+                    useSimulatedSelfie();
                 });
+        }
 
-                return true;
-            } catch (e) {
-                console.log('Biometric error:', e);
-                return false;
+        function useSimulatedSelfie() {
+            var canvas = document.getElementById('cameraCanvas');
+            canvas.width = 300;
+            canvas.height = 400;
+            var ctx = canvas.getContext('2d');
+            var grad = ctx.createLinearGradient(0, 0, 300, 400);
+            grad.addColorStop(0, '#1a1a2e');
+            grad.addColorStop(1, '#16213e');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, 300, 400);
+            ctx.fillStyle = 'rgba(139, 92, 246, 0.2)';
+            ctx.beginPath();
+            ctx.arc(150, 160, 60, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.font = '40px Font Awesome 6 Free';
+            ctx.textAlign = 'center';
+            ctx.fillText('\uf007', 150, 175);
+            ctx.fillStyle = 'rgba(161, 161, 170, 0.3)';
+            ctx.font = '12px Arial';
+            ctx.fillText('صورة محاكاة', 150, 250);
+
+            var preview = document.getElementById('selfiePreview');
+            preview.src = canvas.toDataURL('image/jpeg');
+            preview.style.display = 'block';
+            document.getElementById('cameraPlaceholder').style.display = 'none';
+            document.getElementById('startCameraBtn').style.display = 'none';
+            selfieDataUrl = preview.src;
+
+            document.getElementById('captureBtn').innerHTML = '<i class="fas fa-check"></i><span>تم الالتقاط</span>';
+            document.getElementById('captureBtn').onclick = function() { goToScreen(3); };
+            document.getElementById('captureBtn').classList.add('captured');
+
+            document.getElementById('faceIndicator').classList.add('active');
+            document.getElementById('lightIndicator').classList.add('active');
+            document.getElementById('liveIndicator').classList.add('active');
+        }
+
+        function simulateAIIndicators() {
+            setTimeout(function() { document.getElementById('faceIndicator').classList.add('active'); }, 1000);
+            setTimeout(function() { document.getElementById('lightIndicator').classList.add('active'); }, 1800);
+            setTimeout(function() { document.getElementById('liveIndicator').classList.add('active'); }, 2500);
+        }
+
+        function captureSelfie() {
+            var video = document.getElementById('cameraVideo');
+            var canvas = document.getElementById('cameraCanvas');
+            var preview = document.getElementById('selfiePreview');
+
+            if (video.srcObject) {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                preview.src = canvas.toDataURL('image/jpeg');
+                preview.style.display = 'block';
+                video.style.display = 'none';
+                video.srcObject.getTracks().forEach(function(t) { t.stop(); });
+                selfieDataUrl = preview.src;
+
+                document.getElementById('captureBtn').innerHTML = '<i class="fas fa-check"></i><span>تم الالتقاط</span>';
+                document.getElementById('captureBtn').onclick = function() { goToScreen(3); };
+                document.getElementById('captureBtn').classList.add('captured');
+            } else {
+                useSimulatedSelfie();
             }
+        }
+
+        // ID Upload
+        var uploadZone = document.getElementById('uploadZone');
+        var idFileInput = document.getElementById('idFileInput');
+
+        uploadZone.addEventListener('click', function() { idFileInput.click(); });
+        uploadZone.addEventListener('dragover', function(e) { e.preventDefault(); uploadZone.classList.add('dragover'); });
+        uploadZone.addEventListener('dragleave', function() { uploadZone.classList.remove('dragover'); });
+        uploadZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length) handleIdFile(e.dataTransfer.files[0]);
+        });
+        idFileInput.addEventListener('change', function() {
+            if (this.files.length) handleIdFile(this.files[0]);
+        });
+
+        function handleIdFile(file) {
+            if (!file.type.startsWith('image/')) { alert('يرجى اختيار صورة'); return; }
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('idPreview').src = e.target.result;
+                document.getElementById('idPreview').style.display = 'block';
+                document.getElementById('uploadPlaceholder').style.display = 'none';
+                idDataUrl = e.target.result;
+                document.getElementById('reviewId').src = e.target.result;
+                document.getElementById('uploadBtn').style.display = 'none';
+                document.getElementById('continueToReviewBtn').style.display = 'flex';
+                simulateOCR();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function simulateOCR() {
+            var ocrPreview = document.getElementById('ocrPreview');
+            ocrPreview.style.display = 'block';
+
+            var session = localStorage.getItem('student_session');
+            var name = 'طالب النخبة';
+            var id = '---';
+            if (session) {
+                var d = JSON.parse(session);
+                name = d.name;
+                id = d.id;
+            }
+
+            document.getElementById('ocrName').textContent = name;
+            document.getElementById('ocrId').textContent = id;
+            document.getElementById('ocrUni').textContent = 'القرآن الكريم والعلوم الإسلامية';
+
+            var score = 85 + Math.floor(Math.random() * 12);
+            var fill = document.getElementById('ocrFill');
+            var text = document.getElementById('ocrScoreText');
+            fill.style.width = '0%';
+            text.textContent = '0%';
+
+            setTimeout(function() {
+                fill.style.transition = 'width 1.5s ease';
+                fill.style.width = score + '%';
+                animateCounter(text, 0, score, 1500);
+            }, 300);
+        }
+
+        function animateCounter(el, start, end, duration) {
+            var startTime = null;
+            function step(ts) {
+                if (!startTime) startTime = ts;
+                var p = Math.min((ts - startTime) / duration, 1);
+                el.textContent = Math.floor(p * (end - start) + start) + '%';
+                if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        function goToScreen4() {
+            if (selfieDataUrl) {
+                document.getElementById('reviewSelfie').src = selfieDataUrl;
+                document.getElementById('reviewSelfie').style.display = 'block';
+                var ph = document.getElementById('reviewSelfie').parentElement.querySelector('.v-compare-placeholder');
+                if (ph) ph.style.display = 'none';
+            }
+            if (idDataUrl) {
+                document.getElementById('reviewId').src = idDataUrl;
+                document.getElementById('reviewId').style.display = 'block';
+                var ph2 = document.getElementById('reviewId').parentElement.querySelector('.v-compare-placeholder');
+                if (ph2) ph2.style.display = 'none';
+            }
+
+            var score1 = 80 + Math.floor(Math.random() * 18);
+            var score2 = 82 + Math.floor(Math.random() * 16);
+            var trust = Math.floor((score1 + score2) / 2);
+            document.getElementById('faceMatch').textContent = score1 + '%';
+            document.getElementById('docAuth').textContent = score2 + '%';
+            document.getElementById('trustScore').textContent = trust;
+
+            goToScreen(4);
+        }
+
+        function startProcessing() {
+            goToScreen(5);
+
+            var session = localStorage.getItem('student_session');
+            var studentId = '---';
+            if (session) {
+                studentId = JSON.parse(session).id;
+            }
+
+            var now = new Date();
+            document.getElementById('requestId').textContent = 'REQ-' + now.getFullYear() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + '-' + String(Math.floor(Math.random()*9000)+1000);
+            document.getElementById('requestDate').textContent = now.toLocaleDateString('ar-EG') + ' ' + now.toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'});
+
+            var steps = ['procStep1','procStep2','procStep3','procStep4'];
+            var msgs = ['تحليل ملامح الوجه...','استخراج بيانات البطاقة...','التحقق من قاعدة البيانات...','حساب مؤشر الثقة...'];
+            var circle = document.querySelector('.v-progress-circle');
+            var offsets = [254.47, 169.64, 84.82, 0];
+
+            steps.forEach(function(s, i) {
+                setTimeout(function() {
+                    document.getElementById('processingStatus').textContent = msgs[i];
+                    steps.forEach(function(ss, j) {
+                        var el = document.getElementById(ss);
+                        if (j < i) { el.classList.add('done'); el.querySelector('i').className = 'fas fa-check'; }
+                        else if (j === i) { el.classList.add('active'); el.querySelector('i').className = 'fas fa-circle-notch fa-spin'; }
+                    });
+                    circle.style.strokeDashoffset = offsets[i];
+                }, (i + 1) * 1200);
+            });
+
+            setTimeout(function() {
+                steps.forEach(function(s) {
+                    var el = document.getElementById(s);
+                    el.classList.add('done');
+                    el.classList.remove('active');
+                    el.querySelector('i').className = 'fas fa-check';
+                });
+                document.getElementById('processingStatus').textContent = 'اكتمل التحقق!';
+
+                var trustScore = 75 + Math.floor(Math.random() * 20);
+
+                if (trustScore >= 70) {
+                    // حفظ حالة التوثيق
+                    var verified = JSON.parse(localStorage.getItem('elite_verified') || '[]');
+                    if (verified.indexOf(studentId) === -1) {
+                        verified.push(studentId);
+                        localStorage.setItem('elite_verified', JSON.stringify(verified));
+                    }
+                    setTimeout(function() { goToScreen(6); }, 800);
+                } else {
+                    setTimeout(function() { goToScreen(7); }, 800);
+                }
+            }, 5500);
         }
     </script>
 

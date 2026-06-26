@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>الدعم الفني | نخبة تقنية المعلومات</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
+    <link rel="stylesheet" href="polish-overlay.css">
+</head>
+<body>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <img src="logo.png" alt="Logo" class="sidebar-logo">
+                <span class="brand-text">نخبة IT</span>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i><span>الرئيسية</span></a></li>
+                <li class="nav-item"><a href="exams.html" class="nav-link"><i class="fas fa-calendar-alt"></i><span>جدول الاختبارات</span></a></li>
+                <li class="nav-item"><a href="grades.html" class="nav-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a></li>
+                <li class="nav-item"><a href="projects.html" class="nav-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a></li>
+                <li class="nav-item"><a href="trips.html" class="nav-link"><i class="fas fa-bus"></i><span>الرحلات</span></a></li>
+                <li class="nav-item"><a href="support.html" class="nav-link active"><i class="fas fa-headset"></i><span>الدعم الفني</span></a></li>
+            </ul>
+            <div class="sidebar-bottom">
+                <a href="student.html" class="sidebar-user" id="userSidebarLink">
+                    <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="user-info">
+                        <h6 id="sidebarName">طالب النخبة</h6>
+                        <p id="sidebarId">---</p>
+                    </div>
+                </a>
+                <div class="mt-20">
+                    <a href="#" onclick="handleLogout()" class="nav-link" style="color: var(--error);">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>تسجيل الخروج</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1 class="welcome-msg">الدعم <span style="color: var(--primary);">الفني</span></h1>
+                <p class="header-sub">نساعدك في حل أي مشكلة خلال 24 ساعة</p>
+            </header>
+
+            <div style="max-width: 900px;">
+                <!-- New Ticket Form -->
+                <div class="card-master" id="newTicketCard">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+                        <div style="width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(6,182,212,0.08));display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--primary);flex-shrink:0;">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-weight:800;font-size:1.1rem;color:#fff;margin:0;">إنشاء تذكرة جديدة</h3>
+                            <p style="font-size:0.82rem;color:rgba(161,161,170,0.5);margin:0;">اختر القسم واكتب مشكلتك</p>
+                        </div>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+                        <div>
+                            <label style="display:block;margin-bottom:8px;font-size:0.82rem;font-weight:700;color:rgba(161,161,170,0.6);">القسم</label>
+                            <select id="ticketDept" style="width:100%;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(139,92,246,0.1);border-radius:12px;color:#fff;font-family:inherit;font-size:0.9rem;outline:none;">
+                                <option value="academic">أكاديمي</option>
+                                <option value="technical">تقني</option>
+                                <option value="account">الحساب</option>
+                                <option value="other">أخرى</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display:block;margin-bottom:8px;font-size:0.82rem;font-weight:700;color:rgba(161,161,170,0.6);">الأولوية</label>
+                            <select id="ticketPriority" style="width:100%;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(139,92,246,0.1);border-radius:12px;color:#fff;font-family:inherit;font-size:0.9rem;outline:none;">
+                                <option value="normal">عادية</option>
+                                <option value="urgent">عاجلة</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:16px;">
+                        <label style="display:block;margin-bottom:8px;font-size:0.82rem;font-weight:700;color:rgba(161,161,170,0.6);">الموضوع</label>
+                        <input type="text" id="ticketSubject" placeholder="اكتب موضوع التذكرة" style="width:100%;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(139,92,246,0.1);border-radius:12px;color:#fff;font-family:inherit;font-size:0.9rem;outline:none;box-sizing:border-box;">
+                    </div>
+
+                    <div style="margin-bottom:20px;">
+                        <label style="display:block;margin-bottom:8px;font-size:0.82rem;font-weight:700;color:rgba(161,161,170,0.6);">التفاصيل</label>
+                        <textarea id="ticketDesc" rows="4" placeholder="اشرح مشكلتك بالتفصيل..." style="width:100%;padding:12px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(139,92,246,0.1);border-radius:12px;color:#fff;font-family:inherit;font-size:0.9rem;outline:none;resize:vertical;box-sizing:border-box;"></textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="createTicket()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>إرسال التذكرة</span>
+                    </button>
+                </div>
+
+                <!-- Tickets List -->
+                <div class="card-master" id="ticketsListCard" style="margin-top:20px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <div style="width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(6,182,212,0.08));display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#10b981;flex-shrink:0;">
+                                <i class="fas fa-ticket"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-weight:800;font-size:1.1rem;color:#fff;margin:0;">تذاكري</h3>
+                                <p style="font-size:0.82rem;color:rgba(161,161,170,0.5);margin:0;" id="ticketCount">0 تذاكر</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="ticketsContainer">
+                        <div style="text-align:center;padding:40px 20px;color:rgba(161,161,170,0.3);">
+                            <i class="fas fa-inbox" style="font-size:2.5rem;margin-bottom:12px;display:block;"></i>
+                            <p style="font-size:0.9rem;">لا توجد تذاكر بعد</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLA Info -->
+                <div class="card-master" style="margin-top:20px;display:flex;align-items:center;gap:16px;padding:20px 24px;">
+                    <div style="width:48px;height:48px;border-radius:16px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.15);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fbbf24;flex-shrink:0;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h4 style="font-weight:800;font-size:0.95rem;color:#fbbf24;margin:0 0 4px;">زمن الاستجابة</h4>
+                        <p style="font-size:0.82rem;color:rgba(161,161,170,0.5);margin:0;">نسعى للرد خلال 24 ساعة كحد أقصى على جميع التذاكر</p>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <p>المطور: فريق نخبة تقنية المعلومات &copy; 2026</p>
+            </footer>
+        </main>
+
+        <nav class="bottom-nav">
+            <a href="index.html" class="bottom-link"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+            <a href="exams.html" class="bottom-link"><i class="fas fa-calendar-alt"></i><span>الجدول</span></a>
+            <a href="grades.html" class="bottom-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a>
+            <a href="projects.html" class="bottom-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a>
+            <a href="support.html" class="bottom-link active"><i class="fas fa-headset"></i><span>الدعم</span></a>
+            <a href="student.html" class="bottom-link"><i class="fas fa-user-circle"></i><span>حسابي</span></a>
+        </nav>
+    </div>
+
+    <div class="lang-switcher">
+        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
+            <i class="fas fa-globe"></i>
+            <span id="lang-text">English</span>
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="i18n.js"></script>
+    <script>
+        var DEPT_LABELS = { academic: 'أكاديمي', technical: 'تقني', account: 'الحساب', other: 'أخرى' };
+        var PRIORITY_LABELS = { normal: 'عادية', urgent: 'عاجلة' };
+        var STATUS_LABELS = { open: 'مفتوحة', replied: 'تم الرد', closed: 'مغلقة' };
+        var STATUS_COLORS = { open: 'var(--primary)', replied: '#10b981', closed: 'rgba(161,161,170,0.4)' };
+
+        function getTickets() {
+            return JSON.parse(localStorage.getItem('elite_tickets') || '[]');
+        }
+        function saveTickets(t) {
+            localStorage.setItem('elite_tickets', JSON.stringify(t));
+        }
+
+        function createTicket() {
+            var subject = document.getElementById('ticketSubject').value.trim();
+            var desc = document.getElementById('ticketDesc').value.trim();
+            if (!subject || !desc) { alert('يرجى ملء جميع الحقول'); return; }
+
+            var session = JSON.parse(localStorage.getItem('student_session') || '{}');
+            var tickets = getTickets();
+            var ticket = {
+                id: 'TK-' + Date.now(),
+                studentId: session.id || '---',
+                studentName: session.name || 'طالب',
+                dept: document.getElementById('ticketDept').value,
+                priority: document.getElementById('ticketPriority').value,
+                subject: subject,
+                desc: desc,
+                status: 'open',
+                date: new Date().toLocaleDateString('ar-EG'),
+                replies: []
+            };
+            tickets.unshift(ticket);
+            saveTickets(tickets);
+            renderTickets();
+            document.getElementById('ticketSubject').value = '';
+            document.getElementById('ticketDesc').value = '';
+            alert('تم إرسال التذكرة بنجاح! سيتم الرد خلال 24 ساعة.');
+        }
+
+        function renderTickets() {
+            var tickets = getTickets();
+            var container = document.getElementById('ticketsContainer');
+            document.getElementById('ticketCount').textContent = tickets.length + ' تذكرة';
+
+            if (!tickets.length) {
+                container.innerHTML = '<div style="text-align:center;padding:40px 20px;color:rgba(161,161,170,0.3);"><i class="fas fa-inbox" style="font-size:2.5rem;margin-bottom:12px;display:block;"></i><p style="font-size:0.9rem;">لا توجد تذاكر بعد</p></div>';
+                return;
+            }
+
+            var html = '';
+            tickets.forEach(function(t) {
+                var borderColor = STATUS_COLORS[t.status] || 'rgba(139,92,246,0.1)';
+                html += '<div style="padding:16px 20px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-right:3px solid ' + borderColor + ';border-radius:14px;margin-bottom:12px;">';
+                html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">';
+                html += '<span style="font-weight:700;color:#e2e8f0;font-size:0.95rem;">' + t.subject + '</span>';
+                html += '<span style="font-size:0.72rem;padding:4px 10px;border-radius:20px;background:rgba(139,92,246,0.08);color:' + STATUS_COLORS[t.status] + ';font-weight:700;">' + STATUS_LABELS[t.status] + '</span>';
+                html += '</div>';
+                html += '<p style="font-size:0.82rem;color:rgba(161,161,170,0.5);margin:0 0 8px;line-height:1.6;">' + t.desc + '</p>';
+                html += '<div style="display:flex;gap:12px;flex-wrap:wrap;">';
+                html += '<span style="font-size:0.72rem;color:rgba(161,161,170,0.35);"><i class="fas fa-folder" style="margin-left:4px;"></i>' + DEPT_LABELS[t.dept] + '</span>';
+                html += '<span style="font-size:0.72rem;color:rgba(161,161,170,0.35);"><i class="fas fa-flag" style="margin-left:4px;"></i>' + PRIORITY_LABELS[t.priority] + '</span>';
+                html += '<span style="font-size:0.72rem;color:rgba(161,161,170,0.35);"><i class="fas fa-calendar" style="margin-left:4px;"></i>' + t.date + '</span>';
+                html += '</div>';
+                html += '</div>';
+            });
+            container.innerHTML = html;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var session = localStorage.getItem('student_session');
+            if (session) {
+                var data = JSON.parse(session);
+                document.getElementById('sidebarName').innerText = data.name;
+                document.getElementById('sidebarId').innerText = data.id;
+            }
+            renderTickets();
+            document.querySelectorAll('.card-master').forEach(function(c) { c.classList.add('animate-fade-up'); });
+        });
+    </script>
+    <script src="bridge/overlay-engine.js"></script>
+</body>
+</html>
