@@ -125,10 +125,10 @@ html[data-theme="light"] .bottom-nav {
 /* 8. Theme Switcher Button */
 .theme-switcher {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
+    bottom: clamp(12px, 2vw, 20px);
+    right: clamp(12px, 2vw, 20px);
+    width: clamp(40px, 6vw, 50px);
+    height: clamp(40px, 6vw, 50px);
     border-radius: 50%;
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);

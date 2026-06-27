@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#a277ff">
     <title>ملفي الشخصي | بوابة النخبة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -260,16 +261,10 @@
                 document.getElementById('studentFullName').childNodes[0].textContent = data.name + ' ';
                 document.getElementById('studentIdBadge').innerText = data.id;
 
-                const PROFILE_IMAGES = { "24090111005": "assets/abdulrahman.jpg" };
-                const imgPath = PROFILE_IMAGES[data.id];
-                if (imgPath) {
-                    const img = document.getElementById('profileAvatarImg');
-                    const icon = document.getElementById('profileAvatarIcon');
-                    img.src = imgPath;
-                    img.alt = data.name;
-                    img.onload = function() { img.style.display = 'block'; icon.style.display = 'none'; };
-                    img.onerror = function() { img.style.display = 'none'; icon.style.display = ''; };
-                }
+                const img = document.getElementById('profileAvatarImg');
+                const icon = document.getElementById('profileAvatarIcon');
+                img.onerror = function() { img.style.display = 'none'; icon.style.display = ''; };
+                img.src = '';
 
                 var isVerified = VerificationSystem.isVerified(data.id);
                 var req = VerificationSystem.getStudentRequest(data.id);

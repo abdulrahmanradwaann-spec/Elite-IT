@@ -9,7 +9,9 @@ class OverlayEngine {
       'overlay/motion-ui/transitions.js',
       'overlay/widgets/widgets-core.js',
       'overlay/ui-v2/splash-enhancement.js',
-      'overlay/ui-v2/feature-announcement.js'
+      'overlay/ui-v2/feature-announcement.js',
+      'overlay/ui-v2/eid-greeting.js',
+      'overlay/ui-v2/account-enhancements.js'
     ];
     this._rippleAbortController = new AbortController();
     this._scrollAbortController = new AbortController();
@@ -25,6 +27,8 @@ class OverlayEngine {
     if (window.MotionUIEngine) new window.MotionUIEngine();
     if (window.OverlayWidgets) new window.OverlayWidgets();
     if (window.FeatureAnnouncement) new window.FeatureAnnouncement();
+    if (window.EidGreeting) new window.EidGreeting();
+    if (window.AccountEnhancements) new window.AccountEnhancements();
 
     this.setupNotificationBridge();
     this.setupBackToTop();

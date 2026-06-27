@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#a277ff">
     <title>التحقق من الهوية | نخبة تقنية المعلومات</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -721,13 +722,13 @@
         });
 
         function handleIdFile(file) {
-            if (!file.type.startsWith('image/')) { alert('يرجى اختيار صورة'); return; }
-            if (file.size > 5 * 1024 * 1024) { alert('حجم الصورة يتجاوز 5MB'); return; }
+            if (!file.type.startsWith('image/')) { showToast('يرجى اختيار صورة', 'error'); return; }
+            if (file.size > 5 * 1024 * 1024) { showToast('حجم الصورة يتجاوز 5MB', 'error'); return; }
             var reader = new FileReader();
             reader.onload = function(e) {
                 var quality = VerificationSystem.validateImageIntegrity(e.target.result);
                 if (!quality.valid) {
-                    alert('صورة غير صالحة: ' + quality.reason);
+                    showToast('صورة غير صالحة: ' + quality.reason, 'error');
                     return;
                 }
                 document.getElementById('idPreview').src = e.target.result;
@@ -822,7 +823,7 @@
             });
 
             if (!result.success) {
-                alert('خطأ: ' + result.error);
+                showToast('خطأ: ' + result.error, 'error');
                 goToScreen(3);
                 return;
             }
@@ -863,6 +864,16 @@
                 });
                 document.querySelector('#screen5 .v-title').textContent = 'تم إرسال طلبك';
             }, 5500);
+        }
+
+        function showToast(msg, type) {
+            var t = document.createElement('div');
+            t.className = 'toast show';
+            t.style.borderColor = type === 'error' ? 'var(--error)' : 'var(--success)';
+            t.style.color = type === 'error' ? 'var(--error)' : 'var(--text-main)';
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(function() { t.classList.remove('show'); setTimeout(function() { t.remove(); }, 400); }, 3000);
         }
 
         document.addEventListener('DOMContentLoaded', function() {

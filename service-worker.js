@@ -22,6 +22,8 @@ const ASSETS_TO_CACHE = [
   './notifications.js',
   './bridge/overlay-engine.js',
   './overlay/ui-v2/feature-announcement.js',
+  './overlay/ui-v2/eid-greeting.js',
+  './overlay/ui-v2/account-enhancements.js',
   './manifest.json',
   './logo.png',
   './icon.svg',
