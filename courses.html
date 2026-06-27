@@ -31,23 +31,8 @@
         .course-tag { font-size: 0.7rem; padding: 3px 10px; border-radius: 8px; background: rgba(255,255,255,0.04); color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.04); }
         .course-btn { width: 100%; padding: 10px; border-radius: 12px; border: none; background: var(--primary-glow); color: var(--primary); cursor: pointer; font-size: 0.85rem; font-family: var(--font-ar); font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; transition: all 0.2s; }
         .course-btn:hover { background: var(--primary); color: #fff; }
-        .roadmap { margin-top: 40px; padding: 32px; border-radius: 18px; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-border); }
-        .roadmap h2 { font-weight: 800; color: #fff; margin-bottom: 20px; text-align: center; font-size: 1.2rem; }
-        .roadmap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-        .roadmap-col { padding: 20px; border-radius: 14px; }
-        .roadmap-col h3 { font-weight: 800; margin-bottom: 12px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
-        .roadmap-col ul { list-style: none; padding: 0; margin: 0; }
-        .roadmap-col ul li { padding: 6px 0; font-size: 0.85rem; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
-        .roadmap-col ul li::before { content: '▸'; color: inherit; font-weight: 700; }
-        .roadmap-beginner { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.15); }
-        .roadmap-beginner h3 { color: #10b981; }
-        .roadmap-intermediate { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.15); }
-        .roadmap-intermediate h3 { color: #f59e0b; }
-        .roadmap-advanced { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.15); }
-        .roadmap-advanced h3 { color: #ef4444; }
         @media (max-width: 768px) {
             .courses-grid { grid-template-columns: 1fr; }
-            .roadmap-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -100,35 +85,6 @@
             <div class="courses-content">
                 <div class="level-filter" id="levelFilter"></div>
                 <div class="courses-grid" id="coursesGrid"></div>
-                <div class="roadmap">
-                    <h2>🧭 خارطة التعلم المقترحة</h2>
-                    <div class="roadmap-grid">
-                        <div class="roadmap-col roadmap-beginner">
-                            <h3>🟢 مبتدئ</h3>
-                            <ul>
-                                <li>The New Baghdad</li>
-                                <li>Free4Arab</li>
-                                <li>Elzero (HTML &amp; CSS)</li>
-                            </ul>
-                        </div>
-                        <div class="roadmap-col roadmap-intermediate">
-                            <h3>🟡 متوسط</h3>
-                            <ul>
-                                <li>JavaScript (Elzero)</li>
-                                <li>Python (Elzero)</li>
-                                <li>Flutter (أحمد حمدي)</li>
-                            </ul>
-                        </div>
-                        <div class="roadmap-col roadmap-advanced">
-                            <h3>🔴 متقدم</h3>
-                            <ul>
-                                <li>Backend (Hussein Nasser)</li>
-                                <li>Codezilla مشاريع</li>
-                                <li>Tech content &amp; AI</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <footer class="footer">
@@ -141,7 +97,7 @@
             <a href="exams.html" class="bottom-link"><i class="fas fa-calendar-alt"></i><span>الجدول</span></a>
             <a href="grades.html" class="bottom-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a>
             <a href="courses.html" class="bottom-link active"><i class="fas fa-book-open"></i><span>الدورات</span></a>
-            <a href="projects.html" class="bottom-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a>
+            <a href="support.html" class="bottom-link"><i class="fas fa-headset"></i><span>الدعم</span></a>
             <a href="student.html" class="bottom-link"><i class="fas fa-user-circle"></i><span>حسابي</span></a>
         </nav>
     </div>

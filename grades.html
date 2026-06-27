@@ -245,7 +245,7 @@
             <a href="exams.html" class="bottom-link"><i class="fas fa-calendar-alt"></i><span>الجدول</span></a>
             <a href="grades.html" class="bottom-link active"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a>
             <a href="courses.html" class="bottom-link"><i class="fas fa-book-open"></i><span>الدورات</span></a>
-            <a href="projects.html" class="bottom-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a>
+            <a href="support.html" class="bottom-link"><i class="fas fa-headset"></i><span>الدعم</span></a>
             <a href="student.html" class="bottom-link"><i class="fas fa-user-circle"></i><span>حسابي</span></a>
         </nav>
     </div>
@@ -434,6 +434,7 @@
         document.getElementById('gradesLoginForm').reset();
         currentStudent = null;
         currentStudentId = '';
+        localStorage.removeItem('grades_session');
     }
 
     function showResultsView(student) {
@@ -578,6 +579,7 @@
             currentStudentId = id;
             const data = buildGradesData(student);
             currentStudent = data;
+            localStorage.setItem('grades_session', JSON.stringify({ id: id, time: Date.now() }));
             showResultsView(data);
 
             submitBtn.classList.remove('loading');
@@ -623,6 +625,21 @@
         if (document.querySelector('.grades-login-wrapper')) {
             document.body.style.background = 'radial-gradient(ellipse at 50% 0%, rgba(139,92,246,0.03) 0%, transparent 50%)';
         }
+        try {
+            var saved = JSON.parse(localStorage.getItem('grades_session'));
+            if (saved && saved.id) {
+                var students = loadStudents();
+                var student = students.find(function(s) { return s.id === saved.id; });
+                if (student) {
+                    currentStudentId = saved.id;
+                    var data = buildGradesData(student);
+                    currentStudent = data;
+                    showResultsView(data);
+                } else {
+                    localStorage.removeItem('grades_session');
+                }
+            }
+        } catch (e) {}
     });
     </script>
     <script src="app.js"></script>
