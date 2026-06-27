@@ -146,4 +146,14 @@ body {
     .overlay-widgets-panel {
         display: none;
     }
+
+    .overlay-notification-container {
+        left: 12px;
+        right: 12px;
+        transform: none;
+    }
+
+    .overlay-notification {
+        max-width: 100%;
+    }
 }

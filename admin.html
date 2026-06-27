@@ -10,6 +10,20 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
     <link rel="stylesheet" href="polish-overlay.css">
+    <style>
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+            .stats-grid .stat-card { padding: 14px !important; }
+            .stats-grid .stat-icon { width: 36px !important; height: 36px !important; font-size: 1rem !important; margin-bottom: 10px !important; }
+            .stats-grid h3 { font-size: 1.3rem !important; }
+            .stats-grid p { font-size: 0.7rem !important; }
+            [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 380px) {
+            .stats-grid { grid-template-columns: 1fr !important; }
+            [style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
+        }
+    </style>
 </head>
 <body>
     <div class="bg-glow glow-1"></div>
