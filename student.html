@@ -2,8 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>ملفي الشخصي | بوابة النخبة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -15,7 +16,6 @@
     <div class="bg-glow glow-2"></div>
 
     <div class="app-container">
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
                 <img src="logo.png" alt="Logo" class="sidebar-logo">
@@ -27,12 +27,13 @@
                 <li class="nav-item"><a href="grades.html" class="nav-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a></li>
                 <li class="nav-item"><a href="projects.html" class="nav-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a></li>
                 <li class="nav-item"><a href="trips.html" class="nav-link"><i class="fas fa-bus"></i><span>الرحلات</span></a></li>
+                <li class="nav-item"><a href="courses.html" class="nav-link"><i class="fas fa-book-open"></i><span>الدورات</span></a></li>
                 <li class="nav-item"><a href="support.html" class="nav-link"><i class="fas fa-headset"></i><span>الدعم الفني</span></a></li>
             </ul>
             
             <div class="sidebar-bottom">
                 <a href="student.html" class="sidebar-user active" id="userSidebarLink">
-                    <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
+                    <div class="user-avatar" style="background: var(--primary-soft); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
                         <i class="fas fa-user-graduate"></i>
                     </div>
                     <div class="user-info">
@@ -49,7 +50,6 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
         <main class="main-content">
             <header class="dashboard-header">
                 <h1 class="welcome-msg">الملف <span style="color: var(--primary);">الأكاديمي</span></h1>
@@ -61,22 +61,22 @@
                     <div class="profile-avatar-wrapper">
                         <div class="profile-avatar" id="profileAvatarContainer">
                             <i class="fas fa-user-graduate" id="profileAvatarIcon"></i>
-                            <img src="" alt="" class="profile-avatar-img" id="profileAvatarImg">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="" class="profile-avatar-img" id="profileAvatarImg">
                         </div>
                         <div class="profile-avatar-ring"></div>
                     </div>
                     <div class="profile-info">
-                        <h2 id="studentFullName" style="font-size: clamp(1.3rem, 5vw, 2.2rem); font-weight: 800; margin-bottom: 10px;">طالب النخبة
+                        <h2 id="studentFullName" class="profile-name">طالب النخبة
                             <span class="verified-badge-icon" id="verifiedBadge" style="display:none;" data-tooltip="موثّق من الجامعة">
                                 <i class="fas fa-check-circle"></i>
                             </span>
                         </h2>
                         <div class="profile-badges">
-                            <span class="status-badge" style="background: rgba(99, 102, 241, 0.1); color: var(--primary); border-color: var(--primary);">
+                            <span class="status-badge primary-badge">
                                 <i class="fas fa-id-card"></i>
                                 <span id="studentIdBadge">---</span>
                             </span>
-                            <span class="status-badge" style="background: rgba(16, 185, 129, 0.08); color: #10b981; border-color: rgba(16, 185, 129, 0.25);">
+                            <span class="status-badge success-badge">
                                 <i class="fas fa-check-circle"></i>
                                 <span>حساب نشط</span>
                             </span>
@@ -105,31 +105,28 @@
                     </div>
                 </div>
 
-                <!-- GPA Ring -->
                 <div class="gpa-ring-section" id="gpaSection" style="display:none;">
-                    <div style="display:flex;align-items:center;gap:20px;padding:20px 24px;background:rgba(10,14,31,0.4);border:1px solid rgba(139,92,246,0.08);border-radius:18px;margin-bottom:20px;">
-                        <div style="position:relative;width:100px;height:100px;flex-shrink:0;">
-                            <svg viewBox="0 0 100 100" style="width:100%;height:100%;transform:rotate(-90deg);">
+                    <div class="gpa-container">
+                        <div class="gpa-ring-wrapper">
+                            <svg viewBox="0 0 100 100" class="gpa-svg">
                                 <circle cx="50" cy="50" r="44" stroke="rgba(139,92,246,0.08)" stroke-width="6" fill="none"/>
-                                <circle cx="50" cy="50" r="44" stroke="url(#gpaGrad)" stroke-width="6" fill="none" stroke-linecap="round"
-                                    stroke-dasharray="276.46" id="gpaCircle"/>
+                                <circle cx="50" cy="50" r="44" stroke="url(#gpaGrad)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="276.46" id="gpaCircle"/>
                                 <defs><linearGradient id="gpaGrad"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
                             </svg>
-                            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-                                <span id="gpaValue" style="font-size:1.4rem;font-weight:900;color:#fff;">--</span>
-                                <span style="font-size:0.65rem;color:rgba(161,161,170,0.4);">المعدل</span>
+                            <div class="gpa-text">
+                                <span id="gpaValue" class="gpa-value">--</span>
+                                <span class="gpa-label">المعدل</span>
                             </div>
                         </div>
-                        <div>
-                            <h4 style="font-weight:800;color:#fff;margin:0 0 6px;">المعدل التراكمي</h4>
-                            <p id="gpaLabel" style="font-size:0.82rem;color:rgba(161,161,170,0.5);margin:0;">--- </p>
+                        <div class="gpa-info">
+                            <h4 class="gpa-title">المعدل التراكمي</h4>
+                            <p id="gpaLabel" class="gpa-desc">---</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Verification Button -->
                 <div class="verify-action-row" id="verifyActionRow">
-                    <a href="security-verification.html" class="btn btn-primary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;margin-bottom:20px;" id="verifyBtn">
+                    <a href="security-verification.html" class="btn btn-primary verify-btn" id="verifyBtn">
                         <i class="fas fa-shield-halved"></i>
                         <span>طلب التحقق من الهوية</span>
                     </a>
@@ -154,7 +151,6 @@
                     </div>
                 </div>
 
-                <!-- نسيـت رمز الدخول -->
                 <div class="forgot-row">
                     <label for="fingerprintToggle" class="forgot-link">
                         <i class="fas fa-fingerprint"></i>
@@ -178,14 +174,6 @@
         </nav>
     </div>
 
-    <div class="lang-switcher">
-        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
-            <i class="fas fa-globe"></i>
-            <span id="lang-text">English</span>
-        </button>
-    </div>
-
-    <!-- ===== Fingerprint Modal ===== -->
     <input type="checkbox" id="fingerprintToggle" hidden>
     <div class="fp-overlay">
         <div class="fp-modal">
@@ -250,7 +238,6 @@
         <label for="fingerprintToggle" class="fp-overlay-bg"></label>
     </div>
 
-    <!-- ===== Success Check Script (auto‑advance) ===== -->
     <script>
     document.addEventListener('change', function(e) {
         if (e.target.id === 'fpSuccessTrigger' && e.target.checked) {
@@ -262,7 +249,7 @@
     </script>
 
     <script src="app.js"></script>
-    <script src="i18n.js"></script>
+    <script src="verification.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const session = localStorage.getItem('student_session');
@@ -273,7 +260,6 @@
                 document.getElementById('studentFullName').childNodes[0].textContent = data.name + ' ';
                 document.getElementById('studentIdBadge').innerText = data.id;
 
-                // Profile Image
                 const PROFILE_IMAGES = { "24090111005": "assets/abdulrahman.jpg" };
                 const imgPath = PROFILE_IMAGES[data.id];
                 if (imgPath) {
@@ -285,18 +271,25 @@
                     img.onerror = function() { img.style.display = 'none'; icon.style.display = ''; };
                 }
 
-                // Verified Badge
-                var verified = JSON.parse(localStorage.getItem('elite_verified') || '[]');
-                var isVerified = verified.indexOf(data.id) !== -1;
+                var isVerified = VerificationSystem.isVerified(data.id);
+                var req = VerificationSystem.getStudentRequest(data.id);
+
                 if (isVerified) {
                     document.getElementById('verifiedBadge').style.display = 'inline-flex';
                     document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-check-circle"></i><span>تم التحقق بنجاح</span>';
-                    document.getElementById('verifyBtn').style.background = 'linear-gradient(135deg, #10b981, #34d399)';
+                    document.getElementById('verifyBtn').className = 'btn verify-btn btn-success';
                     document.getElementById('verifyBtn').href = '#';
                     document.getElementById('verifyBtn').onclick = function(e) { e.preventDefault(); };
+                } else if (req && req.status === 'pending') {
+                    document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-clock"></i><span>طلبك قيد المراجعة</span>';
+                    document.getElementById('verifyBtn').style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+                    document.getElementById('verifyBtn').href = 'security-verification.html';
+                } else if (req && req.status === 'rejected') {
+                    document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-redo"></i><span>تم رفض الطلب - أعد المحاولة</span>';
+                    document.getElementById('verifyBtn').style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+                    document.getElementById('verifyBtn').href = 'security-verification.html';
                 }
 
-                // GPA from grades
                 var GRADES_DATA = { "24090111005": { gpa: 2.68, label: 'تصنيف مقبول' }, "24090111002": { gpa: 1.61, label: 'تصنيف ضعيف' } };
                 var gradesInfo = GRADES_DATA[data.id];
                 if (gradesInfo) {

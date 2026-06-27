@@ -2,8 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>لوحة التحكم | نخبة تقنية المعلومات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -26,6 +27,7 @@
                 <li class="nav-item"><a href="grades.html" class="nav-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a></li>
                 <li class="nav-item"><a href="projects.html" class="nav-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a></li>
                 <li class="nav-item"><a href="trips.html" class="nav-link"><i class="fas fa-bus"></i><span>الرحلات</span></a></li>
+                <li class="nav-item"><a href="courses.html" class="nav-link"><i class="fas fa-book-open"></i><span>الدورات</span></a></li>
                 <li class="nav-item"><a href="support.html" class="nav-link"><i class="fas fa-headset"></i><span>الدعم الفني</span></a></li>
             </ul>
             <div class="sidebar-bottom">
@@ -54,6 +56,19 @@
             </header>
 
             <div style="max-width: 1200px;">
+                <!-- Tabs -->
+                <div class="tab-nav-wrapper">
+                    <button class="admin-tab active" data-tab="students">
+                        <i class="fas fa-users"></i>الطلاب
+                    </button>
+                    <button class="admin-tab" data-tab="requests">
+                        <i class="fas fa-clipboard-check"></i>طلبات التحقق
+                    </button>
+                    <button class="admin-tab" data-tab="logs">
+                        <i class="fas fa-scroll"></i>السجلات
+                    </button>
+                </div>
+
                 <!-- Stats Grid -->
                 <div class="stats-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;">
                     <div class="stat-card" style="padding:20px;background:rgba(10,14,31,0.5);border:1px solid rgba(139,92,246,0.08);border-radius:18px;">
@@ -82,10 +97,12 @@
                             <i class="fas fa-ticket"></i>
                         </div>
                         <h3 style="font-size:1.8rem;font-weight:900;color:#fff;margin:0;" id="statTickets">0</h3>
-                        <p style="font-size:0.78rem;color:rgba(161,161,170,0.4);margin:4px 0 0;">تذاكر مفتوحة</p>
+                        <p style="font-size:0.78rem;color:rgba(161,161,170,0.4);margin:4px 0 0;">بلاغات دعم</p>
                     </div>
                 </div>
 
+                <!-- Tab: Students -->
+                <div id="tabStudents">
                 <!-- Students Table -->
                 <div class="card-master" style="margin-bottom:20px;">
                     <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
@@ -112,8 +129,10 @@
                         </table>
                     </div>
                 </div>
+                </div>
 
-                <!-- Verification Requests -->
+                <!-- Tab: Verification Requests -->
+                <div id="tabRequests" style="display:none;">
                 <div class="card-master">
                     <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
                         <div style="width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(239,68,68,0.08));display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#f59e0b;">
@@ -121,15 +140,27 @@
                         </div>
                         <div>
                             <h3 style="font-weight:800;font-size:1.1rem;color:#fff;margin:0;">طلبات التحقق</h3>
-                            <p style="font-size:0.82rem;color:rgba(161,161,170,0.5);margin:0;">مراجعة طلبات التحقق المقدمة</p>
+                            <p style="font-size:0.82rem;color:rgba(161,161,170,0.5);margin:0;">مراجعة و قبول أو رفض طلبات التوثيق</p>
                         </div>
                     </div>
-                    <div id="verRequestsContainer">
-                        <div style="text-align:center;padding:40px 20px;color:rgba(161,161,170,0.3);">
-                            <i class="fas fa-clipboard" style="font-size:2.5rem;margin-bottom:12px;display:block;"></i>
-                            <p style="font-size:0.9rem;">لا توجد طلبات تحقق حالياً</p>
+                    <div id="verRequestsContainer"></div>
+                </div>
+                </div>
+
+                <!-- Tab: Logs -->
+                <div id="tabLogs" style="display:none;">
+                <div class="card-master">
+                    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+                        <div style="width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,rgba(6,182,212,0.15),rgba(139,92,246,0.08));display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#06b6d4;">
+                            <i class="fas fa-scroll"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-weight:800;font-size:1.1rem;color:#fff;margin:0;">سجل العمليات</h3>
+                            <p style="font-size:0.82rem;color:rgba(161,161,170,0.5);margin:0;">جميع عمليات التوثيق والتحقق</p>
                         </div>
                     </div>
+                    <div id="logsContainer"></div>
+                </div>
                 </div>
             </div>
 
@@ -146,86 +177,311 @@
         </nav>
     </div>
 
-    <div class="lang-switcher">
-        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
-            <i class="fas fa-globe"></i>
-            <span id="lang-text">English</span>
-        </button>
-    </div>
-
     <script src="app.js"></script>
-    <script src="i18n.js"></script>
+    <script src="verification.js"></script>
     <script>
-        function renderAdmin() {
-            var students = JSON.parse(localStorage.getItem('elite_students') || '[]');
-            var verified = JSON.parse(localStorage.getItem('elite_verified') || '[]');
-            var tickets = JSON.parse(localStorage.getItem('elite_tickets') || '[]');
-            var openTickets = tickets.filter(function(t) { return t.status === 'open'; });
+        var currentTab = 'students';
 
-            document.getElementById('statTotal').textContent = students.length;
-            document.getElementById('statVerified').textContent = verified.length;
-            document.getElementById('statPending').textContent = 0;
-            document.getElementById('statTickets').textContent = openTickets.length;
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.admin-tab').forEach(function(t) { t.classList.remove('active'); });
+            document.querySelector('[data-tab="' + tab + '"]').classList.add('active');
+            document.getElementById('tabStudents').style.display = tab === 'students' ? 'block' : 'none';
+            document.getElementById('tabRequests').style.display = tab === 'requests' ? 'block' : 'none';
+            document.getElementById('tabLogs').style.display = tab === 'logs' ? 'block' : 'none';
+            if (tab === 'requests') renderVerificationRequests();
+            if (tab === 'logs') renderLogs();
+        }
+
+        function renderAdmin() {
+            var stats = VerificationSystem.getStats();
+            var students = JSON.parse(localStorage.getItem('elite_students') || '[]');
+            var tickets = JSON.parse(localStorage.getItem('elite_tickets') || '[]');
+
+            document.getElementById('statTotal').textContent = students.length || 0;
+            document.getElementById('statVerified').textContent = stats.verifiedCount;
+            document.getElementById('statPending').textContent = stats.pending;
+            document.getElementById('statTickets').textContent = tickets.length;
 
             var tbody = document.getElementById('studentsTableBody');
-            var html = '';
+            tbody.innerHTML = '';
             students.forEach(function(s) {
-                var isVerified = verified.indexOf(s.id) !== -1;
-                html += '<tr style="border-bottom:1px solid rgba(139,92,246,0.03);">';
-                html += '<td style="padding:12px 16px;font-size:0.88rem;color:rgba(255,255,255,0.75);">' + s.name + '</td>';
-                html += '<td style="padding:12px 16px;font-size:0.85rem;color:rgba(161,161,170,0.5);font-family:monospace;">' + s.id + '</td>';
-                html += '<td style="padding:12px 16px;">';
-                if (isVerified) {
-                    html += '<span style="font-size:0.78rem;padding:4px 12px;border-radius:20px;background:rgba(16,185,129,0.1);color:#10b981;font-weight:700;"><i class="fas fa-check-circle" style="margin-left:4px;"></i>موثّق</span>';
+                var sv = VerificationSystem.isVerified(s.id);
+                var req = VerificationSystem.getStudentRequest(s.id);
+                var row = document.createElement('tr');
+                row.style.cssText = 'border-bottom:1px solid rgba(139,92,246,0.03);';
+
+                var nameTd = document.createElement('td');
+                nameTd.style.cssText = 'padding:12px 16px;font-size:0.88rem;color:rgba(255,255,255,0.75);';
+                nameTd.textContent = s.name;
+                row.appendChild(nameTd);
+
+                var idTd = document.createElement('td');
+                idTd.style.cssText = 'padding:12px 16px;font-size:0.85rem;color:rgba(161,161,170,0.5);font-family:monospace;';
+                idTd.textContent = s.id;
+                row.appendChild(idTd);
+
+                var statusTd = document.createElement('td');
+                statusTd.style.cssText = 'padding:12px 16px;';
+                var badge = document.createElement('span');
+                badge.style.cssText = 'font-size:0.78rem;padding:4px 12px;border-radius:20px;font-weight:700;';
+                if (sv) {
+                    badge.style.background = 'rgba(16,185,129,0.1)';
+                    badge.style.color = '#10b981';
+                    badge.innerHTML = '<i class="fas fa-check-circle" style="margin-left:4px;"></i>موثّق';
+                } else if (req && req.status === 'pending') {
+                    badge.style.background = 'rgba(245,158,11,0.1)';
+                    badge.style.color = '#f59e0b';
+                    badge.innerHTML = '<i class="fas fa-clock" style="margin-left:4px;"></i>قيد المراجعة';
                 } else {
-                    html += '<span style="font-size:0.78rem;padding:4px 12px;border-radius:20px;background:rgba(161,161,170,0.06);color:rgba(161,161,170,0.4);font-weight:700;">غير موثّق</span>';
+                    badge.style.background = 'rgba(161,161,170,0.06)';
+                    badge.style.color = 'rgba(161,161,170,0.4)';
+                    badge.textContent = 'غير موثّق';
                 }
-                html += '</td>';
-                html += '<td style="padding:12px 16px;">';
-                if (!isVerified) {
-                    html += '<button onclick="verifyStudent(\'' + s.id + '\')" style="padding:6px 14px;border-radius:10px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.15);color:#10b981;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit;">توثيق</button>';
-                } else {
-                    html += '<button onclick="unverifyStudent(\'' + s.id + '\')" style="padding:6px 14px;border-radius:10px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.1);color:rgba(239,68,68,0.6);font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit;">إلغاء التوثيق</button>';
+                statusTd.appendChild(badge);
+                row.appendChild(statusTd);
+
+                var actionTd = document.createElement('td');
+                actionTd.style.cssText = 'padding:12px 16px;';
+                if (sv) {
+                    var revokeBtn = document.createElement('button');
+                    revokeBtn.textContent = 'إلغاء التوثيق';
+                    revokeBtn.style.cssText = 'padding:6px 14px;border-radius:10px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.1);color:rgba(239,68,68,0.6);font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit;';
+                    revokeBtn.addEventListener('click', function() { revokeStudent(s.id); });
+                    actionTd.appendChild(revokeBtn);
                 }
-                html += '</td></tr>';
+                row.appendChild(actionTd);
+
+                tbody.appendChild(row);
             });
-            tbody.innerHTML = html;
 
-            var ticketsContainer = document.getElementById('verRequestsContainer');
-            if (openTickets.length) {
-                var thtml = '';
-                openTickets.forEach(function(t) {
-                    thtml += '<div style="padding:14px 18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:12px;margin-bottom:10px;">';
-                    thtml += '<div style="display:flex;align-items:center;justify-content:space-between;">';
-                    thtml += '<span style="font-weight:700;color:#e2e8f0;font-size:0.9rem;">' + t.subject + '</span>';
-                    thtml += '<span style="font-size:0.72rem;color:rgba(161,161,170,0.35);">' + t.date + '</span>';
-                    thtml += '</div>';
-                    thtml += '<p style="font-size:0.82rem;color:rgba(161,161,170,0.45);margin:6px 0 0;">' + t.desc + '</p>';
-                    thtml += '</div>';
+            renderVerificationRequests();
+        }
+
+        function renderVerificationRequests() {
+            var requests = VerificationSystem.getAllRequests();
+            var container = document.getElementById('verRequestsContainer');
+            container.innerHTML = '';
+
+            var pending = requests.filter(function(r) { return r.status === 'pending'; });
+            var reviewed = requests.filter(function(r) { return r.status !== 'pending'; });
+
+            if (!requests.length) {
+                container.innerHTML = '<div style="text-align:center;padding:40px 20px;color:rgba(161,161,170,0.3);"><i class="fas fa-clipboard" style="font-size:2.5rem;margin-bottom:12px;display:block;"></i><p style="font-size:0.9rem;">لا توجد طلبات تحقق حالياً</p></div>';
+                return;
+            }
+
+            if (pending.length) {
+                var pendingHeader = document.createElement('div');
+                pendingHeader.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:14px;';
+                pendingHeader.innerHTML = '<i class="fas fa-clock" style="color:#f59e0b;"></i><span style="font-weight:700;color:#f59e0b;font-size:0.95rem;">قيد المراجعة (' + pending.length + ')</span>';
+                container.appendChild(pendingHeader);
+
+                pending.forEach(function(req) {
+                    container.appendChild(createRequestCard(req, true));
                 });
-                ticketsContainer.innerHTML = thtml;
+            }
+
+            if (reviewed.length) {
+                var reviewedHeader = document.createElement('div');
+                reviewedHeader.style.cssText = 'display:flex;align-items:center;gap:8px;margin:20px 0 14px;';
+                reviewedHeader.innerHTML = '<i class="fas fa-history" style="color:rgba(161,161,170,0.4);"></i><span style="font-weight:700;color:rgba(161,161,170,0.4);font-size:0.95rem;">تمت المراجعة (' + reviewed.length + ')</span>';
+                container.appendChild(reviewedHeader);
+
+                reviewed.forEach(function(req) {
+                    container.appendChild(createRequestCard(req, false));
+                });
             }
         }
 
-        function verifyStudent(id) {
-            var verified = JSON.parse(localStorage.getItem('elite_verified') || '[]');
-            if (verified.indexOf(id) === -1) {
-                verified.push(id);
-                localStorage.setItem('elite_verified', JSON.stringify(verified));
-                renderAdmin();
+        function createRequestCard(req, isPending) {
+            var card = document.createElement('div');
+            card.style.cssText = 'padding:18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:14px;margin-bottom:12px;';
+
+            var header = document.createElement('div');
+            header.style.cssText = 'display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;';
+
+            var left = document.createElement('div');
+            left.style.cssText = 'display:flex;align-items:center;gap:10px;';
+            var avatar = document.createElement('div');
+            avatar.style.cssText = 'width:40px;height:40px;border-radius:12px;background:rgba(139,92,246,0.1);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--primary);flex-shrink:0;';
+            avatar.innerHTML = '<i class="fas fa-user"></i>';
+            left.appendChild(avatar);
+
+            var info = document.createElement('div');
+            var nameEl = document.createElement('div');
+            nameEl.style.cssText = 'font-weight:700;color:#e2e8f0;font-size:0.9rem;';
+            nameEl.textContent = req.studentName;
+            info.appendChild(nameEl);
+            var metaEl = document.createElement('div');
+            metaEl.style.cssText = 'font-size:0.75rem;color:rgba(161,161,170,0.4);';
+            metaEl.textContent = req.studentId + ' \u2022 ' + req.id;
+            info.appendChild(metaEl);
+            left.appendChild(info);
+            header.appendChild(left);
+
+            var right = document.createElement('div');
+            right.style.cssText = 'display:flex;align-items:center;gap:8px;';
+            var statusBadge = document.createElement('span');
+            var statusColor = VerificationSystem.STATUS_COLORS[req.status] || 'var(--primary)';
+            statusBadge.style.cssText = 'font-size:0.72rem;padding:4px 10px;border-radius:20px;background:' + statusColor + '15;color:' + statusColor + ';font-weight:700;';
+            statusBadge.textContent = VerificationSystem.STATUS_LABELS[req.status] || req.status;
+            right.appendChild(statusBadge);
+            var dateEl = document.createElement('span');
+            dateEl.style.cssText = 'font-size:0.72rem;color:rgba(161,161,170,0.3);';
+            dateEl.textContent = req.submittedDate;
+            right.appendChild(dateEl);
+            header.appendChild(right);
+            card.appendChild(header);
+
+            var imagesRow = document.createElement('div');
+            imagesRow.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;';
+
+            var selfieWrap = document.createElement('div');
+            selfieWrap.style.cssText = 'text-align:center;';
+            var selfieLabel = document.createElement('div');
+            selfieLabel.style.cssText = 'font-size:0.72rem;color:rgba(161,161,170,0.4);margin-bottom:6px;';
+            selfieLabel.textContent = 'السيلفي';
+            selfieWrap.appendChild(selfieLabel);
+            var selfieImg = document.createElement('img');
+            selfieImg.src = req.selfieDataUrl || '';
+            selfieImg.style.cssText = 'width:100%;height:120px;object-fit:cover;border-radius:10px;border:1px solid rgba(139,92,246,0.08);';
+            selfieImg.alt = 'سيلفي';
+            selfieWrap.appendChild(selfieImg);
+            imagesRow.appendChild(selfieWrap);
+
+            var idWrap = document.createElement('div');
+            idWrap.style.cssText = 'text-align:center;';
+            var idLabel = document.createElement('div');
+            idLabel.style.cssText = 'font-size:0.72rem;color:rgba(161,161,170,0.4);margin-bottom:6px;';
+            idLabel.textContent = 'بطاقة الهوية';
+            idWrap.appendChild(idLabel);
+            var idImg = document.createElement('img');
+            idImg.src = req.idDataUrl || '';
+            idImg.style.cssText = 'width:100%;height:120px;object-fit:cover;border-radius:10px;border:1px solid rgba(139,92,246,0.08);';
+            idImg.alt = 'بطاقة هوية';
+            idWrap.appendChild(idImg);
+            imagesRow.appendChild(idWrap);
+            card.appendChild(imagesRow);
+
+            var scoresRow = document.createElement('div');
+            scoresRow.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;';
+            [{ label: 'تطابق الوجه', val: req.faceMatch, color: '#10b981' },
+             { label: 'أصالة المستند', val: req.docAuth, color: '#06b6d4' },
+             { label: 'مؤشر الثقة', val: req.trustScore, color: '#8b5cf6' }].forEach(function(item) {
+                var s = document.createElement('div');
+                s.style.cssText = 'text-align:center;padding:8px;background:rgba(255,255,255,0.02);border-radius:10px;';
+                s.innerHTML = '<div style="font-size:0.7rem;color:rgba(161,161,170,0.4);margin-bottom:4px;">' + item.label + '</div><div style="font-size:1.1rem;font-weight:800;color:' + item.color + ';">' + item.val + '%</div>';
+                scoresRow.appendChild(s);
+            });
+            card.appendChild(scoresRow);
+
+            if (isPending) {
+                var actions = document.createElement('div');
+                actions.style.cssText = 'display:flex;gap:10px;';
+
+                var approveBtn = document.createElement('button');
+                approveBtn.style.cssText = 'flex:1;padding:10px;border-radius:12px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);color:#10b981;font-weight:700;font-size:0.85rem;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;';
+                approveBtn.innerHTML = '<i class="fas fa-check"></i><span>قبول</span>';
+                approveBtn.addEventListener('click', function() { approveReq(req.id); });
+                actions.appendChild(approveBtn);
+
+                var rejectBtn = document.createElement('button');
+                rejectBtn.style.cssText = 'flex:1;padding:10px;border-radius:12px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15);color:#ef4444;font-weight:700;font-size:0.85rem;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;';
+                rejectBtn.innerHTML = '<i class="fas fa-times"></i><span>رفض</span>';
+                rejectBtn.addEventListener('click', function() { rejectReq(req.id); });
+                actions.appendChild(rejectBtn);
+
+                card.appendChild(actions);
+            } else {
+                var reviewInfo = document.createElement('div');
+                reviewInfo.style.cssText = 'display:flex;align-items:center;gap:8px;padding:10px;background:rgba(255,255,255,0.02);border-radius:10px;';
+                var reviewIcon = req.status === 'approved' ? 'fa-check-circle' : 'fa-times-circle';
+                var reviewColor = req.status === 'approved' ? '#10b981' : '#ef4444';
+                reviewInfo.innerHTML = '<i class="fas ' + reviewIcon + '" style="color:' + reviewColor + ';"></i><span style="font-size:0.82rem;color:rgba(161,161,170,0.5);">تمت المراجعة بواسطة ' + (req.reviewedBy || 'المشرف') + ' \u2022 ' + (req.submittedDate || '') + '</span>';
+                if (req.rejectionReasons && req.rejectionReasons.length) {
+                    var reasonsEl = document.createElement('div');
+                    reasonsEl.style.cssText = 'width:100%;margin-top:6px;font-size:0.78rem;color:#ef4444;';
+                    reasonsEl.textContent = 'أسباب الرفض: ' + req.rejectionReasons.join(', ');
+                    reviewInfo.appendChild(reasonsEl);
+                }
+                card.appendChild(reviewInfo);
             }
+
+            return card;
         }
 
-        function unverifyStudent(id) {
-            var verified = JSON.parse(localStorage.getItem('elite_verified') || '[]');
-            verified = verified.filter(function(v) { return v !== id; });
-            localStorage.setItem('elite_verified', JSON.stringify(verified));
+        function approveReq(requestId) {
+            if (!confirm('هل تريد قبول هذا الطلب وتوثيق الحساب؟')) return;
+            VerificationSystem.approveRequest(requestId, 'المشرف');
             renderAdmin();
+        }
+
+        function rejectReq(requestId) {
+            var reason = prompt('سبب الرفض:');
+            if (reason === null) return;
+            if (!reason.trim()) reason = 'لم يتم تحديد السبب';
+            VerificationSystem.rejectRequest(requestId, [reason.trim()], 'المشرف');
+            renderAdmin();
+        }
+
+        function revokeStudent(studentId) {
+            if (!confirm('هل تريد سحب التوثيق من هذا الطالب؟')) return;
+            VerificationSystem.revokeVerification(studentId, 'المشرف');
+            renderAdmin();
+        }
+
+        function renderLogs() {
+            var logs = VerificationSystem.getLogs();
+            var container = document.getElementById('logsContainer');
+            container.innerHTML = '';
+
+            if (!logs.length) {
+                container.innerHTML = '<div style="text-align:center;padding:40px 20px;color:rgba(161,161,170,0.3);"><i class="fas fa-scroll" style="font-size:2.5rem;margin-bottom:12px;display:block;"></i><p style="font-size:0.9rem;">لا توجد سجلات بعد</p></div>';
+                return;
+            }
+
+            logs.forEach(function(log) {
+                var item = document.createElement('div');
+                item.style.cssText = 'display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,255,255,0.02);border-radius:10px;margin-bottom:8px;';
+
+                var iconWrap = document.createElement('div');
+                iconWrap.style.cssText = 'width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;';
+                var iconClass = 'fa-info-circle';
+                var iconColor = 'var(--primary)';
+                var iconBg = 'rgba(139,92,246,0.1)';
+                if (log.action === 'APPROVE') { iconClass = 'fa-check-circle'; iconColor = '#10b981'; iconBg = 'rgba(16,185,129,0.1)'; }
+                else if (log.action === 'REJECT') { iconClass = 'fa-times-circle'; iconColor = '#ef4444'; iconBg = 'rgba(239,68,68,0.1)'; }
+                else if (log.action === 'SUBMIT') { iconClass = 'fa-paper-plane'; iconColor = '#f59e0b'; iconBg = 'rgba(245,158,11,0.1)'; }
+                else if (log.action === 'REVOKE') { iconClass = 'fa-ban'; iconColor = '#ef4444'; iconBg = 'rgba(239,68,68,0.1)'; }
+                iconWrap.style.background = iconBg;
+                iconWrap.style.color = iconColor;
+                iconWrap.innerHTML = '<i class="fas ' + iconClass + '"></i>';
+                item.appendChild(iconWrap);
+
+                var textWrap = document.createElement('div');
+                textWrap.style.cssText = 'flex:1;min-width:0;';
+                var actionText = document.createElement('div');
+                actionText.style.cssText = 'font-size:0.85rem;color:rgba(255,255,255,0.7);font-weight:600;';
+                actionText.textContent = log.details;
+                textWrap.appendChild(actionText);
+                var timeText = document.createElement('div');
+                timeText.style.cssText = 'font-size:0.72rem;color:rgba(161,161,170,0.3);margin-top:2px;';
+                timeText.textContent = log.date + ' ' + log.time;
+                textWrap.appendChild(timeText);
+                item.appendChild(textWrap);
+
+                container.appendChild(item);
+            });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
             renderAdmin();
             document.querySelectorAll('.card-master, .stat-card').forEach(function(c) { c.classList.add('animate-fade-up'); });
+
+            document.querySelectorAll('.admin-tab').forEach(function(tab) {
+                tab.addEventListener('click', function() { switchTab(this.getAttribute('data-tab')); });
+            });
         });
     </script>
     <script src="bridge/overlay-engine.js"></script>

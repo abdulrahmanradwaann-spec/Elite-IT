@@ -1,5 +1,5 @@
 /**
- * نخبة تقنية المعلومات - Master Logic 2026
+ * نخبة تقنية المعلومات - Master Logic 2026 v2.1
  */
 
 const STUDENT_DB = [
@@ -17,43 +17,28 @@ const STUDENT_DB = [
   { "id": "24090111018", "name": "يونس أحمد عبد الملك محمود", "password": "auto123" }
 ];
 
-// Initialize Local Database if not exists
 if (!localStorage.getItem('elite_students')) {
-    localStorage.setItem('elite_students', JSON.stringify(STUDENT_DB));
+    try { localStorage.setItem('elite_students', JSON.stringify(STUDENT_DB)); } catch (e) {}
 }
 
-// 1. Advanced Service Worker Registration with Update Detection
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./service-worker.js').then(reg => {
-            console.log('[PWA] Service Worker Registered');
-
-            // Detect updates to the service worker
             reg.onupdatefound = () => {
                 const installingWorker = reg.installing;
-                installingWorker.onstatechange = () => {
-                    if (installingWorker.state === 'installed') {
-                        if (navigator.serviceWorker.controller) {
-                            // New version found! Automatic update logic
-                            console.log('[PWA] New version available, updating...');
+                if (installingWorker) {
+                    installingWorker.onstatechange = () => {
+                        if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
                             showToast('تم تحديث النظام تلقائياً للنسخة الأحدث', 'success');
                             setTimeout(() => window.location.reload(), 2000);
                         }
-                    }
-                };
+                    };
+                }
             };
-        }).catch(err => console.log('[PWA] Registration Failed:', err));
-    });
-
-    // Handle service worker updates across tabs
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-        // This fires when the service worker controlling this page changes
-        // (e.g. a new version has skipped waiting and become active)
-        console.log('[PWA] Controller changed, reloading...');
+        }).catch(() => {});
     });
 }
 
-// 2. Online/Offline Status Monitoring
 window.addEventListener('online', () => {
     showToast('تم استعادة الاتصال بالإنترنت', 'success');
     document.body.classList.remove('offline-mode');
@@ -64,24 +49,17 @@ window.addEventListener('offline', () => {
     document.body.classList.add('offline-mode');
 });
 
-// 3. PWA Installation Logic
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent the mini-infobar from appearing on mobile
     e.preventDefault();
-    // Stash the event so it can be triggered later.
     deferredPrompt = e;
-    // Optionally, send analytics event that PWA install promo was shown.
-    console.log('[PWA] Installation prompt stashed');
-    
-    // Create an installation button in the sidebar if it doesn't exist
     const navLinks = document.querySelector('.nav-links');
     if (navLinks && !document.getElementById('install-pwa-btn')) {
         const installLi = document.createElement('li');
         installLi.className = 'nav-item';
         installLi.id = 'install-pwa-btn';
         installLi.innerHTML = `
-            <a href="#" class="nav-link" style="color: var(--success); background: rgba(0, 255, 136, 0.05); border: 1px dashed var(--success);">
+            <a href="javascript:void(0)" class="nav-link" style="color: var(--success); background: rgba(0, 255, 136, 0.05); border: 1px dashed var(--success);">
                 <i class="fas fa-download"></i>
                 <span>تثبيت التطبيق</span>
             </a>
@@ -92,7 +70,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        console.log('[PWA] User accepted the install prompt');
                         installLi.remove();
                     }
                     deferredPrompt = null;
@@ -103,13 +80,11 @@ window.addEventListener('beforeinstallprompt', (e) => {
     }
 });
 
-window.addEventListener('appinstalled', (evt) => {
-    console.log('[PWA] App installed successfully');
+window.addEventListener('appinstalled', () => {
     showToast('تم تثبيت التطبيق بنجاح على جهازك', 'success');
 });
 
-// 2. Global State
-const PROTECTED_PAGES = ['student.html']; // Only student.html is protected now
+const PROTECTED_PAGES = ['student.html', 'dashboard.html', 'admin.html', 'admin-notifications.html'];
 
 document.addEventListener('DOMContentLoaded', () => {
     checkSession();
@@ -117,26 +92,21 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function checkSession() {
+    var session = null;
+    try { session = localStorage.getItem('student_session'); } catch (e) {}
     const path = window.location.pathname.split('/').pop() || 'index.html';
-    const session = localStorage.getItem('student_session');
-    
-    // Redirect if accessing protected page without session
     if (PROTECTED_PAGES.includes(path) && !session) {
         window.location.href = 'login.html';
         return;
     }
-
-    // Auto-login logic
     if (path === 'login.html' && session) {
         window.location.href = 'student.html';
     }
 }
 
 function initGlobalUI() {
-    // Fade-in removed for Static UI
     document.body.style.opacity = '1';
 
-    // Active Link Highlighting
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.nav-link, .bottom-link').forEach(link => {
         if (link.getAttribute('href') === currentPath) {
@@ -146,14 +116,17 @@ function initGlobalUI() {
         }
     });
 
-    // Update Sidebar User if logged in
-    const session = localStorage.getItem('student_session');
+    var session = null;
+    try { session = localStorage.getItem('student_session'); } catch (e) {}
     const userContainer = document.querySelector('.sidebar-user');
     if (session && userContainer) {
-        const data = JSON.parse(session);
-        document.getElementById('sidebarName').innerText = data.name;
-        document.getElementById('sidebarId').innerText = data.id;
-        // Student images removed as requested
+        try {
+            const data = JSON.parse(session);
+            const nameEl = document.getElementById('sidebarName');
+            const idEl = document.getElementById('sidebarId');
+            if (nameEl) nameEl.innerText = data.name;
+            if (idEl) idEl.innerText = data.id;
+        } catch (e) {}
     } else if (userContainer) {
         userContainer.innerHTML = `
             <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center;">
@@ -168,7 +141,6 @@ function initGlobalUI() {
     }
 }
 
-// 3. Shared Utilities
 function showToast(msg, type = 'success') {
     let container = document.getElementById('toast-container');
     if (!container) {
@@ -177,7 +149,7 @@ function showToast(msg, type = 'success') {
         container.style.cssText = 'position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 10px;';
         document.body.appendChild(container);
     }
-    
+
     const toast = document.createElement('div');
     toast.className = `toast glass ${type}`;
     toast.style.cssText = `
@@ -185,11 +157,19 @@ function showToast(msg, type = 'success') {
         color: #fff; font-weight: 600; display: flex; align-items: center; gap: 12px;
         box-shadow: var(--shadow-soft);
     `;
-    
+
     const icon = type === 'success' ? 'check-circle' : 'exclamation-circle';
     const color = type === 'success' ? 'var(--success)' : 'var(--error)';
-    toast.innerHTML = `<i class="fas fa-${icon}" style="color: ${color}"></i> <span>${msg}</span>`;
-    
+
+    const iconEl = document.createElement('i');
+    iconEl.className = `fas fa-${icon}`;
+    iconEl.style.color = color;
+    toast.appendChild(iconEl);
+
+    const spanEl = document.createElement('span');
+    spanEl.textContent = msg;
+    toast.appendChild(spanEl);
+
     container.appendChild(toast);
     setTimeout(() => {
         toast.style.opacity = '0';
@@ -197,15 +177,8 @@ function showToast(msg, type = 'success') {
     }, 3000);
 }
 
-// 4. Logout Handler
 window.handleLogout = function() {
     localStorage.removeItem('student_session');
     showToast('تم تسجيل الخروج بنجاح', 'success');
     setTimeout(() => window.location.href = 'login.html', 1000);
 };
-
-// 5. Global State Initialization
-document.addEventListener('DOMContentLoaded', () => {
-    // Ensure all dynamic UI elements are initialized
-    console.log('[App] System initialized');
-});

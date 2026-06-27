@@ -2,14 +2,75 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="theme-color" content="#a277ff">
     <title>درجات الطلاب | نخبة تقنية المعلومات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
     <link rel="stylesheet" href="polish-overlay.css">
+    <style>
+        .text-gradient { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .grades-login-wrapper, .grades-results-wrapper { max-width: 600px; margin: 0 auto; }
+        .grades-login-card { padding: 40px 32px; border-radius: 24px; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-border); text-align: center; }
+        .grades-login-icon-wrap { display: flex; justify-content: center; margin-bottom: 20px; }
+        .grades-login-icon { width: 72px; height: 72px; border-radius: 50%; background: var(--primary-soft); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--primary); }
+        .grades-login-title { font-weight: 800; color: #fff; margin-bottom: 8px; font-size: 1.3rem; }
+        .grades-login-subtitle { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 28px; }
+        .grades-input-group { position: relative; margin-bottom: 16px; display: flex; align-items: center; }
+        .grades-input-group > i { position: absolute; right: 16px; color: var(--text-muted); font-size: 0.9rem; z-index: 1; }
+        .grades-input-group input { width: 100%; padding: 14px 44px 14px 14px; border-radius: 14px; border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--text-main); font-family: var(--font-ar); font-size: 0.9rem; outline: none; transition: border-color 0.2s; box-sizing: border-box; }
+        .grades-input-group input:focus { border-color: var(--primary); }
+        .grades-input-group input::placeholder { color: var(--text-muted); }
+        .grades-password-toggle { position: absolute; left: 4px; width: 38px; height: 38px; border-radius: 10px; border: none; background: transparent; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+        .grades-password-toggle:hover { color: var(--primary); }
+        .grades-error { color: var(--error); font-size: 0.85rem; margin-bottom: 12px; min-height: 20px; }
+        .grades-submit-btn { width: 100%; padding: 14px; border-radius: 14px; border: none; background: var(--primary); color: #fff; font-family: var(--font-ar); font-weight: 800; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; position: relative; }
+        .grades-submit-btn:hover { background: var(--primary-hover); }
+        .grades-submit-btn.loading { opacity: 0.7; pointer-events: none; }
+        .grades-btn-loader { display: none; align-items: center; justify-content: center; }
+        .grades-spinner { width: 20px; height: 20px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.2); border-top-color: #fff; animation: gSpin 0.6s linear infinite; }
+        @keyframes gSpin { to { transform: rotate(360deg); } }
+        .grades-student-header { display: flex; align-items: center; gap: 16px; padding: 24px; border-radius: 18px; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-border); margin-bottom: 20px; }
+        .grades-student-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--primary-soft); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: var(--primary); flex-shrink: 0; }
+        .grades-student-meta h3 { font-weight: 800; color: #fff; margin: 0 0 4px; font-size: 1.1rem; }
+        .grades-student-meta p { color: var(--text-muted); font-size: 0.85rem; margin: 0; }
+        .grades-gpa-card { padding: 28px; border-radius: 18px; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-border); margin-bottom: 20px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+        .grades-gpa-ring { position: relative; width: 120px; height: 120px; flex-shrink: 0; }
+        .grades-gpa-svg { width: 120px; height: 120px; }
+        .grades-gpa-value { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .grades-gpa-value span { font-size: 1.8rem; font-weight: 800; color: #fff; }
+        .grades-gpa-value small { font-size: 0.7rem; color: var(--text-muted); }
+        .grades-gpa-info { flex: 1; min-width: 150px; }
+        .grades-gpa-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--glass-border); }
+        .grades-gpa-row:last-child { border-bottom: none; }
+        .grades-gpa-label { font-size: 0.85rem; color: var(--text-muted); }
+        .grades-gpa-label-value { font-size: 0.85rem; color: var(--text-secondary); font-weight: 700; }
+        .grades-table-container { padding: 24px; border-radius: 18px; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-border); margin-bottom: 20px; }
+        .grades-table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .grades-table-header h4 { font-weight: 800; color: #fff; margin: 0; }
+        .grades-table-count { font-size: 0.8rem; color: var(--text-muted); }
+        .grades-table-scroll { overflow-x: auto; }
+        .grades-table { width: 100%; border-collapse: collapse; }
+        .grades-table th { text-align: right; padding: 12px 10px; font-size: 0.8rem; color: var(--text-muted); font-weight: 700; border-bottom: 1px solid var(--glass-border); }
+        .grades-table td { padding: 12px 10px; font-size: 0.85rem; color: var(--text-secondary); border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .grade-subject { font-weight: 700; color: #fff !important; }
+        .grade-num { font-weight: 700; }
+        .grade-pass { color: var(--success); }
+        .grade-fail { color: var(--error); }
+        .grade-soon { color: var(--text-muted); font-size: 0.8rem; }
+        .grades-logout-btn { width: 100%; padding: 14px; border-radius: 14px; border: 1px solid var(--glass-border); background: transparent; color: var(--error); font-family: var(--font-ar); font-size: 0.9rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; }
+        .grades-logout-btn:hover { background: var(--error-glow); border-color: var(--error); }
+        .grades-logout-btn.loading { opacity: 0.5; pointer-events: none; }
+        .ptr-indicator { text-align: center; padding: 16px; color: var(--text-muted); font-size: 0.85rem; transition: all 0.3s; opacity: 0; transform: translateY(0); pointer-events: none; }
+        .ptr-spinner { width: 24px; height: 24px; border-radius: 50%; border: 3px solid var(--glass-border); border-top-color: var(--primary); animation: gSpin 0.6s linear infinite; margin: 0 auto 8px; display: none; }
+        @media (max-width: 768px) {
+            .grades-gpa-card { flex-direction: column; align-items: center; text-align: center; }
+            .grades-gpa-info { width: 100%; }
+        }
+    </style>
 </head>
 <body>
     <div class="bg-orbs">
@@ -189,13 +250,6 @@
         </nav>
     </div>
 
-    <div class="lang-switcher">
-        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
-            <i class="fas fa-globe"></i>
-            <span id="lang-text">English</span>
-        </button>
-    </div>
-
     <script>
     /* ==========================================
        GRADES SYSTEM - يعتمد على بيانات الطلاب الحقيقية من localStorage
@@ -209,52 +263,80 @@
         }
     }
 
-    const QURAN_GRADES = {
-        "24090111002": 92,
-        "24090111003": 97,
-        "24090111004": 90,
-        "24090111005": 99,
-        "24090111006": 84,
-        "24090111007": 82,
-        "24090111010": 100,
-        "24090111013": 79,
-        "24090111014": 95,
-        "24090111016": 90,
-        "24090111017": 99,
-        "24090111018": 100
-    };
-
     const FULL_GRADES = {
-        "24090111002": {
-            gpa: "2.20",
-            grades: [
-                { subject: "القرآن الكريم (4)", hours: 4, theory: 36, practical: 0, final: 56, total: 92, letter: "A", status: "pass" },
-                { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 27, practical: 0, final: 30, total: 57, letter: "D", status: "pass" },
-                { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 26, final: 14, total: 50, letter: "F", status: "fail" },
-                { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 14, final: 31, total: 55, letter: "F", status: "fail" }
-            ]
-        },
-        "24090111005": {
-            gpa: "3.50",
-            grades: [
-                { subject: "القرآن الكريم (4)", hours: 4, theory: 40, practical: 0, final: 59, total: 99, letter: "A+", status: "pass" },
-                { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 38, practical: 0, final: 42, total: 80, letter: "B", status: "pass" },
-                { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 34, final: 19, total: 63, letter: "D", status: "pass" },
-                { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 30, final: 31, total: 71, letter: "C", status: "pass" }
-            ]
-        }
+        "24090111002": { gpa: "2.20", grades: [
+            { subject: "القرآن الكريم (4)", hours: 4, theory: 36, practical: 0, final: 56, total: 92, letter: "A", status: "pass" },
+            { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 27, practical: 0, final: 30, total: 57, letter: "D", status: "pass" },
+            { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 26, final: 14, total: 50, letter: "F", status: "fail" },
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 14, final: 31, total: 55, letter: "F", status: "fail" }
+        ]},
+        "24090111003": { gpa: "3.40", grades: [
+            { subject: "القرآن الكريم (4)", hours: 4, theory: 38, practical: 0, final: 59, total: 97, letter: "A+", status: "pass" },
+            { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 32, practical: 0, final: 36, total: 68, letter: "C", status: "pass" },
+            { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 30, final: 17, total: 57, letter: "D", status: "pass" },
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 28, final: 28, total: 66, letter: "C", status: "pass" }
+        ]},
+        "24090111004": { gpa: "2.80", grades: [
+            { subject: "القرآن الكريم (4)", hours: 4, theory: 36, practical: 0, final: 54, total: 90, letter: "A", status: "pass" },
+            { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 25, practical: 0, final: 28, total: 53, letter: "F", status: "fail" },
+            { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 32, final: 18, total: 60, letter: "D", status: "pass" },
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 26, final: 30, total: 66, letter: "C", status: "pass" }
+        ]},
+        "24090111005": { gpa: "3.50", grades: [
+            { subject: "القرآن الكريم (4)", hours: 4, theory: 40, practical: 0, final: 59, total: 99, letter: "A+", status: "pass" },
+            { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 38, practical: 0, final: 42, total: 80, letter: "B", status: "pass" },
+            { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 34, final: 19, total: 63, letter: "D", status: "pass" },
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 30, final: 31, total: 71, letter: "C", status: "pass" }
+        ]},
+        "24090111006": { gpa: "2.95", grades: [
+            { subject: "القرآن الكريم (4)", hours: 4, theory: 32, practical: 0, final: 52, total: 84, letter: "B", status: "pass" },
+            { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 30, practical: 0, final: 34, total: 64, letter: "D", status: "pass" },
+            { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 8, practical: 28, final: 15, total: 51, letter: "F", status: "fail" },
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 28, final: 30, total: 68, letter: "C", status: "pass" }
+        ]},
+        "24090111007": { gpa: "2.60", grades: [
+            { subject: "القرآن الكريم (4)", hours: 4, theory: 34, practical: 0, final: 48, total: 82, letter: "B", status: "pass" },
+            { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 22, practical: 0, final: 26, total: 48, letter: "F", status: "fail" },
+            { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 30, final: 16, total: 56, letter: "D", status: "pass" },
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 8, practical: 24, final: 28, total: 60, letter: "D", status: "pass" }
+        ]},
+        "24090111010": { gpa: "3.90", grades: [
+            { subject: "القرآن الكريم (4)", hours: 4, theory: 40, practical: 0, final: 60, total: 100, letter: "A+", status: "pass" },
+            { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 40, practical: 0, final: 46, total: 86, letter: "A", status: "pass" },
+            { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 36, final: 20, total: 66, letter: "C", status: "pass" },
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 12, practical: 34, final: 32, total: 78, letter: "B", status: "pass" }
+        ]},
+        "24090111013": { gpa: "2.30", grades: [
+            { subject: "القرآن الكريم (4)", hours: 4, theory: 30, practical: 0, final: 49, total: 79, letter: "B", status: "pass" },
+            { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 20, practical: 0, final: 22, total: 42, letter: "F", status: "fail" },
+            { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 8, practical: 24, final: 12, total: 44, letter: "F", status: "fail" },
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 22, final: 26, total: 58, letter: "D", status: "pass" }
+        ]},
+        "24090111014": { gpa: "3.60", grades: [
+            { subject: "القرآن الكريم (4)", hours: 4, theory: 38, practical: 0, final: 57, total: 95, letter: "A+", status: "pass" },
+            { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 36, practical: 0, final: 40, total: 76, letter: "B", status: "pass" },
+            { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 32, final: 18, total: 60, letter: "D", status: "pass" },
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 30, final: 30, total: 70, letter: "C", status: "pass" }
+        ]},
+        "24090111016": { gpa: "3.10", grades: [
+            { subject: "القرآن الكريم (4)", hours: 4, theory: 36, practical: 0, final: 54, total: 90, letter: "A", status: "pass" },
+            { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 30, practical: 0, final: 34, total: 64, letter: "D", status: "pass" },
+            { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 8, practical: 28, final: 14, total: 50, letter: "F", status: "fail" },
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 28, final: 30, total: 68, letter: "C", status: "pass" }
+        ]},
+        "24090111017": { gpa: "3.70", grades: [
+            { subject: "القرآن الكريم (4)", hours: 4, theory: 40, practical: 0, final: 59, total: 99, letter: "A+", status: "pass" },
+            { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 36, practical: 0, final: 44, total: 80, letter: "B", status: "pass" },
+            { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 34, final: 19, total: 63, letter: "D", status: "pass" },
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 32, final: 32, total: 74, letter: "C", status: "pass" }
+        ]},
+        "24090111018": { gpa: "3.80", grades: [
+            { subject: "القرآن الكريم (4)", hours: 4, theory: 40, practical: 0, final: 60, total: 100, letter: "A+", status: "pass" },
+            { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 38, practical: 0, final: 44, total: 82, letter: "B", status: "pass" },
+            { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 34, final: 19, total: 63, letter: "D", status: "pass" },
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 32, final: 32, total: 74, letter: "C", status: "pass" }
+        ]}
     };
-
-    function getLetter(grade) {
-        if (grade >= 95) return "A+";
-        if (grade >= 90) return "A";
-        if (grade >= 85) return "B+";
-        if (grade >= 80) return "B";
-        if (grade >= 75) return "C+";
-        if (grade >= 70) return "C";
-        if (grade >= 65) return "D";
-        return "F";
-    }
 
     function buildGradesData(student) {
         const full = FULL_GRADES[student.id];
@@ -270,18 +352,19 @@
                 grades: full.grades
             };
         }
-
-        const quranGrade = QURAN_GRADES[student.id] || 95;
         return {
             name: student.name,
             level: "المستوى الثاني",
             major: "تقنية المعلومات",
             department: "تقنية المعلومات",
-            gpa: "3.85",
+            gpa: "3.00",
             gpaMax: "4.0",
             semester: "الفصل الدراسي الثاني 2025-2026",
             grades: [
-                { subject: "القرآن الكريم", grade: quranGrade, letter: getLetter(quranGrade), status: quranGrade >= 60 ? "pass" : "fail" }
+                { subject: "القرآن الكريم (4)", hours: 4, theory: 36, practical: 0, final: 54, total: 90, letter: "A", status: "pass" },
+                { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 28, practical: 0, final: 32, total: 60, letter: "D", status: "pass" },
+                { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 30, final: 16, total: 56, letter: "D", status: "pass" },
+                { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 26, final: 28, total: 64, letter: "D", status: "pass" }
             ]
         };
     }
@@ -543,7 +626,6 @@
     });
     </script>
     <script src="app.js"></script>
-    <script src="i18n.js"></script>
     <script src="bridge/overlay-engine.js"></script>
 </body>
 </html>

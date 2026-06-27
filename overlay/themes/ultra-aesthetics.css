@@ -1,6 +1,7 @@
 /* 
   Ultra Aesthetics Patch (Optional UI/UX Upgrade)
   Features: Breathing backgrounds, micro-interactions, custom scrollbars, 3D depths
+  No !important used - all rules use specific selectors
 */
 
 /* 1. Ambient Breathing Backgrounds */
@@ -20,7 +21,7 @@
 
 /* 2. Advanced Micro-Interactions */
 .card-master, .quran-grade-card {
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card-master:hover, .quran-grade-card:hover {
@@ -48,7 +49,6 @@
 
 ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -81,18 +81,17 @@
 
 /* 5. 3D Glass Edges (Inner Shadow & Highlights) */
 .card-master, .toast, .quran-grade-content, .bottom-nav {
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* 6. Uncopiable Content (Anti-Copy Protection) */
 body {
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none;    /* Firefox */
-  -ms-user-select: none;     /* IE10+/Edge */
-  user-select: none;         /* Standard */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-/* Keep inputs and textareas selectable */
 input, textarea {
   -webkit-user-select: auto;
   -moz-user-select: auto;
@@ -120,7 +119,7 @@ html[data-theme="light"] .card-master,
 html[data-theme="light"] .toast, 
 html[data-theme="light"] .quran-grade-content, 
 html[data-theme="light"] .bottom-nav {
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 8px 32px 0 rgba(0, 0, 0, 0.05) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 8px 32px 0 rgba(0, 0, 0, 0.05);
 }
 
 /* 8. Theme Switcher Button */
@@ -152,6 +151,6 @@ html[data-theme="light"] .bottom-nav {
 
 @media (max-width: 1024px) {
     .theme-switcher {
-        bottom: 90px; /* Above bottom nav */
+        bottom: 90px;
     }
 }

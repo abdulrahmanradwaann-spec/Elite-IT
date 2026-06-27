@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بدون اتصال | نخبة تقنية المعلومات</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:#050508;color:#fff;font-family:'Segoe UI',Tahoma,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:20px}
+        .offline-card{max-width:400px;padding:40px;background:rgba(255,255,255,0.03);border:1px solid rgba(139,92,246,0.1);border-radius:24px;backdrop-filter:blur(20px)}
+        .offline-icon{width:80px;height:80px;border-radius:50%;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2rem;color:#ef4444}
+        h1{font-size:1.3rem;font-weight:800;margin-bottom:12px}
+        p{color:rgba(161,161,170,0.6);font-size:0.9rem;line-height:1.7;margin-bottom:24px}
+        .retry-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none;border-radius:14px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:inherit;transition:transform 0.3s ease}
+        .retry-btn:hover{transform:translateY(-2px)}
+        .retry-btn:active{transform:scale(0.97)}
+    </style>
+</head>
+<body>
+    <div class="offline-card">
+        <div class="offline-icon"><i class="fas fa-wifi-slash"></i></div>
+        <h1>لا يوجد اتصال بالإنترنت</h1>
+        <p>يبدو أنك غير متصل بالإنترنت. تحقق من اتصالك بالشبكة وحاول مرة أخرى.</p>
+        <button class="retry-btn" onclick="window.location.reload()"><i class="fas fa-redo"></i><span>إعادة المحاولة</span></button>
+    </div>
+</body>
+</html>

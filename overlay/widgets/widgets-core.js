@@ -1,40 +1,21 @@
 /* 
   Elite IT Smart Campus PWA - Overlay System
-  Widgets Core Layer
+  Widgets Core - Future Widget Container
 */
 
 class OverlayWidgets {
   constructor() {
-    this.container = null;
-    this.init();
-  }
-
-  init() {
-    // Only inject widgets on main pages (index, student, dashboard)
-    const path = window.location.pathname;
-    const validPages = ['index.html', 'student.html', 'dashboard.html', '/'];
-    const isMainPage = validPages.some(p => path.endsWith(p));
-
-    if (isMainPage) {
+    this.container = document.getElementById('overlayWidgetsPanel');
+    if (!this.container) {
       this.createContainer();
-      this.renderWidgets();
     }
   }
 
   createContainer() {
-    this.container = document.createElement('div');
-    this.container.className = 'overlay-widgets-panel';
-    document.body.appendChild(this.container);
-  }
-
-  renderWidgets() {
-    if (!this.container) return;
-
-    this.container.innerHTML = `
-      <!-- Widgets can be added here in the future -->
-    `;
+    const panel = document.createElement('div');
+    panel.id = 'overlayWidgetsPanel';
+    panel.className = 'overlay-widgets-panel';
+    document.body.appendChild(panel);
+    this.container = panel;
   }
 }
-
-// Export
-window.OverlayWidgets = OverlayWidgets;

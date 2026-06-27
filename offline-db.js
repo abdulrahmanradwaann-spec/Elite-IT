@@ -8,26 +8,29 @@ class EliteDB {
         this.dbName = 'ElitePortalDB';
         this.version = 1;
         this.db = null;
+        this._initPromise = null;
     }
 
     async init() {
-        return new Promise((resolve, reject) => {
+        if (this.db) return this.db;
+        if (this._initPromise) return this._initPromise;
+
+        this._initPromise = new Promise((resolve, reject) => {
             const request = indexedDB.open(this.dbName, this.version);
 
             request.onupgradeneeded = (event) => {
                 const db = event.target.result;
-                
-                // Student Data Store
+                if (!db) {
+                    this._initPromise = null;
+                    reject(new Error('Failed to get database result during upgrade'));
+                    return;
+                }
                 if (!db.objectStoreNames.contains('students')) {
                     db.createObjectStore('students', { keyPath: 'id' });
                 }
-
-                // Schedules Store
                 if (!db.objectStoreNames.contains('schedules')) {
                     db.createObjectStore('schedules', { keyPath: 'id', autoIncrement: true });
                 }
-
-                // Notifications Store
                 if (!db.objectStoreNames.contains('notifications')) {
                     db.createObjectStore('notifications', { keyPath: 'id', autoIncrement: true });
                 }
@@ -38,12 +41,17 @@ class EliteDB {
                 resolve(this.db);
             };
 
-            request.onerror = (event) => reject(event.target.error);
+            request.onerror = (event) => {
+                this._initPromise = null;
+                reject(event.target.error);
+            };
         });
+
+        return this._initPromise;
     }
 
     async saveData(storeName, data) {
-        if (!this.db) await this.init();
+        await this.init();
         return new Promise((resolve, reject) => {
             const transaction = this.db.transaction([storeName], 'readwrite');
             const store = transaction.objectStore(storeName);
@@ -54,7 +62,7 @@ class EliteDB {
     }
 
     async getData(storeName, id) {
-        if (!this.db) await this.init();
+        await this.init();
         return new Promise((resolve, reject) => {
             const transaction = this.db.transaction([storeName], 'readonly');
             const store = transaction.objectStore(storeName);
@@ -65,7 +73,7 @@ class EliteDB {
     }
 
     async getAll(storeName) {
-        if (!this.db) await this.init();
+        await this.init();
         return new Promise((resolve, reject) => {
             const transaction = this.db.transaction([storeName], 'readonly');
             const store = transaction.objectStore(storeName);
@@ -77,4 +85,4 @@ class EliteDB {
 }
 
 const eliteDB = new EliteDB();
-window.eliteDB = eliteDB; // Make it globally accessible
+window.eliteDB = eliteDB;

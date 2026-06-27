@@ -2,41 +2,51 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#6366f1">
-    <title>نخبة تقنية المعلومات | 2026 Master</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>نخبة تقنية المعلومات | البوابة الرسمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
     <link rel="stylesheet" href="polish-overlay.css">
 </head>
 <body>
-    <!-- Splash Screen (5s) -->
-    <div id="splash-screen">
-        <div class="text-center">
-            <img src="logo.png" alt="Logo" class="splash-logo">
-            <h1 style="margin-top: 30px; font-weight: 800; background: linear-gradient(45deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">نخبة تقنية المعلومات</h1>
-            <p style="color: var(--text-muted); font-weight: 600; margin-top: 15px;">بوابة الطالب الجامعية - الإصدار 2.1</p>
-        </div>
-    </div>
-
-    <!-- Background Decoration -->
     <div class="bg-glow glow-1"></div>
     <div class="bg-glow glow-2"></div>
 
+    <div id="splash-screen">
+        <div class="splash-bg-orb s-orb-a"></div>
+        <div class="splash-bg-orb s-orb-b"></div>
+        <div class="splash-bg-orb s-orb-c"></div>
+        <div class="splash-grid"></div>
+        <div class="splash-hex-grid"></div>
+        <div id="splashParticles" class="splash-particles"></div>
+        <div class="splash-content">
+            <div class="splash-logo-ring">
+                <div class="splash-logo-inner">
+                    <img src="logo.png" alt="Logo" class="splash-logo">
+                </div>
+            </div>
+            <h1 class="splash-title">نخبة تقنية المعلومات</h1>
+            <p class="splash-subtitle">Elite IT Smart Campus</p>
+            <div class="splash-loader-wrap">
+                <div class="splash-loader-track">
+                    <div class="splash-loader-bar" id="splashBar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="app-container">
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
                 <img src="logo.png" alt="Logo" class="sidebar-logo">
                 <span class="brand-text">نخبة IT</span>
             </div>
-            
             <ul class="nav-links">
                 <li class="nav-item"><a href="index.html" class="nav-link active"><i class="fas fa-home"></i><span>الرئيسية</span></a></li>
+                <li class="nav-item"><a href="login.html" class="nav-link"><i class="fas fa-sign-in-alt"></i><span>تسجيل الدخول</span></a></li>
                 <li class="nav-item"><a href="exams.html" class="nav-link"><i class="fas fa-calendar-alt"></i><span>جدول الاختبارات</span></a></li>
                 <li class="nav-item"><a href="grades.html" class="nav-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a></li>
                 <li class="nav-item"><a href="projects.html" class="nav-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a></li>
@@ -44,138 +54,152 @@
                 <li class="nav-item"><a href="courses.html" class="nav-link"><i class="fas fa-book-open"></i><span>الدورات</span></a></li>
                 <li class="nav-item"><a href="support.html" class="nav-link"><i class="fas fa-headset"></i><span>الدعم الفني</span></a></li>
             </ul>
-
-            <!-- Secure User Section -->
             <div class="sidebar-bottom">
-                <a href="student.html" class="sidebar-user" id="userSidebarLink">
-                    <div class="user-avatar" style="background: var(--primary-glow); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
-                        <i class="fas fa-user-graduate"></i>
+                <div class="sidebar-user disabled" id="guestSidebar">
+                    <div class="user-avatar" style="background: rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: rgba(255,255,255,0.3);">
+                        <i class="fas fa-user"></i>
                     </div>
                     <div class="user-info">
-                        <h6 id="sidebarName">طالب النخبة</h6>
-                        <p id="sidebarId">---</p>
+                        <h6 style="color: rgba(255,255,255,0.3);">زائر</h6>
+                        <p style="color: rgba(255,255,255,0.15);">لم تسجل الدخول بعد</p>
                     </div>
-                    <i class="fas fa-chevron-left" style="margin-right: auto; font-size: 0.8rem; color: var(--text-muted);"></i>
-                </a>
-                <div class="mt-20">
-                    <a href="#" onclick="handleLogout()" class="nav-link" style="color: var(--error);">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>تسجيل الخروج</span>
+                </div>
+                <div class="mt-20" id="loggedInSidebar" style="display:none;">
+                    <a href="student.html" class="sidebar-user" id="userSidebarLink">
+                        <div class="user-avatar" style="background: var(--primary-soft); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--primary);">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="user-info">
+                            <h6 id="sidebarName">طالب النخبة</h6>
+                            <p id="sidebarId">---</p>
+                        </div>
                     </a>
                 </div>
             </div>
         </aside>
 
-        <!-- Main Content -->
         <main class="main-content">
             <header class="dashboard-header">
-                <h1 class="welcome-msg">مرحباً بك في <span style="color: var(--primary);">النخبة</span></h1>
-                <p class="header-sub">النظام الأكاديمي الموحد - جامعة القرآن الكريم والعلوم الإسلامية</p>
+                <h1 class="welcome-msg">مرحباً بكم في <span style="color: var(--primary);">النخبة</span></h1>
+                <p class="header-sub">نظام إدارة التعلم الذكي لطلاب تقنية المعلومات</p>
             </header>
 
-            <!-- Dashboard Modules (Simplified) -->
-            <section class="mt-30">
-                <div class="card-master text-center" style="max-width: 450px; border: 2px solid var(--primary-glow);">
-                    <div style="font-size: clamp(2.5rem, 10vw, 4rem); color: var(--success); margin-bottom: 25px;">
-                        <i class="fas fa-check-circle"></i>
+            <div class="feature-grid">
+                <div class="card-master text-center">
+                    <div class="feature-icon">
+                        <i class="fas fa-sign-in-alt"></i>
                     </div>
-                    <h3 style="font-weight: 800; margin-bottom: 15px;">الاختبارات النهائية</h3>
-                    <div class="status-badge">
-                        <i class="fas fa-check"></i>
-                        <span>قد تم</span>
-                    </div>
-                    <p class="text-muted mt-30">تم الانتهاء من جميع الاختبارات المقررة بنجاح. يمكنك دائماً مراجعة الجدول التاريخي.</p>
-                    
-                    <div class="mt-30">
-                        <a href="exams.html" class="btn btn-primary btn-block">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span>عرض جدول الامتحانات</span>
-                        </a>
-                    </div>
+                    <h3 class="feature-title">دخول الطلاب</h3>
+                    <p class="feature-desc">سجل دخولك للوصول إلى ملفك الأكاديمي والمحتوى الحصري</p>
+                    <a href="login.html" class="btn btn-primary btn-block mt-20">دخول النظام</a>
                 </div>
-            </section>
 
-            <!-- Quick Access Grid -->
-            <section class="mt-30" style="max-width: 900px;">
-                <h3 style="font-weight:800;color:#fff;margin-bottom:16px;font-size:1.1rem;"><i class="fas fa-bolt" style="color:var(--primary);margin-left:8px;"></i>الوصول السريع</h3>
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;">
-                    <a href="grades.html" class="card-master" style="text-decoration:none;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
-                        <div style="width:52px;height:52px;border-radius:16px;background:rgba(139,92,246,0.1);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--primary);"><i class="fas fa-graduation-cap"></i></div>
-                        <span style="font-weight:700;color:#fff;font-size:0.9rem;">الدرجات</span>
-                    </a>
-                    <a href="courses.html" class="card-master" style="text-decoration:none;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
-                        <div style="width:52px;height:52px;border-radius:16px;background:rgba(6,182,212,0.1);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#06b6d4;"><i class="fas fa-book-open"></i></div>
-                        <span style="font-weight:700;color:#fff;font-size:0.9rem;">الدورات</span>
-                    </a>
-                    <a href="security-verification.html" class="card-master" style="text-decoration:none;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
-                        <div style="width:52px;height:52px;border-radius:16px;background:rgba(16,185,129,0.1);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#10b981;"><i class="fas fa-shield-halved"></i></div>
-                        <span style="font-weight:700;color:#fff;font-size:0.9rem;">التحقق</span>
-                    </a>
-                    <a href="support.html" class="card-master" style="text-decoration:none;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;">
-                        <div style="width:52px;height:52px;border-radius:16px;background:rgba(251,191,36,0.1);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fbbf24;"><i class="fas fa-headset"></i></div>
-                        <span style="font-weight:700;color:#fff;font-size:0.9rem;">الدعم الفني</span>
-                    </a>
+                <div class="card-master text-center">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color: var(--secondary); border-color: rgba(6, 182, 212, 0.2);">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="feature-title">جدول الاختبارات</h3>
+                    <p class="feature-desc">تابع مواعيد اختباراتك وجداولك الدراسية بشكل منظم</p>
+                    <a href="exams.html" class="btn btn-secondary btn-block mt-20">عرض الجدول</a>
                 </div>
-            </section>
+
+                <div class="card-master text-center">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color: var(--success); border-color: rgba(16, 185, 129, 0.2);">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="feature-title">الدرجات</h3>
+                    <p class="feature-desc">استعرض درجاتك ومعدلاتك التراكمية بشكل فوري</p>
+                    <a href="grades.html" class="btn btn-secondary btn-block mt-20">عرض الدرجات</a>
+                </div>
+
+                <div class="card-master text-center">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color: #f59e0b; border-color: rgba(245, 158, 11, 0.2);">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="feature-title">المشاريع</h3>
+                    <p class="feature-desc">تعرف على مشاريع التخرج والبحوث المقدمة من الطلاب</p>
+                    <a href="projects.html" class="btn btn-secondary btn-block mt-20">استعراض المشاريع</a>
+                </div>
+
+                <div class="card-master text-center">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color: #ec4899; border-color: rgba(236, 72, 153, 0.2);">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <h3 class="feature-title">الرحلات</h3>
+                    <p class="feature-desc">برامج الرحلات العلمية والترفيهية التي تنظمها الكلية</p>
+                    <a href="trips.html" class="btn btn-secondary btn-block mt-20">استعراض الرحلات</a>
+                </div>
+
+                <div class="card-master text-center">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color:#a78bfa; border-color: rgba(139, 92, 246, 0.2);">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="feature-title">الدورات</h3>
+                    <p class="feature-desc">تصفح الدورات البرمجية المتاحة لطلاب النخبة</p>
+                    <a href="courses.html" class="btn btn-secondary btn-block mt-20">تصفح الدورات</a>
+                </div>
+            </div>
 
             <footer class="footer">
                 <p>المطور: فريق نخبة تقنية المعلومات &copy; 2026</p>
             </footer>
         </main>
 
-        <!-- Bottom Nav (Mobile) -->
         <nav class="bottom-nav">
             <a href="index.html" class="bottom-link active"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+            <a href="login.html" class="bottom-link"><i class="fas fa-sign-in-alt"></i><span>دخول</span></a>
             <a href="exams.html" class="bottom-link"><i class="fas fa-calendar-alt"></i><span>الجدول</span></a>
             <a href="grades.html" class="bottom-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a>
             <a href="courses.html" class="bottom-link"><i class="fas fa-book-open"></i><span>الدورات</span></a>
-            <a href="projects.html" class="bottom-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a>
             <a href="student.html" class="bottom-link"><i class="fas fa-user-circle"></i><span>حسابي</span></a>
         </nav>
     </div>
 
-    <div class="lang-switcher">
-        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
-            <i class="fas fa-globe"></i>
-            <span id="lang-text">English</span>
-        </button>
-    </div>
-
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
-    
-    <!-- Notification Scripts -->
-    <script src="firebase-config.js"></script>
-    <script src="notifications.js"></script>
-
     <script src="app.js"></script>
-    <script src="i18n.js"></script>
     <script>
-        // Splash logic (5s)
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const splash = document.getElementById('splash-screen');
-                splash.style.transform = 'scale(1.1)';
-                splash.style.opacity = '0';
-                splash.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-                setTimeout(() => { splash.style.display = 'none'; splash.style.transform = ''; }, 1000);
-            }, 4500);
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            var splash = document.getElementById('splash-screen');
+            var bar = document.getElementById('splashBar');
+            var particles = document.getElementById('splashParticles');
 
-        // Dashboard Personalization
-        document.addEventListener('DOMContentLoaded', () => {
-            const session = localStorage.getItem('student_session');
-            if (session) {
-                const data = JSON.parse(session);
-                const firstName = data.name ? data.name.split(' ')[0] : 'الطالب';
-                document.querySelector('.welcome-msg').innerHTML = `أهلاً بك، <span style="color: var(--primary);">${firstName}</span>`;
+            for (var i = 0; i < 50; i++) {
+                var p = document.createElement('div');
+                p.className = 'splash-particle';
+                p.style.cssText = 'left:' + (Math.random() * 100) + '%;top:' + (Math.random() * 100) + '%;width:' + (Math.random() * 3 + 1) + 'px;height:' + (Math.random() * 3 + 1) + 'px;animation-delay:' + (Math.random() * 3) + 's;animation-duration:' + (Math.random() * 3 + 2) + 's;';
+                particles.appendChild(p);
             }
-            
-            // Add animation classes to cards
-            document.querySelectorAll('.card-master').forEach((card, index) => {
+
+            var start = Date.now();
+            var duration = 2200;
+            var track = document.querySelector('.splash-loader-track');
+
+            function updateBar() {
+                var elapsed = Date.now() - start;
+                var pct = Math.min(elapsed / duration, 1);
+                bar.style.width = pct * 100 + '%';
+                if (pct < 1) { requestAnimationFrame(updateBar); }
+            }
+            requestAnimationFrame(updateBar);
+
+            setTimeout(function() {
+                if (splash) {
+                    splash.classList.add('hide');
+                    setTimeout(function() { if (splash.parentNode) splash.parentNode.removeChild(splash); }, 800);
+                }
+            }, 2500);
+
+            var session = localStorage.getItem('student_session');
+            if (session) {
+                try {
+                    var data = JSON.parse(session);
+                    document.getElementById('guestSidebar').style.display = 'none';
+                    document.getElementById('loggedInSidebar').style.display = 'block';
+                    document.getElementById('sidebarName').innerText = data.name;
+                    document.getElementById('sidebarId').innerText = data.id;
+                } catch (e) {}
+            }
+            document.querySelectorAll('.card-master').forEach(function(card) {
                 card.classList.add('animate-fade-up');
-                card.style.animationDelay = `${index * 0.1}s`;
             });
         });
     </script>

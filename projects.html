@@ -2,14 +2,25 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="theme-color" content="#a277ff">
     <title>المشاريع | نخبة تقنية المعلومات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
     <link rel="stylesheet" href="polish-overlay.css">
+    <style>
+        .text-gradient { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .empty-state-wrapper { display: flex; align-items: center; justify-content: center; min-height: 50vh; padding: 20px 0; }
+        .empty-state-card { text-align: center; padding: 60px 40px; border-radius: 24px; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-border); max-width: 520px; width: 100%; position: relative; overflow: hidden; }
+        .empty-state-card .icon-wrap { width: 100px; height: 100px; border-radius: 50%; background: var(--primary-soft); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 2.8rem; color: var(--primary); position: relative; }
+        .empty-state-card .icon-wrap::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px dashed var(--primary); opacity: 0.2; animation: spin 20s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .empty-state-card h2 { font-weight: 800; margin-bottom: 15px; color: #fff; font-size: 1.4rem; }
+        .empty-state-card p { color: var(--text-muted); max-width: 400px; margin: 0 auto 35px; line-height: 1.7; font-size: 0.9rem; }
+    </style>
 </head>
 <body>
     <div class="bg-orbs">
@@ -18,7 +29,6 @@
     </div>
 
     <div class="app-container">
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-brand">
                 <img src="logo.png" alt="Logo" class="sidebar-logo">
@@ -52,38 +62,24 @@
             </div>
         </aside>
 
-        <!-- Main Content -->
         <main class="main-content">
             <header class="dashboard-header">
-                <h1 class="welcome-msg">إدارة <span class="text-gradient">المشاريع البرمجية</span></h1>
-                <p class="text-muted">تابع تقدم مشاريعك وتواصل مع فريقك</p>
+                <h1 class="welcome-msg">قسم <span class="text-gradient">المشاريع</span></h1>
+                <p class="text-muted">عرض إبداعات وابتكارات طلاب النخبة</p>
             </header>
 
-            <div class="empty-state-wrapper" style="width: 100%; padding: 20px 0;">
-                <!-- Empty State Container -->
-                <div class="empty-state-card">
-                    <!-- Decorative Backgrounds -->
-                    <div class="bg-element" style="width: 300px; height: 300px; background: var(--primary); opacity: 0.15; top: -50px; right: -50px;"></div>
-                    <div class="bg-element" style="width: 250px; height: 250px; background: var(--secondary); opacity: 0.1; bottom: -50px; left: -50px;"></div>
-
-                    <!-- Icon -->
-                    <div class="empty-icon-container">
+            <div class="empty-state-wrapper">
+                <div class="empty-state-card animate-fade-up">
+                    <div class="icon-wrap">
                         <i class="fas fa-folder-open"></i>
-                        <div class="icon-badge">
-                            <i class="fas fa-code"></i>
-                        </div>
                     </div>
-
-                    <!-- Text Content -->
-                    <h2 style="font-weight: 800; margin-bottom: 15px; color: #fff;" data-ar="لا توجد مشاريع متاحة حالياً" data-en="No projects available at the moment">لا توجد مشاريع متاحة حالياً</h2>
-                    <p style="color: var(--text-muted); max-width: 450px; margin: 0 auto 35px; line-height: 1.7;" data-ar="قسم المشاريع جاهز ومخصص لعرض إبداعات الطلاب التقنية. سيتم إضافة المشاريع والتطبيقات قريباً جداً لتكون مرجعاً للجميع." data-en="The projects section is ready to showcase students' technical creations. Projects and applications will be added very soon to serve as a reference for everyone.">
+                    <h2>لا توجد مشاريع متاحة حالياً</h2>
+                    <p>
                         قسم المشاريع جاهز ومخصص لعرض إبداعات الطلاب التقنية. سيتم إضافة المشاريع والتطبيقات قريباً جداً لتكون مرجعاً للجميع.
                     </p>
-
-                    <!-- Button -->
-                    <button class="btn btn-primary disabled">
+                    <button class="btn btn-primary disabled" style="cursor:not-allowed;opacity:0.6;">
                         <i class="fas fa-rocket" style="margin-left: 8px;"></i>
-                        <span data-ar="قريباً" data-en="Coming Soon">قريباً</span>
+                        <span>قريباً</span>
                     </button>
                 </div>
             </div>
@@ -93,7 +89,6 @@
             </footer>
         </main>
 
-        <!-- Bottom Nav (Mobile) -->
         <nav class="bottom-nav">
             <a href="index.html" class="bottom-link"><i class="fas fa-home"></i><span>الرئيسية</span></a>
             <a href="exams.html" class="bottom-link"><i class="fas fa-calendar-alt"></i><span>الجدول</span></a>
@@ -104,21 +99,15 @@
         </nav>
     </div>
 
-    <div class="lang-switcher">
-        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
-            <i class="fas fa-globe"></i>
-            <span id="lang-text">English</span>
-        </button>
-    </div>
-
     <script src="app.js"></script>
-    <script src="i18n.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Add animation classes
-            document.querySelectorAll('.empty-state-card').forEach((card) => {
-                card.classList.add('animate-fade-up');
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            var session = localStorage.getItem('student_session');
+            if (session) {
+                var data = JSON.parse(session);
+                document.getElementById('sidebarName').innerText = data.name;
+                document.getElementById('sidebarId').innerText = data.id;
+            }
         });
     </script>
     <script src="bridge/overlay-engine.js"></script>

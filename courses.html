@@ -2,17 +2,60 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#a277ff">
     <title>الدورات البرمجية | نخبة تقنية المعلومات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
     <link rel="stylesheet" href="polish-overlay.css">
+    <style>
+        .courses-content { max-width: 1100px; }
+        .level-filter { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+        .level-filter button { padding: 9px 20px; border-radius: 12px; border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--text-muted); cursor: pointer; font-size: 0.85rem; font-family: var(--font-ar); transition: all 0.2s ease; display: flex; align-items: center; gap: 6px; }
+        .level-filter button:hover { border-color: var(--primary); color: var(--primary); }
+        .level-filter button.active { background: var(--primary-glow); border-color: var(--primary); color: var(--primary); }
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .course-card { padding: 24px; border-radius: 18px; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-border); transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .course-card:hover { border-color: rgba(255,255,255,0.08); transform: translateY(-3px); box-shadow: 0 12px 48px rgba(0,0,0,0.3); }
+        .course-card-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 14px; }
+        .course-icon { width: 54px; height: 54px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+        .course-info { flex: 1; min-width: 0; }
+        .course-info h3 { font-size: 1rem; font-weight: 800; color: #fff; margin: 0 0 4px; }
+        .course-info .channel { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; display: block; }
+        .course-level { display: inline-block; font-size: 0.7rem; padding: 3px 10px; border-radius: 10px; font-weight: 700; }
+        .course-desc { font-size: 0.85rem; color: rgba(161,161,170,0.55); line-height: 1.7; margin-bottom: 12px; }
+        .course-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+        .course-tag { font-size: 0.7rem; padding: 3px 10px; border-radius: 8px; background: rgba(255,255,255,0.04); color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.04); }
+        .course-btn { width: 100%; padding: 10px; border-radius: 12px; border: none; background: var(--primary-glow); color: var(--primary); cursor: pointer; font-size: 0.85rem; font-family: var(--font-ar); font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; transition: all 0.2s; }
+        .course-btn:hover { background: var(--primary); color: #fff; }
+        .roadmap { margin-top: 40px; padding: 32px; border-radius: 18px; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-border); }
+        .roadmap h2 { font-weight: 800; color: #fff; margin-bottom: 20px; text-align: center; font-size: 1.2rem; }
+        .roadmap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .roadmap-col { padding: 20px; border-radius: 14px; }
+        .roadmap-col h3 { font-weight: 800; margin-bottom: 12px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+        .roadmap-col ul { list-style: none; padding: 0; margin: 0; }
+        .roadmap-col ul li { padding: 6px 0; font-size: 0.85rem; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+        .roadmap-col ul li::before { content: '▸'; color: inherit; font-weight: 700; }
+        .roadmap-beginner { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.15); }
+        .roadmap-beginner h3 { color: #10b981; }
+        .roadmap-intermediate { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.15); }
+        .roadmap-intermediate h3 { color: #f59e0b; }
+        .roadmap-advanced { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.15); }
+        .roadmap-advanced h3 { color: #ef4444; }
+        @media (max-width: 768px) {
+            .courses-grid { grid-template-columns: 1fr; }
+            .roadmap-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <div class="bg-glow glow-1"></div>
-    <div class="bg-glow glow-2"></div>
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-3"></div>
+    </div>
 
     <div class="app-container">
         <aside class="sidebar">
@@ -26,6 +69,7 @@
                 <li class="nav-item"><a href="grades.html" class="nav-link"><i class="fas fa-graduation-cap"></i><span>الدرجات</span></a></li>
                 <li class="nav-item"><a href="projects.html" class="nav-link"><i class="fas fa-briefcase"></i><span>المشاريع</span></a></li>
                 <li class="nav-item"><a href="trips.html" class="nav-link"><i class="fas fa-bus"></i><span>الرحلات</span></a></li>
+                <li class="nav-item"><a href="support.html" class="nav-link"><i class="fas fa-headset"></i><span>الدعم الفني</span></a></li>
                 <li class="nav-item"><a href="courses.html" class="nav-link active"><i class="fas fa-book-open"></i><span>الدورات</span></a></li>
             </ul>
             <div class="sidebar-bottom">
@@ -49,27 +93,46 @@
 
         <main class="main-content">
             <header class="dashboard-header">
-                <h1 class="welcome-msg">الدورات <span style="color: var(--primary);">البرمجية</span></h1>
-                <p class="header-sub">مصادر تعليمية مجانية لتطوير مهاراتك</p>
+                <h1 class="welcome-msg">📚 كورسات <span class="text-gradient">برمجة عربية</span></h1>
+                <p class="text-muted">10 مصادر مجانية لتبدأ رحلتك البرمجية</p>
             </header>
 
-            <div style="max-width: 1100px;">
-                <!-- Category Filter -->
-                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;" id="categoryFilter">
-                    <button class="cat-btn active" data-cat="all" onclick="filterCourses('all',this)"><i class="fas fa-th"></i> الكل</button>
-                    <button class="cat-btn" data-cat="web" onclick="filterCourses('web',this)"><i class="fas fa-code"></i> تطوير الويب</button>
-                    <button class="cat-btn" data-cat="mobile" onclick="filterCourses('mobile',this)"><i class="fas fa-mobile-alt"></i> تطوير الموبايل</button>
-                    <button class="cat-btn" data-cat="security" onclick="filterCourses('security',this)"><i class="fas fa-shield-halved"></i> الأمن السيبراني</button>
-                    <button class="cat-btn" data-cat="ai" onclick="filterCourses('ai',this)"><i class="fas fa-brain"></i> الذكاء الاصطناعي</button>
-                    <button class="cat-btn" data-cat="db" onclick="filterCourses('db',this)"><i class="fas fa-database"></i> قواعد البيانات</button>
+            <div class="courses-content">
+                <div class="level-filter" id="levelFilter"></div>
+                <div class="courses-grid" id="coursesGrid"></div>
+                <div class="roadmap">
+                    <h2>🧭 خارطة التعلم المقترحة</h2>
+                    <div class="roadmap-grid">
+                        <div class="roadmap-col roadmap-beginner">
+                            <h3>🟢 مبتدئ</h3>
+                            <ul>
+                                <li>The New Baghdad</li>
+                                <li>Free4Arab</li>
+                                <li>Elzero (HTML &amp; CSS)</li>
+                            </ul>
+                        </div>
+                        <div class="roadmap-col roadmap-intermediate">
+                            <h3>🟡 متوسط</h3>
+                            <ul>
+                                <li>JavaScript (Elzero)</li>
+                                <li>Python (Elzero)</li>
+                                <li>Flutter (أحمد حمدي)</li>
+                            </ul>
+                        </div>
+                        <div class="roadmap-col roadmap-advanced">
+                            <h3>🔴 متقدم</h3>
+                            <ul>
+                                <li>Backend (Hussein Nasser)</li>
+                                <li>Codezilla مشاريع</li>
+                                <li>Tech content &amp; AI</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-
-                <!-- Courses Grid -->
-                <div id="coursesGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;"></div>
             </div>
 
             <footer class="footer">
-                <p>المطور: فريق نخبة تقنية المعلومات &copy; 2026</p>
+                <p>المطور: فريق نخبة تقنيات المعلومات &copy; 2026</p>
             </footer>
         </main>
 
@@ -83,61 +146,64 @@
         </nav>
     </div>
 
-    <div class="lang-switcher">
-        <button onclick="toggleLanguage()" class="btn-lang glass-2026">
-            <i class="fas fa-globe"></i>
-            <span id="lang-text">English</span>
-        </button>
-    </div>
-
     <script src="app.js"></script>
-    <script src="i18n.js"></script>
     <script>
         var COURSES = [
-            { cat:'web', title:'HTML & CSS من الصفر', desc:'تعلم بناء صفحات ويب احترافية من الصفر', level:'مبتدئ', duration:'20 ساعة', icon:'fa-html5', color:'#e34f26', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'web', title:'JavaScript المتقدم', desc:'أتقن JavaScript و DOM والأحداث', level:'متوسط', duration:'35 ساعة', icon:'fa-js', color:'#f7df1e', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'web', title:'React.js', desc:'بناء واجهات مستخدم تفاعلية مع React', level:'متوسط', duration:'40 ساعة', icon:'fa-react', color:'#61dafb', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'web', title:'Node.js و Express', desc:'تطوير خوادم وواجهات API', level:'متقدم', duration:'30 ساعة', icon:'fa-node-js', color:'#68a063', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'mobile', title:'Flutter', desc:'بناء تطبيقات موبايل لنظامي Android و iOS', level:'متوسط', duration:'45 ساعة', icon:'fa-mobile-screen', color:'#02569b', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'mobile', title:'React Native', desc:'تطوير تطبيقات موبايل بلغة JavaScript', level:'متوسط', duration:'38 ساعة', icon:'fa-mobile-alt', color:'#61dafb', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'security', title:'أساسيات الأمن السيبراني', desc:'مقدمة شاملة في أمن المعلومات والشبكات', level:'مبتدئ', duration:'25 ساعة', icon:'fa-shield-halved', color:'#10b981', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'security', title:'اختراق الأخلاقي', desc:'تعلم اختبار اختراق التطبيقات والشبكات', level:'متقدم', duration:'50 ساعة', icon:'fa-user-secret', color:'#ef4444', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'ai', title:'Python للمبتدئين', desc:'تعلم أساسيات البرمجة بلغة Python', level:'مبتدئ', duration:'22 ساعة', icon:'fa-python', color:'#3776ab', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'ai', title:'التعلم الآلي (Machine Learning)', desc:'خوارزميات التعلم الآلي مع Scikit-Learn', level:'متقدم', duration:'45 ساعة', icon:'fa-robot', color:'#8b5cf6', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'ai', title:'شبكات عصبية عميقة', desc:'Deep Learning مع TensorFlow و PyTorch', level:'متقدم', duration:'55 ساعة', icon:'fa-brain', color:'#06b6d4', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'db', title:'SQL fundamentals', desc:'تعلم استعلامات قواعد البيانات العلائقية', level:'مبتدئ', duration:'18 ساعة', icon:'fa-database', color:'#f59e0b', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'db', title:'MongoDB', desc:'قواعد بيانات NoSQL المرنة', level:'متوسط', duration:'22 ساعة', icon:'fa-leaf', color:'#47a248', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' },
-            { cat:'db', title:'تصميم قواعد البيانات', desc:'Normalization و ER Diagrams وأفضل الممارسات', level:'متوسط', duration:'20 ساعة', icon:'fa-table', color:'#8b5cf6', url:'https://www.youtube.com/playlist?list=PLDo5W4Nhv31a8UcMN9-35ghv8qyFWD9_S' }
+            { id: 1, title: 'Elzero Web School', channel: 'قناة الزيرو', desc: 'تعلم HTML + CSS + JavaScript + تطوير مواقع كاملة', tags: ['HTML', 'CSS', 'JavaScript', 'Web'], level: 'مبتدئ', url: 'https://www.youtube.com/@ElzeroWebSchool', icon: 'fab fa-html5', color: '#e34f26' },
+            { id: 2, title: 'أحمد حمدي – Flutter', channel: 'Ahmed Hamdy', desc: 'بناء تطبيقات موبايل Android + iOS', tags: ['Flutter', 'Mobile', 'Android', 'iOS'], level: 'متوسط', url: 'https://www.youtube.com/@AhmedHamdy', icon: 'fas fa-mobile-alt', color: '#02569b' },
+            { id: 3, title: 'Programming with Mosh', channel: 'شروحات عربية', desc: 'Python + أساسيات البرمجة بشكل منظم', tags: ['Python', 'Programming Basics'], level: 'مبتدئ', url: 'https://www.youtube.com/', icon: 'fab fa-python', color: '#3776ab' },
+            { id: 4, title: 'The New Baghdad', channel: 'بغداد الجديدة', desc: 'مفاهيم البرمجة + C++ + C#', tags: ['C++', 'C#', 'Programming Basics'], level: 'مبتدئ', url: 'https://www.youtube.com/@TheNewBaghdad', icon: 'fas fa-code', color: '#8b5cf6' },
+            { id: 5, title: 'Free4Arab', channel: 'فري فور عرب', desc: 'HTML + CSS + JavaScript + مشاريع عملية', tags: ['HTML', 'CSS', 'JavaScript', 'Projects'], level: 'مبتدئ', url: 'https://www.youtube.com/@free4arab', icon: 'fas fa-laptop-code', color: '#06b6d4' },
+            { id: 6, title: 'Hussein Nasser', channel: 'شروحات أنظمة', desc: 'Backend + APIs + System Design', tags: ['Backend', 'APIs', 'System Design'], level: 'متقدم', url: 'https://www.youtube.com/@HusseinNasser', icon: 'fas fa-server', color: '#ef4444' },
+            { id: 7, title: 'Elzero – JavaScript', channel: 'قناة الزيرو', desc: 'JavaScript من البداية إلى الاحتراف', tags: ['JavaScript', 'Web', 'Interactive'], level: 'متوسط', url: 'https://www.youtube.com/@ElzeroWebSchool', icon: 'fab fa-js', color: '#f7df1e' },
+            { id: 8, title: 'أكاديمية الزيرو – Python', channel: 'قناة الزيرو', desc: 'Python + مشاريع + أساسيات قوية', tags: ['Python', 'Projects', 'AI'], level: 'متوسط', url: 'https://www.youtube.com/@ElzeroWebSchool', icon: 'fab fa-python', color: '#10b981' },
+            { id: 9, title: 'Tech With Tim', channel: 'مترجم عربي', desc: 'Python + AI + مشاريع برمجية عملية', tags: ['Python', 'AI', 'Projects'], level: 'متوسط', url: 'https://www.youtube.com/', icon: 'fas fa-robot', color: '#06b6d4' },
+            { id: 10, title: 'Codezilla', channel: 'كودزيلا', desc: 'برمجة + Web + نصائح تقنية + مشاريع', tags: ['Programming', 'Web', 'Tips', 'Projects'], level: 'متقدم', url: 'https://www.youtube.com/@Codezilla', icon: 'fas fa-bug', color: '#f59e0b' }
         ];
 
+        var LEVELS = ['الكل', 'مبتدئ', 'متوسط', 'متقدم'];
         var LEVEL_COLORS = { 'مبتدئ': '#10b981', 'متوسط': '#f59e0b', 'متقدم': '#ef4444' };
+        var currentLevel = 'الكل';
 
-        function renderCourses(filter) {
+        function renderCourses(level) {
             var grid = document.getElementById('coursesGrid');
-            var filtered = filter === 'all' ? COURSES : COURSES.filter(function(c) { return c.cat === filter; });
-            var html = '';
-            filtered.forEach(function(c) {
-                html += '<div class="card-master course-card" data-cat="' + c.cat + '">';
-                html += '<div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">';
-                html += '<div style="width:52px;height:52px;border-radius:16px;background:' + c.color + '15;border:1px solid ' + c.color + '25;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:' + c.color + ';flex-shrink:0;">';
-                html += '<i class="fab ' + c.icon + '"></i></div>';
-                html += '<div style="flex:1;"><h4 style="font-weight:800;color:#fff;margin:0 0 4px;font-size:1rem;">' + c.title + '</h4>';
-                html += '<div style="display:flex;gap:8px;flex-wrap:wrap;">';
-                html += '<span style="font-size:0.7rem;padding:2px 8px;border-radius:10px;background:' + LEVEL_COLORS[c.level] + '15;color:' + LEVEL_COLORS[c.level] + ';font-weight:700;">' + c.level + '</span>';
-                html += '<span style="font-size:0.7rem;color:rgba(161,161,170,0.4);"><i class="fas fa-clock" style="margin-left:3px;"></i>' + c.duration + '</span>';
-                html += '</div></div></div>';
-                html += '<p style="font-size:0.85rem;color:rgba(161,161,170,0.55);line-height:1.7;margin-bottom:16px;">' + c.desc + '</p>';
-                html += '<a href="' + c.url + '" target="_blank" class="btn btn-primary" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-size:0.88rem;">';
-                html += '<i class="fas fa-play-circle"></i><span>ابدأ التعلم</span></a>';
-                html += '</div>';
+            var filtered = level === 'الكل' ? COURSES : COURSES.filter(function(c) { return c.level === level; });
+            grid.innerHTML = '';
+            filtered.forEach(function(c, i) {
+                var card = document.createElement('div');
+                card.className = 'course-card';
+                card.style.animation = 'fadeInUp 0.4s ease both';
+                card.style.animationDelay = (i * 0.06) + 's';
+                card.innerHTML =
+                    '<div class="course-card-header">' +
+                        '<div class="course-icon" style="background:' + c.color + '15;border:1px solid ' + c.color + '25;color:' + c.color + ';"><i class="' + c.icon + '"></i></div>' +
+                        '<div class="course-info">' +
+                            '<h3>' + c.title + '</h3>' +
+                            '<span class="channel"><i class="fas fa-user"></i> ' + c.channel + '</span>' +
+                            '<span class="course-level" style="background:' + LEVEL_COLORS[c.level] + '15;color:' + LEVEL_COLORS[c.level] + ';">' + c.level + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="course-desc">' + c.desc + '</div>' +
+                    '<div class="course-tags">' + c.tags.map(function(t) { return '<span class="course-tag">' + t + '</span>'; }).join('') + '</div>' +
+                    '<a href="' + c.url + '" target="_blank" rel="noopener noreferrer" class="course-btn"><i class="fab fa-youtube"></i> زيارة القناة</a>';
+                grid.appendChild(card);
             });
-            grid.innerHTML = html;
         }
 
-        function filterCourses(cat, btn) {
-            document.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
-            btn.classList.add('active');
-            renderCourses(cat);
+        function setupFilters() {
+            var container = document.getElementById('levelFilter');
+            LEVELS.forEach(function(l) {
+                var btn = document.createElement('button');
+                btn.className = l === 'الكل' ? 'active' : '';
+                btn.textContent = l;
+                btn.onclick = function() {
+                    container.querySelectorAll('button').forEach(function(b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+                    currentLevel = l;
+                    renderCourses(l);
+                };
+                container.appendChild(btn);
+            });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -147,7 +213,8 @@
                 document.getElementById('sidebarName').innerText = data.name;
                 document.getElementById('sidebarId').innerText = data.id;
             }
-            renderCourses('all');
+            setupFilters();
+            renderCourses('الكل');
         });
     </script>
     <script src="bridge/overlay-engine.js"></script>

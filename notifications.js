@@ -1,13 +1,10 @@
 /**
  * Elite IT Professional Notifications Manager - Production Fixed 2026
- * Handles FCM Tokens, Permissions, and One-Time Official Alerts.
- * Ensuring "Show Once" logic is bulletproof across sessions and users.
  */
 
 const NOTIF_CONFIG = {
-    // Unique key for this specific notification campaign
     key: "elite_portal_maintenance_2026_v3_fixed",
-    title: "🔧 تحديثات وتحسينات النظام",
+    title: "تحديثات وتحسينات النظام",
     body: "مرحباً عزيزي الطالب، نعمل حالياً على تحسين التطبيق وتطويره ليكون أفضل وأسرع وأكثر استقراراً. شكراً لثقتك بنا.",
     icon: './logo.png',
     badge: './logo.png',
@@ -22,39 +19,29 @@ class ProfessionalNotificationSystem {
     async init() {
         if (!this.isSupported) return;
 
-        // CRITICAL CHECK: If already accepted or permission already granted by browser
-        // We stop here to ensure the banner never bothers the user again.
         if (this.isAlreadyDelivered() || Notification.permission === 'granted') {
-            // If browser has permission but our app doesn't have the "delivered" flag, 
-            // we send it once and set the flag quietly.
             if (Notification.permission === 'granted' && !this.isAlreadyDelivered()) {
                 this.deliverOfficialNotification();
             }
             return;
         }
 
-        // If permission is explicitly denied, don't show anything
         if (Notification.permission === 'denied') return;
 
-        // Show reminder banner after a short delay for non-decided users
         setTimeout(() => this.showPermissionBanner(), 3000);
     }
 
     isAlreadyDelivered() {
-        // Global device-level flag to prevent repeats across logins/logouts
         return localStorage.getItem(NOTIF_CONFIG.key) === 'true';
     }
 
     markAsDelivered() {
         localStorage.setItem(NOTIF_CONFIG.key, 'true');
-        console.log("[Elite Notifs] State locked: Notification will not repeat.");
     }
 
     async deliverOfficialNotification() {
         try {
-            // We mark it as delivered FIRST to prevent race conditions
             this.markAsDelivered();
-
             const registration = await navigator.serviceWorker.ready;
             await registration.showNotification(NOTIF_CONFIG.title, {
                 body: NOTIF_CONFIG.body,
@@ -69,9 +56,7 @@ class ProfessionalNotificationSystem {
                 }
             });
         } catch (err) {
-            // Even if the visual notification fails, the user "agreed", so we keep the flag.
-            this.markAsDelivered();
-            console.warn("[Elite Notifs] Delivery failed but state saved.", err);
+            // Do NOT mark as delivered on error - allow retry
         }
     }
 
@@ -88,12 +73,15 @@ class ProfessionalNotificationSystem {
                     <span>تأكد من تفعيل التنبيهات لتلقي تحديثات الصيانة والجداول فوراً.</span>
                 </div>
                 <div class="banner-actions">
-                    <button onclick="eliteProfessionalNotifs.requestFullPermission()" class="btn-banner-action">تفعيل الآن</button>
-                    <button onclick="eliteProfessionalNotifs.remindMeLater()" class="btn-banner-close">لاحقاً</button>
+                    <button class="btn-banner-action" id="notifGrantBtn">تفعيل الآن</button>
+                    <button class="btn-banner-close" id="notifLaterBtn">لاحقاً</button>
                 </div>
             </div>
         `;
         document.body.prepend(banner);
+
+        document.getElementById('notifGrantBtn').addEventListener('click', () => this.requestFullPermission());
+        document.getElementById('notifLaterBtn').addEventListener('click', () => this.remindMeLater());
 
         if (!document.getElementById('banner-styles-v3')) {
             const style = document.createElement('style');
@@ -125,7 +113,7 @@ class ProfessionalNotificationSystem {
                     padding: 10px 20px; border-radius: 10px; cursor: pointer; transition: 0.2s;
                 }
                 .btn-banner-close:hover { background: rgba(255,255,255,0.1); color: #fff; }
-                
+
                 @media (max-width: 768px) {
                     .permission-banner-content { flex-direction: column; text-align: center; gap: 15px; }
                     .banner-actions { width: 100%; justify-content: center; }
@@ -144,20 +132,17 @@ class ProfessionalNotificationSystem {
         const banner = document.getElementById('notif-permission-banner');
         try {
             const permission = await Notification.requestPermission();
-            
+
             if (permission === 'granted') {
-                // IMPORTANT: Mark as delivered immediately on grant
                 this.markAsDelivered();
                 banner?.remove();
                 await this.deliverOfficialNotification();
-                if (window.showToast) window.showToast("تم تفعيل الإشعارات بنجاح ✅", "success");
+                if (window.showToast) window.showToast("تم تفعيل الإشعارات بنجاح", "success");
             } else {
-                // User dismissed or denied - remove for this session
                 banner?.remove();
             }
         } catch (err) {
             banner?.remove();
-            console.error("[Elite Notifs] Permission flow error:", err);
         }
     }
 
@@ -165,14 +150,15 @@ class ProfessionalNotificationSystem {
         if (window.messaging && window.VAPID_KEY && window.VAPID_KEY !== "YOUR_PUBLIC_VAPID_KEY") {
             try {
                 const token = await window.messaging.getToken({ vapidKey: window.VAPID_KEY });
-                if (token) console.log("[Elite Notifs] Device Token:", token);
-            } catch (err) {
-                console.warn("[Elite Notifs] FCM error:", err);
-            }
+            } catch (err) {}
         }
     }
 }
 
 const eliteProfessionalNotifs = new ProfessionalNotificationSystem();
-document.addEventListener('DOMContentLoaded', () => eliteProfessionalNotifs.init());
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => eliteProfessionalNotifs.init());
+} else {
+    eliteProfessionalNotifs.init();
+}
 window.triggerMaintenanceNotification = () => eliteProfessionalNotifs.deliverOfficialNotification();
