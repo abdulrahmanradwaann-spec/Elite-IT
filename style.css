@@ -98,6 +98,8 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-overflow-scrolling: touch;
+    position: relative;
+    width: 100%;
 }
 
 html[dir="ltr"] body { font-family: var(--font-en); }
@@ -133,6 +135,9 @@ html[dir="ltr"] body { font-family: var(--font-en); }
     display: flex;
     min-height: 100vh;
     min-height: 100dvh;
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 /* ===== SIDEBAR OVERLAY (mobile backdrop) ===== */
@@ -189,6 +194,8 @@ html[dir="ltr"] .sidebar {
     width: 100%;
     min-width: 0;
     overflow-x: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 html[dir="ltr"] .main-content {
@@ -198,9 +205,9 @@ html[dir="ltr"] .main-content {
 
 /* === TABLET (≤1024px): sidebar hides, bottom-nav appears === */
 @media (max-width: 1024px) {
-    .sidebar { transform: translateX(100%); }
+    .sidebar { transform: translateX(100%); pointer-events: none; }
     html[dir="ltr"] .sidebar { transform: translateX(-100%); }
-    .sidebar.open { transform: translateX(0) !important; }
+    .sidebar.open { transform: translateX(0) !important; pointer-events: auto; }
     .main-content {
         margin: 0 !important;
         padding: clamp(14px, 3vw, 20px);
@@ -1038,6 +1045,16 @@ tr:hover td {
 #splash-screen.hide {
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
+}
+
+/* Fallback: auto-hide splash after 4s even if JS fails */
+@keyframes splashAutoHide {
+    0%, 90% { opacity: 1; visibility: visible; pointer-events: auto; }
+    100% { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+#splash-screen:not(.hide) {
+    animation: splashAutoHide 4s ease forwards;
 }
 
 /* Digital circuit grid */

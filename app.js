@@ -1,20 +1,20 @@
-/**
- * نخبة تقنية المعلومات - Master Logic 2026 v2.1
+﻿/**
+ * ظ†ط®ط¨ط© طھظ‚ظ†ظٹط© ط§ظ„ظ…ط¹ظ„ظˆظ…ط§طھ - Master Logic 2026 v2.1
  */
 
 const STUDENT_DB = [
-  { "id": "24090111002", "name": "أنور محمد عبد الرحمن محمد صديق", "password": "auto123" },
-  { "id": "24090111003", "name": "جمال أحمد عبده عبد الله", "password": "auto123" },
-  { "id": "24090111004", "name": "حبيب الله أرسلان محمد علي الدبعي", "password": "auto123" },
-  { "id": "24090111005", "name": "عبد الرحمن رضوان سلطان أحمد", "password": "auto123" },
-  { "id": "24090111006", "name": "علي أحمد علي حسن باشعيب", "password": "auto123" },
-  { "id": "24090111007", "name": "عمر عبد الله عمر صالح بادقيل", "password": "auto123" },
-  { "id": "24090111010", "name": "محسن أحمد عبد الله محمد المحضار", "password": "auto123" },
-  { "id": "24090111013", "name": "محمد علي صالح محمد صوره", "password": "auto123" },
-  { "id": "24090111014", "name": "موفق عبد الرحمن علي سعيد", "password": "auto123" },
-  { "id": "24090111016", "name": "يوسف أمين برك محمد التميمي", "password": "auto123" },
-  { "id": "24090111017", "name": "يونس محمد سليمان سالم يحيى", "password": "auto123" },
-  { "id": "24090111018", "name": "يونس أحمد عبد الملك محمود", "password": "auto123" }
+  { "id": "24090111002", "name": "ط£ظ†ظˆط± ظ…ط­ظ…ط¯ ط¹ط¨ط¯ ط§ظ„ط±ط­ظ…ظ† ظ…ط­ظ…ط¯ طµط¯ظٹظ‚", "password": "auto123" },
+  { "id": "24090111003", "name": "ط¬ظ…ط§ظ„ ط£ط­ظ…ط¯ ط¹ط¨ط¯ظ‡ ط¹ط¨ط¯ ط§ظ„ظ„ظ‡", "password": "auto123" },
+  { "id": "24090111004", "name": "ط­ط¨ظٹط¨ ط§ظ„ظ„ظ‡ ط£ط±ط³ظ„ط§ظ† ظ…ط­ظ…ط¯ ط¹ظ„ظٹ ط§ظ„ط¯ط¨ط¹ظٹ", "password": "auto123" },
+  { "id": "24090111005", "name": "ط¹ط¨ط¯ ط§ظ„ط±ط­ظ…ظ† ط±ط¶ظˆط§ظ† ط³ظ„ط·ط§ظ† ط£ط­ظ…ط¯", "password": "auto123" },
+  { "id": "24090111006", "name": "ط¹ظ„ظٹ ط£ط­ظ…ط¯ ط¹ظ„ظٹ ط­ط³ظ† ط¨ط§ط´ط¹ظٹط¨", "password": "auto123" },
+  { "id": "24090111007", "name": "ط¹ظ…ط± ط¹ط¨ط¯ ط§ظ„ظ„ظ‡ ط¹ظ…ط± طµط§ظ„ط­ ط¨ط§ط¯ظ‚ظٹظ„", "password": "auto123" },
+  { "id": "24090111010", "name": "ظ…ط­ط³ظ† ط£ط­ظ…ط¯ ط¹ط¨ط¯ ط§ظ„ظ„ظ‡ ظ…ط­ظ…ط¯ ط§ظ„ظ…ط­ط¶ط§ط±", "password": "auto123" },
+  { "id": "24090111013", "name": "ظ…ط­ظ…ط¯ ط¹ظ„ظٹ طµط§ظ„ط­ ظ…ط­ظ…ط¯ طµظˆط±ظ‡", "password": "auto123" },
+  { "id": "24090111014", "name": "ظ…ظˆظپظ‚ ط¹ط¨ط¯ ط§ظ„ط±ط­ظ…ظ† ط¹ظ„ظٹ ط³ط¹ظٹط¯", "password": "auto123" },
+  { "id": "24090111016", "name": "ظٹظˆط³ظپ ط£ظ…ظٹظ† ط¨ط±ظƒ ظ…ط­ظ…ط¯ ط§ظ„طھظ…ظٹظ…ظٹ", "password": "auto123" },
+  { "id": "24090111017", "name": "ظٹظˆظ†ط³ ظ…ط­ظ…ط¯ ط³ظ„ظٹظ…ط§ظ† ط³ط§ظ„ظ… ظٹط­ظٹظ‰", "password": "auto123" },
+  { "id": "24090111018", "name": "ظٹظˆظ†ط³ ط£ط­ظ…ط¯ ط¹ط¨ط¯ ط§ظ„ظ…ظ„ظƒ ظ…ط­ظ…ظˆط¯", "password": "auto123" }
 ];
 
 if (!localStorage.getItem('elite_students')) {
@@ -29,7 +29,7 @@ if ('serviceWorker' in navigator) {
                 if (installingWorker) {
                     installingWorker.onstatechange = () => {
                         if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            showToast('تم تحديث النظام تلقائياً للنسخة الأحدث', 'success');
+                            showToast('طھظ… طھط­ط¯ظٹط« ط§ظ„ظ†ط¸ط§ظ… طھظ„ظ‚ط§ط¦ظٹط§ظ‹ ظ„ظ„ظ†ط³ط®ط© ط§ظ„ط£ط­ط¯ط«', 'success');
                             setTimeout(() => window.location.reload(), 2000);
                         }
                     };
@@ -40,12 +40,12 @@ if ('serviceWorker' in navigator) {
 }
 
 window.addEventListener('online', () => {
-    showToast('تم استعادة الاتصال بالإنترنت', 'success');
+    showToast('طھظ… ط§ط³طھط¹ط§ط¯ط© ط§ظ„ط§طھطµط§ظ„ ط¨ط§ظ„ط¥ظ†طھط±ظ†طھ', 'success');
     document.body.classList.remove('offline-mode');
 });
 
 window.addEventListener('offline', () => {
-    showToast('أنت الآن تعمل بدون إنترنت (وضع الأوفلاين)', 'error');
+    showToast('ط£ظ†طھ ط§ظ„ط¢ظ† طھط¹ظ…ظ„ ط¨ط¯ظˆظ† ط¥ظ†طھط±ظ†طھ (ظˆط¶ط¹ ط§ظ„ط£ظˆظپظ„ط§ظٹظ†)', 'error');
     document.body.classList.add('offline-mode');
 });
 
@@ -61,7 +61,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
         installLi.innerHTML = `
             <a href="javascript:void(0)" class="nav-link" style="color: var(--success); background: rgba(0, 255, 136, 0.05); border: 1px dashed var(--success);">
                 <i class="fas fa-download"></i>
-                <span>تثبيت التطبيق</span>
+                <span>طھط«ط¨ظٹطھ ط§ظ„طھط·ط¨ظٹظ‚</span>
             </a>
         `;
         installLi.onclick = (el) => {
@@ -81,7 +81,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 window.addEventListener('appinstalled', () => {
-    showToast('تم تثبيت التطبيق بنجاح على جهازك', 'success');
+    showToast('طھظ… طھط«ط¨ظٹطھ ط§ظ„طھط·ط¨ظٹظ‚ ط¨ظ†ط¬ط§ط­ ط¹ظ„ظ‰ ط¬ظ‡ط§ط²ظƒ', 'success');
 });
 
 const PROTECTED_PAGES = ['student.html', 'dashboard.html', 'admin.html', 'admin-notifications.html'];
@@ -122,9 +122,9 @@ function initGlobalUI() {
     if (session && userContainer) {
         try {
             const data = JSON.parse(session);
-            const nameEl = document.getElementById('sidebarName');
-            const idEl = document.getElementById('sidebarId');
-            if (nameEl) nameEl.innerText = data.name;
+            var nameEls = ['sidebarName', 'welcomeName', 'studentName', 'idCardName'];
+            nameEls.forEach(function(id) { var e = document.getElementById(id); if (e) e.innerText = data.name; });
+            var idEl = document.getElementById('sidebarId');
             if (idEl) idEl.innerText = data.id;
         } catch (e) {}
     } else if (userContainer) {
@@ -133,14 +133,15 @@ function initGlobalUI() {
                 <i class="fas fa-user-lock"></i>
             </div>
             <div class="user-info">
-                <h6>بوابة الطلاب</h6>
-                <p>سجل دخولك الآن</p>
+                <h6>ط¨ظˆط§ط¨ط© ط§ظ„ط·ظ„ط§ط¨</h6>
+                <p>ط³ط¬ظ„ ط¯ط®ظˆظ„ظƒ ط§ظ„ط¢ظ†</p>
             </div>
         `;
         userContainer.href = 'login.html';
     }
 
     initSidebarToggle();
+    updateVerificationBadges();
 }
 
 function initSidebarToggle() {
@@ -219,8 +220,50 @@ function showToast(msg, type = 'success') {
     }, 3000);
 }
 
+function updateVerificationBadges() {
+    var isVerified = false;
+    try {
+        var session = JSON.parse(localStorage.getItem('student_session') || '{}');
+        var verified = JSON.parse(localStorage.getItem('elite_verified') || '[]');
+        isVerified = verified.includes(session.id);
+    } catch (e) {}
+
+    var badgeHTML = '<span class="verified-badge-icon" data-tooltip="موثّق من الجامعة">' +
+        '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>' +
+        '</span>';
+
+    document.querySelectorAll('.verified-badge-icon').forEach(function(b) {
+        if (!b.closest('[data-keep-badge]')) {
+            b.remove();
+        }
+    });
+
+    if (isVerified) {
+        var targets = [
+            { id: 'sidebarName', mode: 'inside' },
+            { id: 'welcomeName', mode: 'after' },
+            { id: 'studentName', mode: 'inside' },
+            { id: 'idCardName', mode: 'inside' }
+        ];
+
+        targets.forEach(function(t) {
+            var el = document.getElementById(t.id);
+            if (!el) return;
+            var parent = el.parentNode;
+            if (parent.querySelector('.verified-badge-icon')) return;
+            if (t.mode === 'inside') {
+                el.insertAdjacentHTML('beforeend', badgeHTML);
+            } else {
+                el.insertAdjacentHTML('afterend', badgeHTML);
+            }
+        });
+    }
+}
+
 window.handleLogout = function() {
     localStorage.removeItem('student_session');
-    showToast('تم تسجيل الخروج بنجاح', 'success');
+    showToast('طھظ… طھط³ط¬ظٹظ„ ط§ظ„ط®ط±ظˆط¬ ط¨ظ†ط¬ط§ط­', 'success');
     setTimeout(() => window.location.href = 'login.html', 1000);
 };
+
+
