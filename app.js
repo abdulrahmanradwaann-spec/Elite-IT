@@ -3,18 +3,18 @@
  */
 
 const STUDENT_DB = [
-  { "id": "24090111002", "name": "ط£ظ†ظˆط± ظ…ط­ظ…ط¯ ط¹ط¨ط¯ ط§ظ„ط±ط­ظ…ظ† ظ…ط­ظ…ط¯ طµط¯ظٹظ‚", "password": "auto123" },
-  { "id": "24090111003", "name": "ط¬ظ…ط§ظ„ ط£ط­ظ…ط¯ ط¹ط¨ط¯ظ‡ ط¹ط¨ط¯ ط§ظ„ظ„ظ‡", "password": "auto123" },
-  { "id": "24090111004", "name": "ط­ط¨ظٹط¨ ط§ظ„ظ„ظ‡ ط£ط±ط³ظ„ط§ظ† ظ…ط­ظ…ط¯ ط¹ظ„ظٹ ط§ظ„ط¯ط¨ط¹ظٹ", "password": "auto123" },
-  { "id": "24090111005", "name": "ط¹ط¨ط¯ ط§ظ„ط±ط­ظ…ظ† ط±ط¶ظˆط§ظ† ط³ظ„ط·ط§ظ† ط£ط­ظ…ط¯", "password": "auto123" },
-  { "id": "24090111006", "name": "ط¹ظ„ظٹ ط£ط­ظ…ط¯ ط¹ظ„ظٹ ط­ط³ظ† ط¨ط§ط´ط¹ظٹط¨", "password": "auto123" },
-  { "id": "24090111007", "name": "ط¹ظ…ط± ط¹ط¨ط¯ ط§ظ„ظ„ظ‡ ط¹ظ…ط± طµط§ظ„ط­ ط¨ط§ط¯ظ‚ظٹظ„", "password": "auto123" },
-  { "id": "24090111010", "name": "ظ…ط­ط³ظ† ط£ط­ظ…ط¯ ط¹ط¨ط¯ ط§ظ„ظ„ظ‡ ظ…ط­ظ…ط¯ ط§ظ„ظ…ط­ط¶ط§ط±", "password": "auto123" },
-  { "id": "24090111013", "name": "ظ…ط­ظ…ط¯ ط¹ظ„ظٹ طµط§ظ„ط­ ظ…ط­ظ…ط¯ طµظˆط±ظ‡", "password": "auto123" },
-  { "id": "24090111014", "name": "ظ…ظˆظپظ‚ ط¹ط¨ط¯ ط§ظ„ط±ط­ظ…ظ† ط¹ظ„ظٹ ط³ط¹ظٹط¯", "password": "auto123" },
-  { "id": "24090111016", "name": "ظٹظˆط³ظپ ط£ظ…ظٹظ† ط¨ط±ظƒ ظ…ط­ظ…ط¯ ط§ظ„طھظ…ظٹظ…ظٹ", "password": "auto123" },
-  { "id": "24090111017", "name": "ظٹظˆظ†ط³ ظ…ط­ظ…ط¯ ط³ظ„ظٹظ…ط§ظ† ط³ط§ظ„ظ… ظٹط­ظٹظ‰", "password": "auto123" },
-  { "id": "24090111018", "name": "ظٹظˆظ†ط³ ط£ط­ظ…ط¯ ط¹ط¨ط¯ ط§ظ„ظ…ظ„ظƒ ظ…ط­ظ…ظˆط¯", "password": "auto123" }
+  { "id": "24090111002", "name": "ط£ظ†ظˆط± ظ…ط­ظ…ط¯ ط¹ط¨ط¯ ط§ظ„ط±ط­ظ…ظ† ظ…ط­ظ…ط¯ طµط¯ظٹظ‚", "password": "auto123", "verified": true },
+  { "id": "24090111003", "name": "ط¬ظ…ط§ظ„ ط£ط­ظ…ط¯ ط¹ط¨ط¯ظ‡ ط¹ط¨ط¯ ط§ظ„ظ„ظ‡", "password": "auto123", "verified": false },
+  { "id": "24090111004", "name": "ط­ط¨ظٹط¨ ط§ظ„ظ„ظ‡ ط£ط±ط³ظ„ط§ظ† ظ…ط­ظ…ط¯ ط¹ظ„ظٹ ط§ظ„ط¯ط¨ط¹ظٹ", "password": "auto123", "verified": false },
+  { "id": "24090111005", "name": "ط¹ط¨ط¯ ط§ظ„ط±ط­ظ…ظ† ط±ط¶ظˆط§ظ† ط³ظ„ط·ط§ظ† ط£ط­ظ…ط¯", "password": "auto123", "verified": true },
+  { "id": "24090111006", "name": "ط¹ظ„ظٹ ط£ط­ظ…ط¯ ط¹ظ„ظٹ ط­ط³ظ† ط¨ط§ط´ط¹ظٹط¨", "password": "auto123", "verified": false },
+  { "id": "24090111007", "name": "ط¹ظ…ط± ط¹ط¨ط¯ ط§ظ„ظ„ظ‡ ط¹ظ…ط± طµط§ظ„ط­ ط¨ط§ط¯ظ‚ظٹظ„", "password": "auto123", "verified": false },
+  { "id": "24090111010", "name": "ظ…ط­ط³ظ† ط£ط­ظ…ط¯ ط¹ط¨ط¯ ط§ظ„ظ„ظ‡ ظ…ط­ظ…ط¯ ط§ظ„ظ…ط­ط¶ط§ط±", "password": "auto123", "verified": false },
+  { "id": "24090111013", "name": "ظ…ط­ظ…ط¯ ط¹ظ„ظٹ طµط§ظ„ط­ ظ…ط­ظ…ط¯ طµظˆط±ظ‡", "password": "auto123", "verified": true },
+  { "id": "24090111014", "name": "ظ…ظˆظپظ‚ ط¹ط¨ط¯ ط§ظ„ط±ط­ظ…ظ† ط¹ظ„ظٹ ط³ط¹ظٹط¯", "password": "auto123", "verified": false },
+  { "id": "24090111016", "name": "ظٹظˆط³ظپ ط£ظ…ظٹظ† ط¨ط±ظƒ ظ…ط­ظ…ط¯ ط§ظ„طھظ…ظٹظ…ظٹ", "password": "auto123", "verified": false },
+  { "id": "24090111017", "name": "ظٹظˆظ†ط³ ظ…ط­ظ…ط¯ ط³ظ„ظٹظ…ط§ظ† ط³ط§ظ„ظ… ظٹط­ظٹظ‰", "password": "auto123", "verified": false },
+  { "id": "24090111018", "name": "ظٹظˆظ†ط³ ط£ط­ظ…ط¯ ط¹ط¨ط¯ ط§ظ„ظ…ظ„ظƒ ظ…ط­ظ…ظˆط¯", "password": "auto123", "verified": false }
 ];
 
 if (!localStorage.getItem('elite_students')) {
@@ -122,7 +122,7 @@ function initGlobalUI() {
     if (session && userContainer) {
         try {
             const data = JSON.parse(session);
-            var nameEls = ['sidebarName', 'welcomeName', 'studentName', 'idCardName'];
+            var nameEls = ['sidebarName', 'welcomeName', 'studentFullName', 'idCardName'];
             nameEls.forEach(function(id) { var e = document.getElementById(id); if (e) e.innerText = data.name; });
             var idEl = document.getElementById('sidebarId');
             if (idEl) idEl.innerText = data.id;
@@ -225,7 +225,9 @@ function updateVerificationBadges() {
     try {
         var session = JSON.parse(localStorage.getItem('student_session') || '{}');
         var verified = JSON.parse(localStorage.getItem('elite_verified') || '[]');
-        isVerified = verified.includes(session.id);
+        var students = JSON.parse(localStorage.getItem('elite_students') || '[]');
+        var studentRecord = students.find(function(s) { return s.id === session.id; });
+        isVerified = verified.includes(session.id) || (studentRecord && studentRecord.verified === true);
     } catch (e) {}
 
     var badgeHTML = '<span class="verified-badge-icon" data-tooltip="موثّق من الجامعة">' +
@@ -242,7 +244,7 @@ function updateVerificationBadges() {
         var targets = [
             { id: 'sidebarName', mode: 'inside' },
             { id: 'welcomeName', mode: 'after' },
-            { id: 'studentName', mode: 'inside' },
+            { id: 'studentFullName', mode: 'inside' },
             { id: 'idCardName', mode: 'inside' }
         ];
 

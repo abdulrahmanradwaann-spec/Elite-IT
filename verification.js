@@ -75,7 +75,12 @@
 
     function isVerified(studentId) {
         var ids = getVerifiedIds();
-        return ids.indexOf(studentId) !== -1;
+        if (ids.indexOf(studentId) !== -1) return true;
+        try {
+            var students = JSON.parse(localStorage.getItem('elite_students') || '[]');
+            var s = students.find(function(st) { return st.id === studentId; });
+            return s && s.verified === true;
+        } catch (e) { return false; }
     }
 
     function getStudentRequest(studentId) {
@@ -206,6 +211,13 @@
                     saveVerifiedIds(verified);
                 }
 
+                // Sync to student record for cross-device
+                try {
+                    var students = JSON.parse(localStorage.getItem('elite_students') || '[]');
+                    var s = students.find(function(st) { return st.id === requests[i].studentId; });
+                    if (s) { s.verified = true; localStorage.setItem('elite_students', JSON.stringify(students)); }
+                } catch (e) {}
+
                 addLog('APPROVE', requests[i].studentId, 'تم قبول طلب التوثيق: ' + requestId);
                 return { success: true };
             }
@@ -237,6 +249,12 @@
             verified.splice(idx, 1);
             saveVerifiedIds(verified);
         }
+        // Sync to student record for cross-device
+        try {
+            var students = JSON.parse(localStorage.getItem('elite_students') || '[]');
+            var s = students.find(function(st) { return st.id === studentId; });
+            if (s) { s.verified = false; localStorage.setItem('elite_students', JSON.stringify(students)); }
+        } catch (e) {}
         var requests = getRequests();
         for (var i = 0; i < requests.length; i++) {
             if (requests[i].studentId === studentId && requests[i].status === 'approved') {

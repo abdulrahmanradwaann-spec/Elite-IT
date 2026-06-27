@@ -1032,13 +1032,13 @@ html[dir="ltr"] .auth-card .input-field {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
+    width: clamp(16px, 2.5vw, 22px);
+    height: clamp(16px, 2.5vw, 22px);
+    min-width: clamp(16px, 2.5vw, 22px);
     border-radius: 50%;
     background: #0095f6;
     color: #fff;
-    font-size: 11px;
+    font-size: clamp(9px, 1.2vw, 12px);
     font-weight: 700;
     flex-shrink: 0;
     vertical-align: middle;
@@ -1049,42 +1049,34 @@ html[dir="ltr"] .auth-card .input-field {
 }
 
 .verified-badge-icon svg {
-    width: 11px;
-    height: 11px;
+    width: clamp(9px, 1.2vw, 12px);
+    height: clamp(9px, 1.2vw, 12px);
     fill: #fff;
 }
 
 .verified-badge-icon.verified-badge-lg {
-    width: 26px;
-    height: 26px;
-    min-width: 26px;
-    font-size: 14px;
+    width: clamp(22px, 3vw, 28px);
+    height: clamp(22px, 3vw, 28px);
+    min-width: clamp(22px, 3vw, 28px);
+    font-size: clamp(12px, 1.5vw, 15px);
     box-shadow: 0 3px 10px rgba(0, 149, 246, 0.5);
     margin-right: 8px;
 }
 
 .verified-badge-icon.verified-badge-lg svg {
-    width: 14px;
-    height: 14px;
+    width: clamp(12px, 1.5vw, 15px);
+    height: clamp(12px, 1.5vw, 15px);
 }
 
-@media (max-width: 480px) {
-    .verified-badge-icon {
-        width: 18px;
-        height: 18px;
-        min-width: 18px;
-        font-size: 10px;
-        margin-right: 4px;
-    }
-    .verified-badge-icon svg { width: 10px; height: 10px; }
-    .verified-badge-icon.verified-badge-lg {
-        width: 22px;
-        height: 22px;
-        min-width: 22px;
-        font-size: 12px;
-        margin-right: 6px;
-    }
-    .verified-badge-icon.verified-badge-lg svg { width: 12px; height: 12px; }
+/* Keep badge inline with name */
+#sidebarName,
+#studentFullName,
+#idCardName,
+#welcomeName {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
 }
 
 /* ===== ACADEMIC HEADER ===== */
