@@ -191,7 +191,11 @@
             setTimeout(function() {
                 if (splash) {
                     splash.classList.add('hide');
-                    setTimeout(function() { if (splash.parentNode) splash.parentNode.removeChild(splash); }, 800);
+                    setTimeout(function() {
+                        if (splash.parentNode) {
+                            splash.style.display = 'none';
+                        }
+                    }, 800);
                 }
             }, 2500);
 

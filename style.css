@@ -1058,6 +1058,7 @@ tr:hover td {
         linear-gradient(180deg, #020206 0%, #050510 25%, #08081a 50%, #050510 75%, #020206 100%);
     transition: opacity 0.8s ease, visibility 0.8s ease;
     overflow: hidden;
+    will-change: opacity;
 }
 
 #splash-screen::before {
@@ -1085,15 +1086,8 @@ tr:hover td {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-}
-
-/* Fallback: auto-hide splash after 4s even if JS fails */
-@keyframes splashAutoHide {
-    0%, 90% { opacity: 1; visibility: visible; pointer-events: auto; }
-    100% { opacity: 0; visibility: hidden; pointer-events: none; }
-}
-#splash-screen:not(.hide) {
-    animation: splashAutoHide 4s ease forwards;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 /* Digital circuit grid */
