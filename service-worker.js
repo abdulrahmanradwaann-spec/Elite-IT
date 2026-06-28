@@ -15,7 +15,7 @@ const APP_ASSETS = [
   './overlay/motion-ui/transitions.js', './overlay/widgets/widgets-core.js',
   './overlay/ui-v2/splash-enhancement.js', './overlay/ui-v2/feature-announcement.js',
   './overlay/ui-v2/eid-greeting.js', './overlay/ui-v2/account-enhancements.js',
-  './manifest.json', './logo.png', './icon.svg', './splash_ad.jpg',
+  './manifest.json', './logo.png', './icon.svg', './splash_ad.jpg', './abdulrahman.jpg',
   './assets/eid-logo.svg',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
 ];

@@ -266,7 +266,13 @@
                 const img = document.getElementById('profileAvatarImg');
                 const icon = document.getElementById('profileAvatarIcon');
                 img.onerror = function() { img.style.display = 'none'; icon.style.display = ''; };
-                img.src = '';
+                if (data.id === '24090111005') {
+                    img.src = 'abdulrahman.jpg';
+                    img.style.display = '';
+                    icon.style.display = 'none';
+                } else {
+                    img.src = '';
+                }
 
                 var isVerified = VerificationSystem.isVerified(data.id);
                 var req = VerificationSystem.getStudentRequest(data.id);
