@@ -29,6 +29,7 @@
         .course-desc { font-size: 0.85rem; color: rgba(161,161,170,0.55); line-height: 1.7; margin-bottom: 12px; }
         .course-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
         .course-tag { font-size: 0.7rem; padding: 3px 10px; border-radius: 8px; background: rgba(255,255,255,0.04); color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.04); }
+        .course-type-badge { display: inline-block; font-size: 0.7rem; padding: 3px 10px; border-radius: 10px; font-weight: 700; background: rgba(255,255,255,0.04); color: var(--text-muted); margin-right: 6px; }
         .course-btn { width: 100%; padding: 10px; border-radius: 12px; border: none; background: var(--primary-glow); color: var(--primary); cursor: pointer; font-size: 0.85rem; font-family: var(--font-ar); font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; transition: all 0.2s; }
         .course-btn:hover { background: var(--primary); color: #fff; }
         @media (max-width: 768px) {
@@ -79,7 +80,7 @@
         <main class="main-content">
             <header class="dashboard-header">
                 <h1 class="welcome-msg">📚 كورسات <span class="text-gradient">برمجة عربية</span></h1>
-                <p class="text-muted">10 مصادر مجانية لتبدأ رحلتك البرمجية</p>
+                <p class="text-muted">24 مصدر مجاني لتبدأ رحلتك البرمجية</p>
             </header>
 
             <div class="courses-content">
@@ -105,16 +106,30 @@
     <script src="app.js"></script>
     <script>
         var COURSES = [
-            { id: 1, title: 'Elzero Web School', channel: 'قناة الزيرو', desc: 'تعلم HTML + CSS + JavaScript + تطوير مواقع كاملة', tags: ['HTML', 'CSS', 'JavaScript', 'Web'], level: 'مبتدئ', url: 'https://www.youtube.com/@ElzeroWebSchool', icon: 'fab fa-html5', color: '#e34f26' },
-            { id: 2, title: 'أحمد حمدي – Flutter', channel: 'Ahmed Hamdy', desc: 'بناء تطبيقات موبايل Android + iOS', tags: ['Flutter', 'Mobile', 'Android', 'iOS'], level: 'متوسط', url: 'https://www.youtube.com/@AhmedHamdy', icon: 'fas fa-mobile-alt', color: '#02569b' },
-            { id: 3, title: 'Programming with Mosh', channel: 'شروحات عربية', desc: 'Python + أساسيات البرمجة بشكل منظم', tags: ['Python', 'Programming Basics'], level: 'مبتدئ', url: 'https://www.youtube.com/', icon: 'fab fa-python', color: '#3776ab' },
-            { id: 4, title: 'The New Baghdad', channel: 'بغداد الجديدة', desc: 'مفاهيم البرمجة + C++ + C#', tags: ['C++', 'C#', 'Programming Basics'], level: 'مبتدئ', url: 'https://www.youtube.com/@TheNewBaghdad', icon: 'fas fa-code', color: '#8b5cf6' },
-            { id: 5, title: 'Free4Arab', channel: 'فري فور عرب', desc: 'HTML + CSS + JavaScript + مشاريع عملية', tags: ['HTML', 'CSS', 'JavaScript', 'Projects'], level: 'مبتدئ', url: 'https://www.youtube.com/@free4arab', icon: 'fas fa-laptop-code', color: '#06b6d4' },
-            { id: 6, title: 'Hussein Nasser', channel: 'شروحات أنظمة', desc: 'Backend + APIs + System Design', tags: ['Backend', 'APIs', 'System Design'], level: 'متقدم', url: 'https://www.youtube.com/@HusseinNasser', icon: 'fas fa-server', color: '#ef4444' },
-            { id: 7, title: 'Elzero – JavaScript', channel: 'قناة الزيرو', desc: 'JavaScript من البداية إلى الاحتراف', tags: ['JavaScript', 'Web', 'Interactive'], level: 'متوسط', url: 'https://www.youtube.com/@ElzeroWebSchool', icon: 'fab fa-js', color: '#f7df1e' },
-            { id: 8, title: 'أكاديمية الزيرو – Python', channel: 'قناة الزيرو', desc: 'Python + مشاريع + أساسيات قوية', tags: ['Python', 'Projects', 'AI'], level: 'متوسط', url: 'https://www.youtube.com/@ElzeroWebSchool', icon: 'fab fa-python', color: '#10b981' },
-            { id: 9, title: 'Tech With Tim', channel: 'مترجم عربي', desc: 'Python + AI + مشاريع برمجية عملية', tags: ['Python', 'AI', 'Projects'], level: 'متوسط', url: 'https://www.youtube.com/', icon: 'fas fa-robot', color: '#06b6d4' },
-            { id: 10, title: 'Codezilla', channel: 'كودزيلا', desc: 'برمجة + Web + نصائح تقنية + مشاريع', tags: ['Programming', 'Web', 'Tips', 'Projects'], level: 'متقدم', url: 'https://www.youtube.com/@Codezilla', icon: 'fas fa-bug', color: '#f59e0b' }
+            { id: 1, title: 'Elzero Web School', channel: 'قناة الزيرو', desc: 'تعلم HTML + CSS + JavaScript + تطوير مواقع كاملة', tags: ['HTML', 'CSS', 'JavaScript', 'Web'], level: 'مبتدئ', url: 'https://www.youtube.com/@ElzeroWebSchool', icon: 'fab fa-html5', color: '#e34f26', type: 'channel' },
+            { id: 2, title: 'أحمد حمدي – Flutter', channel: 'Ahmed Hamdy', desc: 'بناء تطبيقات موبايل Android + iOS', tags: ['Flutter', 'Mobile', 'Android', 'iOS'], level: 'متوسط', url: 'https://www.youtube.com/@AhmedHamdy', icon: 'fas fa-mobile-alt', color: '#02569b', type: 'channel' },
+            { id: 3, title: 'Programming with Mosh', channel: 'شروحات عربية', desc: 'Python + أساسيات البرمجة بشكل منظم', tags: ['Python', 'Programming Basics'], level: 'مبتدئ', url: 'https://www.youtube.com/', icon: 'fab fa-python', color: '#3776ab', type: 'channel' },
+            { id: 4, title: 'The New Baghdad', channel: 'بغداد الجديدة', desc: 'مفاهيم البرمجة + C++ + C#', tags: ['C++', 'C#', 'Programming Basics'], level: 'مبتدئ', url: 'https://www.youtube.com/@TheNewBaghdad', icon: 'fas fa-code', color: '#8b5cf6', type: 'channel' },
+            { id: 5, title: 'Free4Arab', channel: 'فري فور عرب', desc: 'HTML + CSS + JavaScript + مشاريع عملية', tags: ['HTML', 'CSS', 'JavaScript', 'Projects'], level: 'مبتدئ', url: 'https://www.youtube.com/@free4arab', icon: 'fas fa-laptop-code', color: '#06b6d4', type: 'channel' },
+            { id: 6, title: 'Hussein Nasser', channel: 'شروحات أنظمة', desc: 'Backend + APIs + System Design', tags: ['Backend', 'APIs', 'System Design'], level: 'متقدم', url: 'https://www.youtube.com/@HusseinNasser', icon: 'fas fa-server', color: '#ef4444', type: 'channel' },
+            { id: 7, title: 'Elzero – JavaScript', channel: 'قناة الزيرو', desc: 'JavaScript من البداية إلى الاحتراف', tags: ['JavaScript', 'Web', 'Interactive'], level: 'متوسط', url: 'https://www.youtube.com/@ElzeroWebSchool', icon: 'fab fa-js', color: '#f7df1e', type: 'channel' },
+            { id: 8, title: 'أكاديمية الزيرو – Python', channel: 'قناة الزيرو', desc: 'Python + مشاريع + أساسيات قوية', tags: ['Python', 'Projects', 'AI'], level: 'متوسط', url: 'https://www.youtube.com/@ElzeroWebSchool', icon: 'fab fa-python', color: '#10b981', type: 'channel' },
+            { id: 9, title: 'Tech With Tim', channel: 'مترجم عربي', desc: 'Python + AI + مشاريع برمجية عملية', tags: ['Python', 'AI', 'Projects'], level: 'متوسط', url: 'https://www.youtube.com/', icon: 'fas fa-robot', color: '#06b6d4', type: 'channel' },
+            { id: 10, title: 'Codezilla', channel: 'كودزيلا', desc: 'برمجة + Web + نصائح تقنية + مشاريع', tags: ['Programming', 'Web', 'Tips', 'Projects'], level: 'متقدم', url: 'https://www.youtube.com/@Codezilla', icon: 'fas fa-bug', color: '#f59e0b', type: 'channel' },
+            { id: 11, title: 'الذكاء الاصطناعي وتعلم الآلة', channel: 'قناة عربية', desc: 'AI & Machine Learning بالعربية من الصفر', tags: ['AI', 'Machine Learning', 'ذكاء اصطناعي'], level: 'متقدم', url: 'https://youtube.com/playlist?list=PLUQDw_ve-LUA0a6OXM1JASSMeFWq44HsB', icon: 'fas fa-brain', color: '#8b5cf6', type: 'playlist' },
+            { id: 12, title: 'الخوارزميات — سلسلة علمية تطبيقية', channel: 'قناة عربية', desc: 'Algorithms + Data Structures + حل مشكلات', tags: ['Algorithms', 'Data Structures', 'خوارزميات'], level: 'متوسط', url: 'https://youtube.com/playlist?list=PLUQDw_ve-LUBcV5DMWQaDlvcetKPUc1Iq', icon: 'fas fa-sitemap', color: '#06b6d4', type: 'playlist' },
+            { id: 13, title: 'شبكات — أساسيات ومفاهيم', channel: 'عماد نشأت', desc: 'Networking fundamentals شرح اساسيات الشبكات', tags: ['Networking', 'شبكات', 'Network'], level: 'مبتدئ', url: 'https://youtube.com/playlist?list=PL8s4OGp0649_e_Wbz5MlBgW5rBW-9hD0c', icon: 'fas fa-network-wired', color: '#10b981', type: 'playlist' },
+            { id: 14, title: 'الهكر الأخلاقي — دورة 6 ساعات', channel: 'قناة أمن سيبراني', desc: 'Ethical Hacking بالعربية — دورة شاملة', tags: ['Ethical Hacking', 'أمن سيبراني'], level: 'مبتدئ', url: 'https://youtu.be/qaNZKH5NohQ', icon: 'fas fa-shield-alt', color: '#ef4444', type: 'video' },
+            { id: 15, title: 'Bug Bounty — اكتشاف ثغرات المواقع', channel: 'قناة أمن سيبراني', desc: 'Bug Bounty + Web Security دورة متكاملة', tags: ['Bug Bounty', 'Web Security', 'ثغرات'], level: 'متوسط', url: 'https://youtu.be/b_EGEerEqvA', icon: 'fas fa-bug', color: '#f43f5e', type: 'video' },
+            { id: 16, title: 'NMAP — فحص الأنظمة', channel: 'قناة أمن سيبراني', desc: 'Network Scanning Course — دورة فحص الانظمة', tags: ['NMAP', 'Network Scanning', 'أمن سيبراني'], level: 'متوسط', url: 'https://youtu.be/aIRMGKONYPM', icon: 'fas fa-search', color: '#f59e0b', type: 'video' },
+            { id: 17, title: 'Metasploit — اختبار اختراق', channel: 'قناة أمن سيبراني', desc: 'Metasploit Course دورة اختبار اختراق كاملة', tags: ['Metasploit', 'Penetration Testing', 'اختراق'], level: 'متقدم', url: 'https://youtu.be/uThOnvh1zJw', icon: 'fas fa-skull', color: '#ef4444', type: 'video' },
+            { id: 18, title: 'Python من الصفر', channel: 'قناة تعليم برمجة', desc: 'تعلم البرمجة من الصفر باستخدام بايثون', tags: ['Python', 'Programming Basics', 'مبتدئين'], level: 'مبتدئ', url: 'https://youtu.be/pdsc9SVW-S8', icon: 'fab fa-python', color: '#3776ab', type: 'video' },
+            { id: 19, title: 'Python + الأمن السيبراني', channel: 'قناة أمن سيبراني', desc: 'لغة البايثون مع الأمن السيبراني في 8 ساعات', tags: ['Python', 'Cybersecurity', 'أمن سيبراني'], level: 'متوسط', url: 'https://youtu.be/KMOS1aPgpgo', icon: 'fab fa-python', color: '#0ea5e9', type: 'video' },
+            { id: 20, title: 'اختراق الشبكات والهواتف والأنظمة', channel: 'قناة أمن سيبراني', desc: 'دورة اختراق الشبكات والهواتف والانظمة من الصفر 2025', tags: ['Hacking', 'Linux', 'Networks', 'اختراق'], level: 'متقدم', url: 'https://youtu.be/u6NO71gA90g', icon: 'fas fa-terminal', color: '#10b981', type: 'video' },
+            { id: 21, title: 'أساسيات البرمجة للمبتدئين', channel: 'قناة تعليم برمجة', desc: 'مقدمة عن أساسيات البرمجة — محو الأمية البرمجية', tags: ['Programming Basics', 'مبتدئين', 'مقدمة'], level: 'مبتدئ', url: 'https://youtu.be/06h470AiBZ4', icon: 'fas fa-laptop-code', color: '#8b5cf6', type: 'video' },
+            { id: 22, title: 'أساسيات الشبكات في الأمن السيبراني', channel: 'قناة أمن سيبراني', desc: 'Networking for Cybersecurity كورس كامل أساسيات الشبكات', tags: ['Networking', 'Cybersecurity', 'شبكات', 'أمن سيبراني'], level: 'متوسط', url: 'https://youtu.be/Hta5xlWLI-s', icon: 'fas fa-globe', color: '#06b6d4', type: 'video' },
+            { id: 23, title: 'SQL — كورس كامل + مشروع', channel: 'قناة تعليم برمجة', desc: 'تعلم أساسيات SQL كورس كامل مع مشروع عملي', tags: ['SQL', 'Databases', 'قواعد بيانات'], level: 'مبتدئ', url: 'https://youtu.be/N-WPYk417yE', icon: 'fas fa-database', color: '#f59e0b', type: 'video' },
+            { id: 24, title: 'قواعد البيانات — SQL احترافي', channel: 'قناة تعليم برمجة', desc: 'تعلم قواعد البيانات بكفاءة عالية واحترافية SQL', tags: ['SQL', 'Databases', 'قواعد بيانات', 'احترافي'], level: 'متوسط', url: 'https://youtu.be/K9o0mRuqzqQ', icon: 'fas fa-table', color: '#10b981', type: 'video' }
         ];
 
         var LEVELS = ['الكل', 'مبتدئ', 'متوسط', 'متقدم'];
@@ -137,11 +152,12 @@
                             '<h3>' + c.title + '</h3>' +
                             '<span class="channel"><i class="fas fa-user"></i> ' + c.channel + '</span>' +
                             '<span class="course-level" style="background:' + LEVEL_COLORS[c.level] + '15;color:' + LEVEL_COLORS[c.level] + ';">' + c.level + '</span>' +
+                            (c.type !== 'channel' ? '<span class="course-type-badge"><i class="' + (c.type === 'playlist' ? 'fas fa-list' : 'fas fa-play-circle') + '"></i> ' + (c.type === 'playlist' ? 'قائمة تشغيل' : 'فيديو') + '</span>' : '') +
                         '</div>' +
                     '</div>' +
                     '<div class="course-desc">' + c.desc + '</div>' +
                     '<div class="course-tags">' + c.tags.map(function(t) { return '<span class="course-tag">' + t + '</span>'; }).join('') + '</div>' +
-                    '<a href="' + c.url + '" target="_blank" rel="noopener noreferrer" class="course-btn"><i class="fab fa-youtube"></i> زيارة القناة</a>';
+                    '<a href="' + c.url + '" target="_blank" rel="noopener noreferrer" class="course-btn"><i class="fab fa-youtube"></i> ' + (c.type === 'channel' ? 'زيارة القناة' : 'مشاهدة الدورة') + '</a>';
                 grid.appendChild(card);
             });
         }

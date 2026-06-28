@@ -1,6 +1,7 @@
 {
   "name": "Elite IT Student Portal | نخبة تقنية المعلومات",
   "short_name": "Elite IT",
+  "version": "3.1",
   "description": "Unified Academic Portal for Elite IT Students - 2026 Edition",
   "start_url": "./index.html",
   "display": "standalone",

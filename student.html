@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
     <link rel="stylesheet" href="polish-overlay.css">
 </head>
-<body>
+<body class="static-page">
     <div class="bg-glow glow-1"></div>
     <div class="bg-glow glow-2"></div>
     <div class="bg-glow glow-3"></div>
@@ -295,14 +295,10 @@
                     document.getElementById('gpaLabel').textContent = gradesInfo.label;
                     var pct = Math.min(gradesInfo.gpa / 4, 1);
                     var offset = 276.46 * (1 - pct);
-                    document.getElementById('gpaCircle').style.transition = 'stroke-dashoffset 1.5s cubic-bezier(0.4,0,0.2,1)';
-                    setTimeout(function() { document.getElementById('gpaCircle').setAttribute('stroke-dashoffset', offset); }, 300);
+                    document.getElementById('gpaCircle').setAttribute('stroke-dashoffset', offset);
                 }
             }
             
-            document.querySelectorAll('.card-master').forEach((card) => {
-                card.classList.add('animate-fade-up');
-            });
         });
     </script>
     <script src="bridge/overlay-engine.js"></script>

@@ -1,5 +1,5 @@
 ﻿/**
- * نخبة تقنية المعلومات - Master Logic 2026 v2.1
+ * نخبة تقنية المعلومات - Master Logic 2026 v3.1
  */
 
 const STUDENT_DB = [
@@ -40,13 +40,22 @@ if ('serviceWorker' in navigator) {
 }
 
 window.addEventListener('online', () => {
-    showToast('طھظ… ط§ط³طھط¹ط§ط¯ط© ط§ظ„ط§طھطµط§ظ„ ط¨ط§ظ„ط¥ظ†طھط±ظ†طھ', 'success');
     document.body.classList.remove('offline-mode');
+    var indicator = document.getElementById('offlineIndicator');
+    if (indicator) indicator.remove();
+    showToast('تم استعادة الاتصال بالإنترنت', 'success');
 });
 
 window.addEventListener('offline', () => {
-    showToast('ط£ظ†طھ ط§ظ„ط¢ظ† طھط¹ظ…ظ„ ط¨ط¯ظˆظ† ط¥ظ†طھط±ظ†طھ (ظˆط¶ط¹ ط§ظ„ط£ظˆظپظ„ط§ظٹظ†)', 'error');
     document.body.classList.add('offline-mode');
+    if (!document.getElementById('offlineIndicator')) {
+        var bar = document.createElement('div');
+        bar.id = 'offlineIndicator';
+        bar.style.cssText = 'position:fixed;bottom:calc(var(--bottom-nav-height,68px) + env(safe-area-inset-bottom,0));left:0;right:0;background:rgba(239,68,68,0.9);backdrop-filter:blur(8px);color:#fff;text-align:center;padding:6px;font-size:0.8rem;font-weight:700;z-index:9999;font-family:inherit;';
+        bar.textContent = 'وضع عدم الاتصال — التطبيق يعمل من النسخة المحفوظة';
+        document.body.appendChild(bar);
+    }
+    showToast('أنت الآن تعمل بدون إنترنت', 'error');
 });
 
 let deferredPrompt;
@@ -85,11 +94,28 @@ window.addEventListener('appinstalled', () => {
 });
 
 const PROTECTED_PAGES = ['student.html', 'dashboard.html', 'admin.html', 'admin-notifications.html'];
+const RESTRICTED_PAGES = {
+    'courses.html': 'access_courses',
+    'support.html': 'access_support'
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     checkSession();
     initGlobalUI();
 });
+
+function getPermissions() {
+    var session = null;
+    try { session = JSON.parse(localStorage.getItem('student_session') || '{}'); } catch (e) {}
+    if (!session || !session.id) return {};
+    var verified = [];
+    try { verified = JSON.parse(localStorage.getItem('elite_verified') || '[]'); } catch (e) {}
+    var students = [];
+    try { students = JSON.parse(localStorage.getItem('elite_students') || '[]'); } catch (e) {}
+    var studentRecord = students.find(function(s) { return s.id === session.id; });
+    var isVerified = verified.indexOf(session.id) !== -1 || (studentRecord && studentRecord.verified === true);
+    return { access_courses: isVerified, access_support: isVerified };
+}
 
 function checkSession() {
     var session = null;
@@ -101,6 +127,16 @@ function checkSession() {
     }
     if (path === 'login.html' && session) {
         window.location.href = 'student.html';
+        return;
+    }
+    if (session) {
+        var restricted = RESTRICTED_PAGES[path];
+        if (restricted) {
+            var permissions = getPermissions();
+            if (!permissions[restricted]) {
+                window.location.href = 'student.html';
+            }
+        }
     }
 }
 
@@ -260,10 +296,48 @@ function updateVerificationBadges() {
             }
         });
     }
+
+    applyNavigationRestrictions();
+}
+
+function applyNavigationRestrictions() {
+    var session = null;
+    try { session = localStorage.getItem('student_session'); } catch (e) {}
+    var permissions = session ? getPermissions() : {};
+    try { localStorage.setItem('elite_permissions', JSON.stringify(permissions)); } catch (e) {}
+
+    var restrictedSelectors = [];
+    Object.keys(RESTRICTED_PAGES).forEach(function(page) {
+        restrictedSelectors.push('.nav-link[href="' + page + '"]');
+        restrictedSelectors.push('.bottom-link[href="' + page + '"]');
+        restrictedSelectors.push('a.offline-link[href="' + page + '"]');
+    });
+
+    document.querySelectorAll(restrictedSelectors.join(', ')).forEach(function(link) {
+        var page = link.getAttribute('href');
+        var perm = RESTRICTED_PAGES[page];
+        var hasPermission = permissions[perm];
+        if (hasPermission) {
+            link.style.display = '';
+            link.style.visibility = 'visible';
+            var li = link.closest('.nav-item');
+            if (li) { li.style.display = ''; li.style.visibility = 'visible'; }
+        } else {
+            link.style.display = 'none';
+            var li = link.closest('.nav-item');
+            if (li) { li.style.display = 'none'; }
+        }
+    });
+
+    var courseBtn = document.querySelector('a.btn[href="courses.html"]');
+    if (courseBtn) {
+        courseBtn.style.display = permissions.access_courses ? '' : 'none';
+    }
 }
 
 window.handleLogout = function() {
     localStorage.removeItem('student_session');
+    localStorage.removeItem('elite_permissions');
     showToast('طھظ… طھط³ط¬ظٹظ„ ط§ظ„ط®ط±ظˆط¬ ط¨ظ†ط¬ط§ط­', 'success');
     setTimeout(() => window.location.href = 'login.html', 1000);
 };

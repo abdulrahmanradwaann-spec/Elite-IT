@@ -282,11 +282,13 @@
             { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 32, final: 18, total: 60, letter: "D", status: "pass" },
             { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 26, final: 30, total: 66, letter: "C", status: "pass" }
         ]},
-        "24090111005": { gpa: "3.50", grades: [
-            { subject: "القرآن الكريم (4)", hours: 4, theory: 40, practical: 0, final: 59, total: 99, letter: "A+", status: "pass" },
+        "24090111005": { gpa: "2.06", grades: [
+            { subject: "القرآن الكريم (4)", hours: 2, theory: 40, practical: 0, final: 59, total: 99, letter: "A+", status: "pass" },
             { subject: "إحصاء واحتمالات (3)", hours: 3, theory: 38, practical: 0, final: 42, total: 80, letter: "B", status: "pass" },
             { subject: "تصميم وتطوير الويب (2)", hours: 3, theory: 10, practical: 34, final: 19, total: 63, letter: "D", status: "pass" },
-            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 30, final: 31, total: 71, letter: "C", status: "pass" }
+            { subject: "رياضيات متقدمة (3)", hours: 3, theory: 10, practical: 30, final: 31, total: 71, letter: "C", status: "pass" },
+            { subject: "عمارة الحاسوب", hours: 3, theory: 10, practical: 34, final: 30, total: 74, letter: "C", status: "pass" },
+            { subject: "هيكل بيانات وخوارزميات", hours: 3, theory: 10, practical: 42, final: 7, total: 59, letter: "D", status: "pass" }
         ]},
         "24090111006": { gpa: "2.95", grades: [
             { subject: "القرآن الكريم (4)", hours: 4, theory: 32, practical: 0, final: 52, total: 84, letter: "B", status: "pass" },
@@ -371,6 +373,31 @@
 
     let currentStudent = null;
     let currentStudentId = '';
+    let sessionLocked = false;
+
+    function getMainSession() {
+        try { return JSON.parse(localStorage.getItem('student_session')); } catch (e) { return null; }
+    }
+
+    function autoLoginFromSession() {
+        if (localStorage.getItem('grades_logged_out')) return false;
+        var mainSession = getMainSession();
+        if (mainSession && mainSession.id) {
+            var students = loadStudents();
+            var student = students.find(function(s) { return s.id === mainSession.id; });
+            if (student) {
+                currentStudentId = student.id;
+                var data = buildGradesData(student);
+                currentStudent = data;
+                sessionLocked = true;
+                localStorage.removeItem('grades_logged_out');
+                localStorage.setItem('grades_session', JSON.stringify({ id: student.id, time: Date.now() }));
+                showResultsView(data);
+                return true;
+            }
+        }
+        return false;
+    }
 
     /* ==========================================
        PULL TO REFRESH
@@ -413,10 +440,12 @@
             indicator.querySelector('span').textContent = 'جاري التحديث...';
             indicator.style.transform = 'translateY(0)';
             setTimeout(() => {
-                showLoginView();
+                if (currentStudent) {
+                    renderStudentData(currentStudent);
+                }
                 indicator.style.opacity = '0';
                 indicator.querySelector('span').textContent = 'اسحب للتحديث';
-            }, 600);
+            }, 400);
         } else {
             indicator.style.transform = 'translateY(0)';
             indicator.style.opacity = '0';
@@ -428,6 +457,7 @@
        VIEW TOGGLE
        ========================================== */
     function showLoginView() {
+        if (sessionLocked) return;
         document.getElementById('gradesLoginView').style.display = 'flex';
         document.getElementById('gradesResultsView').style.display = 'none';
         document.getElementById('gradesError').textContent = '';
@@ -435,6 +465,7 @@
         currentStudent = null;
         currentStudentId = '';
         localStorage.removeItem('grades_session');
+        localStorage.setItem('grades_logged_out', 'true');
     }
 
     function showResultsView(student) {
@@ -579,6 +610,8 @@
             currentStudentId = id;
             const data = buildGradesData(student);
             currentStudent = data;
+            sessionLocked = true;
+            localStorage.removeItem('grades_logged_out');
             localStorage.setItem('grades_session', JSON.stringify({ id: id, time: Date.now() }));
             showResultsView(data);
 
@@ -611,6 +644,7 @@
         this.classList.add('loading');
         setTimeout(function() {
             this.classList.remove('loading');
+            sessionLocked = false;
             showLoginView();
         }.bind(this), 400);
     });
@@ -625,21 +659,27 @@
         if (document.querySelector('.grades-login-wrapper')) {
             document.body.style.background = 'radial-gradient(ellipse at 50% 0%, rgba(139,92,246,0.03) 0%, transparent 50%)';
         }
-        try {
-            var saved = JSON.parse(localStorage.getItem('grades_session'));
-            if (saved && saved.id) {
-                var students = loadStudents();
-                var student = students.find(function(s) { return s.id === saved.id; });
-                if (student) {
-                    currentStudentId = saved.id;
-                    var data = buildGradesData(student);
-                    currentStudent = data;
-                    showResultsView(data);
-                } else {
-                    localStorage.removeItem('grades_session');
+        if (!autoLoginFromSession()) {
+            try {
+                var saved = JSON.parse(localStorage.getItem('grades_session'));
+                if (saved && saved.id) {
+                    var students = loadStudents();
+                    var student = students.find(function(s) { return s.id === saved.id; });
+                    if (student) {
+                        currentStudentId = saved.id;
+                        var data = buildGradesData(student);
+                        currentStudent = data;
+                        sessionLocked = true;
+                        showResultsView(data);
+                        return;
+                    }
                 }
+            } catch (e) {}
+            var mainSession = getMainSession();
+            if (mainSession && mainSession.id) {
+                autoLoginFromSession();
             }
-        } catch (e) {}
+        }
     });
     </script>
     <script src="app.js"></script>

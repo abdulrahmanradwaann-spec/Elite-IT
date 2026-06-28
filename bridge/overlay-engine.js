@@ -187,9 +187,6 @@ class OverlayEngine {
     const saved = localStorage.getItem('elite_theme') || 'dark';
     document.documentElement.setAttribute('data-theme', saved);
 
-    const langSwitcher = document.querySelector('.lang-switcher');
-    const targetContainer = langSwitcher || document.body;
-
     const btn = document.createElement('button');
     btn.className = 'theme-toggle';
     btn.setAttribute('aria-label', 'تبديل السمة');
@@ -201,9 +198,14 @@ class OverlayEngine {
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('elite_theme', next);
       btn.innerHTML = next === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) {
+        meta.setAttribute('content', next === 'dark' ? '#050508' : '#f1f5f9');
+      }
     });
 
-    targetContainer.appendChild(btn);
+    document.body.appendChild(btn);
   }
 }
 

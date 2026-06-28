@@ -26,14 +26,6 @@
     --glass-border: rgba(255, 255, 255, 0.07);
 }
 
-[data-theme="light"] {
-    --bg-surface: #ffffff;
-    --bg-card: #ffffff;
-    --glass-bg: rgba(255, 255, 255, 0.82);
-    --glass-border: rgba(0, 0, 0, 0.07);
-    --primary-glow: rgba(139, 92, 246, 0.12);
-}
-
 /* ===== BACKGROUND AMBIENT ===== */
 html::before {
     content: '';
@@ -1260,30 +1252,6 @@ th {
     font-size: 0.78rem;
     color: rgba(161,161,170,0.4);
     margin: 2px 0 0;
-}
-
-/* ===== LIGHT THEME ===== */
-[data-theme="light"] nav.bottom-nav {
-    background: rgba(255,255,255,0.92);
-    border-top-color: rgba(0,0,0,0.06);
-}
-
-[data-theme="light"] .bottom-link {
-    color: rgba(100,116,139,0.5);
-}
-
-[data-theme="light"] .bottom-link:not(.active):hover i {
-    color: rgba(100,116,139,0.8);
-}
-
-[data-theme="light"] .card-master,
-[data-theme="light"] .auth-card {
-    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-}
-
-[data-theme="light"] .fp-modal {
-    background: rgba(255,255,255,0.95);
-    border-color: rgba(0,0,0,0.06);
 }
 
 /* ===== RESPONSIVE ===== */

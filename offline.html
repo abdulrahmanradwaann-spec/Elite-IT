@@ -5,25 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="theme-color" content="#a277ff">
     <title>بدون اتصال | نخبة تقنية المعلومات</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{background:#050508;color:#fff;font-family:'Segoe UI',Tahoma,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:20px}
-        .offline-card{max-width:400px;padding:40px;background:rgba(255,255,255,0.03);border:1px solid rgba(139,92,246,0.1);border-radius:24px;backdrop-filter:blur(20px)}
+        body{background:#050508;color:#fff;font-family:'Segoe UI',Tahoma,'Traditional Arabic',sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:20px}
+        .offline-card{max-width:420px;width:100%;padding:clamp(24px,5vw,40px);background:rgba(15,15,30,0.65);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(139,92,246,0.1);border-radius:24px;box-shadow:0 8px 32px rgba(0,0,0,0.45)}
         .offline-icon{width:80px;height:80px;border-radius:50%;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2rem;color:#ef4444}
-        h1{font-size:1.3rem;font-weight:800;margin-bottom:12px}
-        p{color:rgba(161,161,170,0.6);font-size:0.9rem;line-height:1.7;margin-bottom:24px}
-        .retry-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none;border-radius:14px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:inherit;transition:transform 0.3s ease}
+        h1{font-size:clamp(1.1rem,4vw,1.3rem);font-weight:800;margin-bottom:12px}
+        p{color:rgba(161,161,170,0.6);font-size:clamp(0.82rem,2.5vw,0.9rem);line-height:1.7;margin-bottom:24px}
+        .offline-links{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+        .offline-link{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 20px;border-radius:14px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.12);color:#f1f5f9;text-decoration:none;font-weight:600;font-size:0.9rem;transition:all 0.2s}
+        .offline-link:hover{background:rgba(139,92,246,0.15);border-color:rgba(139,92,246,0.25)}
+        .offline-link i{color:#8b5cf6;font-size:1rem;width:20px;text-align:center;font-style:normal}
+        .retry-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 28px;background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff;border:none;border-radius:14px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:inherit;transition:transform 0.3s ease}
         .retry-btn:hover{transform:translateY(-2px)}
         .retry-btn:active{transform:scale(0.97)}
+        .offline-note{color:rgba(161,161,170,0.35);font-size:0.75rem;margin-top:16px;line-height:1.6}
     </style>
 </head>
 <body>
     <div class="offline-card">
-        <div class="offline-icon"><i class="fas fa-wifi-slash"></i></div>
+        <div class="offline-icon"><span style="font-size:2rem;">&#x26A0;</span></div>
         <h1>لا يوجد اتصال بالإنترنت</h1>
-        <p>يبدو أنك غير متصل بالإنترنت. تحقق من اتصالك بالشبكة وحاول مرة أخرى.</p>
-        <button class="retry-btn" onclick="window.location.reload()"><i class="fas fa-redo"></i><span>إعادة المحاولة</span></button>
+        <p>التطبيق يعمل حالياً بدون اتصال.<br>يمكنك تصفح الصفحات المحفوظة.</p>
+        <div class="offline-links">
+            <a href="index.html" class="offline-link"><i>&#x1F3E0;</i><span>العودة للرئيسية</span></a>
+            <a href="exams.html" class="offline-link"><i>&#x1F4C5;</i><span>جدول الاختبارات</span></a>
+            <a href="courses.html" class="offline-link"><i>&#x1F4DA;</i><span>الدورات البرمجية</span></a>
+            <a href="support.html" class="offline-link"><i>&#x1F4E7;</i><span>الدعم الفني</span></a>
+        </div>
+        <button class="retry-btn" onclick="window.location.reload()"><span>إعادة المحاولة</span></button>
+        <p class="offline-note">جميع صفحات التطبيق الأساسية محفوظة<br>وتعمل بدون إنترنت بعد الزيارة الأولى</p>
     </div>
+    <script src="app.js"></script>
 </body>
 </html>
