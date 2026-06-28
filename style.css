@@ -1088,31 +1088,16 @@ tr:hover td {
     align-items: center;
     justify-content: center;
     background:
-        /* Main circuit board SVG pattern */
-        url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cdefs%3E%3Cpattern id='d' width='24' height='24' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='12' cy='12' r='0.7' fill='%238b5cf6' opacity='0.06'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='500' height='500' fill='url(%23d)'/%3E%3Cg fill='none' stroke='%238b5cf6' stroke-width='0.6' opacity='0.07'%3E%3Cpath d='M250 250L250 170L290 170L290 110L330 110'/%3E%3Cpath d='M250 250L320 250L320 180L380 180'/%3E%3Cpath d='M250 250L250 190L280 190L280 90'/%3E%3Cpath d='M250 250L180 250L180 180L120 180'/%3E%3Cpath d='M250 250L250 190L210 190L210 90'/%3E%3Cpath d='M250 250L160 250L160 180L90 180'/%3E%3Cpath d='M250 250L250 330L290 330L290 390L330 390'/%3E%3Cpath d='M250 250L320 250L320 320L380 320'/%3E%3Cpath d='M250 250L250 310L280 310L280 410'/%3E%3Cpath d='M250 250L180 250L180 330L120 330'/%3E%3Cpath d='M250 250L250 310L210 310L210 410'/%3E%3Cpath d='M250 250L160 250L160 320L90 320'/%3E%3C/g%3E%3Cg fill='none' stroke='%2306b6d4' stroke-width='0.4' opacity='0.05'%3E%3Cpath d='M250 250L250 140L300 140L300 70'/%3E%3Cpath d='M250 250L250 360L200 360L200 430'/%3E%3Cpath d='M250 250L360 250L360 150'/%3E%3Cpath d='M250 250L140 250L140 150'/%3E%3C/g%3E%3Cg fill='%238b5cf6' opacity='0.1'%3E%3Ccircle cx='330' cy='110' r='2'/%3E%3Ccircle cx='380' cy='180' r='2'/%3E%3Ccircle cx='280' cy='90' r='2'/%3E%3Ccircle cx='120' cy='180' r='2'/%3E%3Ccircle cx='210' cy='90' r='2'/%3E%3Ccircle cx='90' cy='180' r='2'/%3E%3Ccircle cx='330' cy='390' r='2'/%3E%3Ccircle cx='380' cy='320' r='2'/%3E%3Ccircle cx='280' cy='410' r='2'/%3E%3Ccircle cx='120' cy='330' r='2'/%3E%3Ccircle cx='210' cy='410' r='2'/%3E%3Ccircle cx='90' cy='320' r='2'/%3E%3C/g%3E%3Cg fill='%2306b6d4' opacity='0.08'%3E%3Ccircle cx='300' cy='70' r='1.5'/%3E%3Ccircle cx='200' cy='430' r='1.5'/%3E%3Ccircle cx='360' cy='150' r='1.5'/%3E%3Ccircle cx='140' cy='150' r='1.5'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat,
-        /* Horizontal tech scan lines */
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139,92,246,0.02) 2px, rgba(139,92,246,0.02) 3px),
-        /* Radial glow accents */
-        radial-gradient(ellipse at 50% 0%, rgba(139,92,246,0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 0% 100%, rgba(6,182,212,0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 100% 100%, rgba(16,185,129,0.03) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(139,92,246,0.03) 0%, transparent 70%),
-        /* Deep gradient base */
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139,92,246,0.015) 2px, rgba(139,92,246,0.015) 3px),
+        radial-gradient(ellipse at 50% 0%, rgba(139,92,246,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 0% 100%, rgba(6,182,212,0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 100% 100%, rgba(16,185,129,0.02) 0%, transparent 50%),
         linear-gradient(180deg, #020206 0%, #050510 25%, #08081a 50%, #050510 75%, #020206 100%);
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
     overflow: hidden;
     will-change: opacity;
-}
-
-#splash-screen::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 256px 256px;
-    pointer-events: none;
-    opacity: 0.6;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 #splash-screen::after {
@@ -1120,9 +1105,7 @@ tr:hover td {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background:
-        /* Vignette effect */
-        radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%);
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%);
 }
 
 #splash-screen.hide {
@@ -1131,6 +1114,15 @@ tr:hover td {
     pointer-events: none;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    #splash-screen {
+        background:
+            radial-gradient(ellipse at 50% 0%, rgba(139,92,246,0.06) 0%, transparent 50%),
+            radial-gradient(ellipse at 0% 100%, rgba(6,182,212,0.04) 0%, transparent 50%),
+            linear-gradient(180deg, #020206 0%, #050510 25%, #08081a 50%, #050510 75%, #020206 100%);
+    }
 }
 
 /* Digital circuit grid */
@@ -1189,6 +1181,8 @@ tr:hover td {
     border-radius: 50%;
     background: rgba(139,92,246,0.15);
     animation: splashFloat 4s ease-in-out infinite alternate;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 .splash-particle:nth-child(3n) { background: rgba(6,182,212,0.15); }
 .splash-particle:nth-child(5n) { background: rgba(16,185,129,0.1); }
@@ -1219,6 +1213,8 @@ tr:hover td {
     filter: blur(100px);
     pointer-events: none;
     will-change: transform;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 .s-orb-a { width: 420px; height: 420px; background: rgba(139,92,246,0.07); top: -180px; right: -120px; animation: splashOrbA 10s ease-in-out infinite alternate; }
 .s-orb-b { width: 350px; height: 350px; background: rgba(6,182,212,0.05); bottom: -120px; left: -80px; animation: splashOrbB 10s ease-in-out infinite alternate; }
@@ -1254,26 +1250,9 @@ tr:hover td {
     border: 1px dashed rgba(6,182,212,0.05);
     animation: ringOuterRotate 30s linear infinite reverse;
 }
-.splash-ring-outer::after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: 50%;
-    width: 6px;
-    height: 6px;
-    margin-left: -3px;
-    border-radius: 50%;
-    background: rgba(139,92,246,0.15);
-    box-shadow: 0 0 10px rgba(139,92,246,0.2);
-    animation: ringDot 20s linear infinite;
-}
 @keyframes ringOuterRotate {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-@keyframes ringDot {
-    0% { transform: rotate(0deg) translateY(clamp(-90px, -22vw, -120px)); }
-    100% { transform: rotate(360deg) translateY(clamp(-90px, -22vw, -120px)); }
 }
 
 .splash-logo-ring {
@@ -1288,11 +1267,6 @@ tr:hover td {
         0 0 80px rgba(139,92,246,0.2),
         0 0 160px rgba(139,92,246,0.08),
         inset 0 0 40px rgba(139,92,246,0.05);
-    animation: ringRotate 6s linear infinite;
-}
-@keyframes ringRotate {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
 }
 .splash-logo-inner {
     width: 100%;
@@ -1304,15 +1278,8 @@ tr:hover td {
     overflow: hidden;
     background: radial-gradient(circle at 30% 30%, rgba(139,92,246,0.12), rgba(6,182,212,0.05), rgba(16,185,129,0.03));
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     position: relative;
-}
-.splash-logo-inner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.04) 0%, transparent 50%);
-    pointer-events: none;
 }
 
 .splash-logo {
@@ -1320,7 +1287,6 @@ tr:hover td {
     height: 88%;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 0 60px rgba(139,92,246,0.3);
     position: relative;
     z-index: 1;
 }
@@ -1334,7 +1300,6 @@ tr:hover td {
     background-clip: text;
     margin: 0 0 6px;
     letter-spacing: -0.02em;
-    filter: drop-shadow(0 0 30px rgba(139,92,246,0.15));
 }
 
 .splash-subtitle {
@@ -1701,6 +1666,19 @@ textarea.input-field {
     .auth-container { padding: 12px; }
     .auth-card { padding: 20px 16px; }
     .center-content { min-height: auto; }
+}
+
+/* === TOUCH DEVICE OPTIMIZATIONS === */
+@media (hover: none) and (pointer: coarse) {
+    .splash-grid { opacity: 0.5; }
+    .splash-hex-grid { display: none; }
+    .splash-ring-outer::before { display: none; }
+    .splash-bg-orb { filter: blur(60px); }
+    .s-orb-a, .s-orb-b { animation: none; }
+    .splash-logo-inner { backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .splash-loader-track::before { animation: none; opacity: 0.3; }
+    .bottom-nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .card-master { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 }
 
 /* === SAFE AREAS (iOS notch/dynamic island) === */
