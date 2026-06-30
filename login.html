@@ -25,32 +25,82 @@
                     <i class="fas fa-university"></i>
                 </div>
                 <h2 class="auth-title">دخول الطلاب</h2>
-                <p class="auth-subtitle">أدخل بياناتك للوصول إلى ملفك الأكاديمي</p>
+                <p class="auth-subtitle" id="subtitleText">أدخل رقم قيدك الجامعي للوصول إلى ملفك الأكاديمي</p>
             </div>
 
             <div id="loginStep1">
                 <div class="input-group">
                     <label class="input-label">رقم القيد الجامعي</label>
-                    <input type="text" id="studentId" class="input-field" placeholder="24090111010">
+                    <input type="text" id="studentId" class="input-field" placeholder="24090111010" maxlength="11" autocomplete="off">
                 </div>
-                <button onclick="handleIdVerification()" class="btn btn-primary btn-block">
-                    <span>التحقق من الهوية</span>
-                    <i class="fas fa-arrow-left"></i>
+                <div id="studentPreview" class="hidden student-preview"></div>
+                <button onclick="handleIdVerification()" class="btn btn-primary btn-block" id="verifyBtn">
+                    <span id="verifyBtnText">التحقق من الهوية</span>
+                    <i class="fas fa-arrow-left" id="verifyBtnIcon"></i>
                 </button>
+                <div class="auth-info-text mt-10">
+                    <i class="fas fa-info-circle"></i>
+                    <span>أدخل رقم القيد المكون من 11 رقماً</span>
+                </div>
             </div>
 
             <div id="loginStep2" class="hidden">
-                <div class="input-group">
-                    <label class="input-label" id="passwordLabel">كلمة المرور</label>
-                    <input type="password" id="studentPass" class="input-field" placeholder="أدخل كلمة المرور">
+                <div id="studentInfo" class="student-info-card"></div>
+
+                <div id="passwordFields">
+                    <div class="input-group">
+                        <label class="input-label" id="passwordLabel">كلمة المرور</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="studentPass" class="input-field" placeholder="أدخل كلمة المرور" autocomplete="off">
+                            <button type="button" class="password-toggle" onclick="togglePassword('studentPass', this)" tabindex="-1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="confirmPassGroup" class="input-group hidden">
+                        <label class="input-label">تأكيد كلمة المرور</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="studentPassConfirm" class="input-field" placeholder="أعد إدخال كلمة المرور" autocomplete="off">
+                            <button type="button" class="password-toggle" onclick="togglePassword('studentPassConfirm', this)" tabindex="-1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <button onclick="handleFinalLogin()" class="btn btn-primary btn-block">
-                    <span>دخول النظام</span>
-                    <i class="fas fa-sign-in-alt"></i>
-                </button>
+
                 <p id="firstTimeHint" class="hidden first-time-hint">
+                    <i class="fas fa-star"></i>
                     مرحباً بك لأول مرة! يرجى تعيين كلمة مرور جديدة لحسابك.
                 </p>
+
+                <button onclick="handleFinalLogin()" class="btn btn-primary btn-block" id="loginBtn">
+                    <span id="loginBtnText">دخول النظام</span>
+                    <i class="fas fa-sign-in-alt" id="loginBtnIcon"></i>
+                </button>
+
+                <button onclick="backToStep1()" class="btn btn-ghost btn-block mt-10">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>تغيير رقم القيد</span>
+                </button>
+            </div>
+
+            <div id="loginStepRegister" class="hidden">
+                <div class="register-card">
+                    <div class="register-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3 class="register-title">رقم غير مسجل</h3>
+                    <p class="register-desc">الرقم <strong id="unknownIdDisplay"></strong> غير موجود في النظام.</p>
+                    <p class="register-desc">يمكنك التسجيل كطالب جديد للوصول إلى خدمات النخبة.</p>
+                    <button onclick="registerNewStudent()" class="btn btn-primary btn-block" id="registerBtn">
+                        <span id="registerBtnText">تسجيل حساب جديد</span>
+                        <i class="fas fa-check" id="registerBtnIcon"></i>
+                    </button>
+                    <button onclick="backToStep1()" class="btn btn-ghost btn-block mt-10">
+                        <i class="fas fa-arrow-right"></i>
+                        <span>إدخال رقم آخر</span>
+                    </button>
+                </div>
             </div>
 
             <div class="auth-footer">
@@ -69,53 +119,268 @@
     <script src="app.js"></script>
     <script>
         let currentStudent = null;
+        let isFirstTime = false;
 
-        function handleIdVerification() {
-            const idInput = document.getElementById('studentId').value.trim();
-            const students = JSON.parse(localStorage.getItem('elite_students') || '[]');
-            
-            currentStudent = students.find(s => s.id === idInput);
-
-            if (currentStudent) {
-                document.getElementById('loginStep1').classList.add('hidden');
-                document.getElementById('loginStep2').classList.remove('hidden');
-                
-                if (currentStudent.password === 'auto123') {
-                    document.getElementById('passwordLabel').innerText = 'تعيين كلمة مرور جديدة';
-                    document.getElementById('firstTimeHint').classList.remove('hidden');
-                }
-                showToast('تم العثور على ملف الطالب', 'success');
+        function togglePassword(fieldId, btn) {
+            var input = document.getElementById(fieldId);
+            if (!input) return;
+            var icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye-slash';
             } else {
-                showToast('رقم القيد غير موجود في النظام', 'error');
+                input.type = 'password';
+                icon.className = 'fas fa-eye';
             }
         }
 
-        function handleFinalLogin() {
-            const passInput = document.getElementById('studentPass').value.trim();
-            
-            if (!passInput) {
-                showToast('يرجى إدخال كلمة المرور', 'error');
+        document.addEventListener('DOMContentLoaded', function() {
+            var idInput = document.getElementById('studentId');
+            var passInput = document.getElementById('studentPass');
+            var passConfirm = document.getElementById('studentPassConfirm');
+
+            idInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') handleIdVerification();
+            });
+
+            passInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    if (isFirstTime && document.getElementById('studentPassConfirm').value.trim() === '') {
+                        document.getElementById('studentPassConfirm').focus();
+                        return;
+                    }
+                    handleFinalLogin();
+                }
+            });
+
+            if (passConfirm) {
+                passConfirm.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') handleFinalLogin();
+                });
+            }
+
+            idInput.focus();
+
+            var savedId = localStorage.getItem('last_student_id');
+            if (savedId) {
+                idInput.value = savedId;
+                idInput.setSelectionRange(idInput.value.length, idInput.value.length);
+            }
+        });
+
+        function setLoading(btnId, textId, iconId, loading) {
+            var btn = document.getElementById(btnId);
+            var textEl = document.getElementById(textId);
+            var iconEl = document.getElementById(iconId);
+            if (!btn || !textEl || !iconEl) return;
+            if (loading) {
+                btn.disabled = true;
+                textEl.textContent = 'جارٍ المعالجة...';
+                iconEl.className = 'fas fa-spinner fa-spin';
+            } else {
+                btn.disabled = false;
+                if (btnId === 'verifyBtn') {
+                    textEl.textContent = 'التحقق من الهوية';
+                    iconEl.className = 'fas fa-arrow-left';
+                } else if (btnId === 'loginBtn') {
+                    textEl.textContent = 'دخول النظام';
+                    iconEl.className = 'fas fa-sign-in-alt';
+                } else if (btnId === 'registerBtn') {
+                    textEl.textContent = 'تسجيل حساب جديد';
+                    iconEl.className = 'fas fa-check';
+                }
+            }
+        }
+
+        function handleIdVerification() {
+            var idInput = document.getElementById('studentId');
+            var id = idInput.value.trim().replace(/\s/g, '');
+
+            if (!id) {
+                showToast('يرجى إدخال رقم القيد الجامعي', 'error');
+                idInput.focus();
                 return;
             }
 
-            const students = JSON.parse(localStorage.getItem('elite_students') || '[]');
-            const studentIndex = students.findIndex(s => s.id === currentStudent.id);
-
-            if (currentStudent.password === 'auto123') {
-                students[studentIndex].password = passInput;
-                localStorage.setItem('elite_students', JSON.stringify(students));
-                currentStudent.password = passInput;
-                showToast('تم تعيين كلمة المرور بنجاح', 'success');
-            } else {
-                if (currentStudent.password !== passInput) {
-                    showToast('كلمة المرور غير صحيحة', 'error');
-                    return;
-                }
+            if (id.length < 5) {
+                showToast('رقم القيد يجب أن يكون 11 رقماً', 'error');
+                idInput.focus();
+                return;
             }
 
-            localStorage.setItem('student_session', JSON.stringify(currentStudent));
-            showToast('مرحباً بك في نظام النخبة', 'success');
-            setTimeout(() => window.location.href = 'student.html', 1000);
+            setLoading('verifyBtn', 'verifyBtnText', 'verifyBtnIcon', true);
+
+            setTimeout(function() {
+                var students = JSON.parse(localStorage.getItem('elite_students') || '[]');
+                currentStudent = students.find(function(s) { return s.id === id; });
+
+                setLoading('verifyBtn', 'verifyBtnText', 'verifyBtnIcon', false);
+
+                if (currentStudent) {
+                    localStorage.setItem('last_student_id', id);
+                    showStudentStep(currentStudent);
+                } else {
+                    showRegisterStep(id);
+                }
+            }, 400);
+        }
+
+        function showStudentPreview(student) {
+            var preview = document.getElementById('studentPreview');
+            preview.innerHTML = '<div class="preview-found"><i class="fas fa-check-circle"></i> ' + student.name + '</div>';
+            preview.classList.remove('hidden');
+        }
+
+        function showStudentStep(student) {
+            document.getElementById('loginStep1').classList.add('hidden');
+            document.getElementById('loginStepRegister').classList.add('hidden');
+            document.getElementById('loginStep2').classList.remove('hidden');
+
+            var info = document.getElementById('studentInfo');
+            var verified = false;
+            try {
+                var v = JSON.parse(localStorage.getItem('elite_verified') || '[]');
+                verified = v.indexOf(student.id) !== -1 || student.verified === true;
+            } catch (e) {}
+            info.innerHTML = '<div class="student-check-badge">' +
+                '<i class="fas fa-user-graduate"></i>' +
+                '<div><div class="student-check-name">' + student.name + '</div>' +
+                '<div class="student-check-id">' + student.id + (verified ? ' <span class="badge-verified"><i class="fas fa-check-circle"></i> موثّق</span>' : '') + '</div></div></div>';
+
+            isFirstTime = (student.password === 'auto123');
+            var passGroup = document.getElementById('studentPass').closest('.input-group');
+            var confirmGroup = document.getElementById('confirmPassGroup');
+            var hint = document.getElementById('firstTimeHint');
+
+            document.getElementById('studentPass').value = '';
+            if (document.getElementById('studentPassConfirm')) {
+                document.getElementById('studentPassConfirm').value = '';
+            }
+
+            if (isFirstTime) {
+                document.getElementById('passwordLabel').innerText = 'كلمة المرور الجديدة';
+                document.getElementById('studentPass').placeholder = 'أدخل كلمة المرور الجديدة';
+                confirmGroup.classList.remove('hidden');
+                hint.classList.remove('hidden');
+            } else {
+                document.getElementById('passwordLabel').innerText = 'كلمة المرور';
+                document.getElementById('studentPass').placeholder = 'أدخل كلمة المرور';
+                confirmGroup.classList.add('hidden');
+                hint.classList.add('hidden');
+            }
+
+            document.getElementById('subtitleText').textContent = 'أدخل كلمة المرور للرقم ' + student.id;
+            document.getElementById('studentPass').focus();
+        }
+
+        function showRegisterStep(id) {
+            document.getElementById('loginStep1').classList.add('hidden');
+            document.getElementById('loginStep2').classList.add('hidden');
+            document.getElementById('loginStepRegister').classList.remove('hidden');
+            document.getElementById('unknownIdDisplay').textContent = id;
+            document.getElementById('subtitleText').textContent = 'رقم القيد غير مسجل';
+        }
+
+        function backToStep1() {
+            document.getElementById('loginStep2').classList.add('hidden');
+            document.getElementById('loginStepRegister').classList.add('hidden');
+            document.getElementById('loginStep1').classList.remove('hidden');
+            document.getElementById('subtitleText').textContent = 'أدخل رقم قيدك الجامعي للوصول إلى ملفك الأكاديمي';
+            document.getElementById('studentId').focus();
+        }
+
+        function registerNewStudent() {
+            var id = document.getElementById('unknownIdDisplay').textContent;
+            setLoading('registerBtn', 'registerBtnText', 'registerBtnIcon', true);
+
+            setTimeout(function() {
+                var students = JSON.parse(localStorage.getItem('elite_students') || '[]');
+                var newStudent = {
+                    id: id,
+                    name: 'طالب جديد - ' + id,
+                    password: 'auto123',
+                    verified: false
+                };
+                students.push(newStudent);
+                localStorage.setItem('elite_students', JSON.stringify(students));
+                currentStudent = newStudent;
+                localStorage.setItem('last_student_id', id);
+
+                setLoading('registerBtn', 'registerBtnText', 'registerBtnIcon', false);
+
+                showToast('تم التسجيل بنجاح، يرجى تعيين كلمة مرور', 'success');
+                showStudentStep(currentStudent);
+            }, 500);
+        }
+
+        function handleFinalLogin() {
+            var passInput = document.getElementById('studentPass').value.trim();
+            var confirmInput = document.getElementById('studentPassConfirm');
+            var confirmVal = confirmInput ? confirmInput.value.trim() : '';
+
+            if (!passInput) {
+                showToast('يرجى إدخال كلمة المرور', 'error');
+                document.getElementById('studentPass').focus();
+                return;
+            }
+
+            if (passInput.length < 4) {
+                showToast('كلمة المرور يجب أن تكون 4 أحرف على الأقل', 'error');
+                document.getElementById('studentPass').focus();
+                return;
+            }
+
+            if (isFirstTime && confirmVal !== passInput) {
+                showToast('كلمة المرور غير متطابقة مع التأكيد', 'error');
+                if (confirmInput) confirmInput.focus();
+                return;
+            }
+
+            if (isFirstTime && confirmVal === passInput && passInput === 'auto123') {
+                showToast('يرجى اختيار كلمة مرور مختلفة عن الافتراضية', 'error');
+                document.getElementById('studentPass').focus();
+                return;
+            }
+
+            setLoading('loginBtn', 'loginBtnText', 'loginBtnIcon', true);
+
+            setTimeout(function() {
+                var students = JSON.parse(localStorage.getItem('elite_students') || '[]');
+                var studentIndex = students.findIndex(function(s) { return s.id === currentStudent.id; });
+
+                if (studentIndex === -1) {
+                    setLoading('loginBtn', 'loginBtnText', 'loginBtnIcon', false);
+                    showToast('حدث خطأ في النظام، يرجى المحاولة مرة أخرى', 'error');
+                    return;
+                }
+
+                if (isFirstTime) {
+                    students[studentIndex].password = passInput;
+                    localStorage.setItem('elite_students', JSON.stringify(students));
+                    currentStudent.password = passInput;
+                } else {
+                    if (students[studentIndex].password !== passInput) {
+                        setLoading('loginBtn', 'loginBtnText', 'loginBtnIcon', false);
+                        showToast('كلمة المرور غير صحيحة', 'error');
+                        document.getElementById('studentPass').value = '';
+                        document.getElementById('studentPass').focus();
+                        return;
+                    }
+                }
+
+                var sessionData = {
+                    id: currentStudent.id,
+                    name: students[studentIndex].name,
+                    password: students[studentIndex].password,
+                    verified: students[studentIndex].verified
+                };
+                localStorage.setItem('student_session', JSON.stringify(sessionData));
+
+                setLoading('loginBtn', 'loginBtnText', 'loginBtnIcon', false);
+
+                showToast('مرحباً بك ' + sessionData.name + ' 🎓', 'success');
+                setTimeout(function() { window.location.href = 'student.html'; }, 1000);
+            }, 500);
         }
     </script>
 

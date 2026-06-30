@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="theme-color" content="#a277ff">
     <title>نخبة تقنية المعلومات | البوابة الرسمية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="logo.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -91,61 +91,48 @@
                 <p class="header-sub">نظام إدارة التعلم الذكي لطلاب تقنية المعلومات</p>
             </header>
 
-            <div class="feature-grid">
-                <div class="card-master text-center">
-                    <div class="feature-icon">
-                        <i class="fas fa-sign-in-alt"></i>
-                    </div>
-                    <h3 class="feature-title">دخول الطلاب</h3>
-                    <p class="feature-desc">سجل دخولك للوصول إلى ملفك الأكاديمي والمحتوى الحصري</p>
-                    <a href="login.html" class="btn btn-primary btn-block mt-20">دخول النظام</a>
+            <section class="features-section" id="features">
+                <h2 class="features-heading">كل ما تحتاج في مكان واحد</h2>
+                <p class="features-sub">مميزات متكاملة لرحلة تعليمية متميزة</p>
+                <div class="features-grid">
+                    <a href="exams.html" class="feature-card" style="--card-accent: var(--secondary);">
+                        <div class="feature-card-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <h3>جدول الاختبارات</h3>
+                        <p>تابع مواعيد اختباراتك وجداولك الدراسية بشكل منظم</p>
+                        <span class="feature-link">اكتشف المزيد <i class="fas fa-arrow-left"></i></span>
+                    </a>
+                    <a href="grades.html" class="feature-card" style="--card-accent: var(--success);">
+                        <div class="feature-card-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>الدرجات</h3>
+                        <p>استعرض درجاتك ومعدلاتك التراكمية بشكل فوري</p>
+                        <span class="feature-link">اكتشف المزيد <i class="fas fa-arrow-left"></i></span>
+                    </a>
+                    <a href="projects.html" class="feature-card" style="--card-accent: #f59e0b;">
+                        <div class="feature-card-icon"><i class="fas fa-briefcase"></i></div>
+                        <h3>المشاريع</h3>
+                        <p>تعرف على مشاريع التخرج والبحوث المقدمة من الطلاب</p>
+                        <span class="feature-link">اكتشف المزيد <i class="fas fa-arrow-left"></i></span>
+                    </a>
+                    <a href="courses.html" class="feature-card" style="--card-accent: var(--primary);">
+                        <div class="feature-card-icon"><i class="fas fa-book-open"></i></div>
+                        <h3>الدورات</h3>
+                        <p>تصفح الدورات البرمجية المتاحة لطلاب النخبة</p>
+                        <span class="feature-link">اكتشف المزيد <i class="fas fa-arrow-left"></i></span>
+                    </a>
+                    <a href="trips.html" class="feature-card" style="--card-accent: #ec4899;">
+                        <div class="feature-card-icon"><i class="fas fa-bus"></i></div>
+                        <h3>الرحلات</h3>
+                        <p>برامج الرحلات العلمية والترفيهية التي تنظمها الكلية</p>
+                        <span class="feature-link">اكتشف المزيد <i class="fas fa-arrow-left"></i></span>
+                    </a>
+                    <a href="student.html" class="feature-card" style="--card-accent: var(--primary);">
+                        <div class="feature-card-icon"><i class="fas fa-user-graduate"></i></div>
+                        <h3>حسابي</h3>
+                        <p>ملفك الأكاديمي الشخصي بكل تفاصيله وإنجازاتك</p>
+                        <span class="feature-link">اكتشف المزيد <i class="fas fa-arrow-left"></i></span>
+                    </a>
                 </div>
-
-                <div class="card-master text-center">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color: var(--secondary); border-color: rgba(6, 182, 212, 0.2);">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <h3 class="feature-title">جدول الاختبارات</h3>
-                    <p class="feature-desc">تابع مواعيد اختباراتك وجداولك الدراسية بشكل منظم</p>
-                    <a href="exams.html" class="btn btn-secondary btn-block mt-20">عرض الجدول</a>
-                </div>
-
-                <div class="card-master text-center">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color: var(--success); border-color: rgba(16, 185, 129, 0.2);">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3 class="feature-title">الدرجات</h3>
-                    <p class="feature-desc">استعرض درجاتك ومعدلاتك التراكمية بشكل فوري</p>
-                    <a href="grades.html" class="btn btn-secondary btn-block mt-20">عرض الدرجات</a>
-                </div>
-
-                <div class="card-master text-center">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color: #f59e0b; border-color: rgba(245, 158, 11, 0.2);">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <h3 class="feature-title">المشاريع</h3>
-                    <p class="feature-desc">تعرف على مشاريع التخرج والبحوث المقدمة من الطلاب</p>
-                    <a href="projects.html" class="btn btn-secondary btn-block mt-20">استعراض المشاريع</a>
-                </div>
-
-                <div class="card-master text-center">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color: #ec4899; border-color: rgba(236, 72, 153, 0.2);">
-                        <i class="fas fa-bus"></i>
-                    </div>
-                    <h3 class="feature-title">الرحلات</h3>
-                    <p class="feature-desc">برامج الرحلات العلمية والترفيهية التي تنظمها الكلية</p>
-                    <a href="trips.html" class="btn btn-secondary btn-block mt-20">استعراض الرحلات</a>
-                </div>
-
-                <div class="card-master text-center">
-                    <div class="feature-icon" style="background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color:#a78bfa; border-color: rgba(139, 92, 246, 0.2);">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <h3 class="feature-title">الدورات</h3>
-                    <p class="feature-desc">تصفح الدورات البرمجية المتاحة لطلاب النخبة</p>
-                    <a href="courses.html" class="btn btn-secondary btn-block mt-20">تصفح الدورات</a>
-                </div>
-            </div>
+            </section>
 
             <footer class="footer">
                 <p>المطور: فريق نخبة تقنية المعلومات &copy; 2026</p>
@@ -201,6 +188,21 @@
                 }
             }, 2500);
 
+            var featureCards = document.querySelectorAll('.feature-card');
+            if (featureCards.length && 'IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+                featureCards.forEach(function(card) { observer.observe(card); });
+            } else {
+                featureCards.forEach(function(card) { card.classList.add('visible'); });
+            }
+
             var session = localStorage.getItem('student_session');
             if (session) {
                 try {
@@ -211,9 +213,6 @@
                     document.getElementById('sidebarId').innerText = data.id;
                 } catch (e) {}
             }
-            document.querySelectorAll('.card-master').forEach(function(card) {
-                card.classList.add('animate-fade-up');
-            });
         });
     </script>
     <script src="bridge/overlay-engine.js"></script>

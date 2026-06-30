@@ -59,27 +59,32 @@
                 <p class="header-sub">بيانات الطالب الشخصية والنشاطات</p>
             </header>
 
-            <div class="card-master" style="max-width: 900px;">
-                <div class="profile-section">
-                    <div class="profile-avatar-wrapper">
-                        <div class="profile-avatar" id="profileAvatarContainer">
-                            <i class="fas fa-user-graduate" id="profileAvatarIcon"></i>
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="" class="profile-avatar-img" id="profileAvatarImg">
+            <div class="profile-premium">
+                <div class="profile-accent"></div>
+
+                <div class="profile-head">
+                    <div class="profile-avatar-box">
+                        <div class="profile-avatar-inner" id="profileAvatarContainer">
+                            <i class="fas fa-user-graduate profile-avatar-symbol" id="profileAvatarIcon"></i>
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="" class="profile-avatar-image" id="profileAvatarImg">
                         </div>
+                        <div class="profile-avatar-glint"></div>
                         <div class="profile-avatar-ring"></div>
+                        <div class="profile-avatar-sparkle"></div>
                     </div>
-                    <div class="profile-info">
-                        <h2 id="studentFullName" class="profile-name">طالب النخبة
+                    <div class="profile-head-info">
+                        <h2 class="profile-head-name" id="studentFullName">
+                            <span id="studentNameSpan">طالب النخبة</span>
                             <span class="verified-badge-icon" id="verifiedBadge" style="display:none;" data-tooltip="موثّق من الجامعة" data-keep-badge>
                                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                             </span>
                         </h2>
-                        <div class="profile-badges">
-                            <span class="status-badge primary-badge">
+                        <div class="profile-head-tags">
+                            <span class="profile-tag profile-tag-id">
                                 <i class="fas fa-id-card"></i>
                                 <span id="studentIdBadge">---</span>
                             </span>
-                            <span class="status-badge success-badge">
+                            <span class="profile-tag profile-tag-active">
                                 <i class="fas fa-check-circle"></i>
                                 <span>حساب نشط</span>
                             </span>
@@ -87,75 +92,75 @@
                     </div>
                 </div>
 
-                <div class="academic-grid">
-                    <div class="academic-card">
-                        <div class="academic-card-icon">
+                <div class="profile-info-grid">
+                    <div class="profile-info-cell">
+                        <div class="cell-icon">
                             <i class="fas fa-university"></i>
                         </div>
-                        <div class="academic-card-body">
-                            <span class="academic-card-label">الجامعة</span>
-                            <span class="academic-card-value">القرآن الكريم والعلوم الإسلامية</span>
+                        <div class="cell-body">
+                            <span class="cell-label">الجامعة</span>
+                            <span class="cell-value">القرآن الكريم والعلوم الإسلامية</span>
                         </div>
                     </div>
-                    <div class="academic-card">
-                        <div class="academic-card-icon">
+                    <div class="profile-info-cell">
+                        <div class="cell-icon">
                             <i class="fas fa-laptop-code"></i>
                         </div>
-                        <div class="academic-card-body">
-                            <span class="academic-card-label">القسم / المستوى</span>
-                            <span class="academic-card-value">تقنية المعلومات | المستوى الثاني</span>
+                        <div class="cell-body">
+                            <span class="cell-label">القسم / المستوى</span>
+                            <span class="cell-value">تقنية المعلومات | المستوى الثاني</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="gpa-ring-section" id="gpaSection" style="display:none;">
-                    <div class="gpa-container">
-                        <div class="gpa-ring-wrapper">
-                            <svg viewBox="0 0 100 100" class="gpa-svg">
-                                <circle cx="50" cy="50" r="44" stroke="rgba(139,92,246,0.08)" stroke-width="6" fill="none"/>
-                                <circle cx="50" cy="50" r="44" stroke="url(#gpaGrad)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="276.46" id="gpaCircle"/>
-                                <defs><linearGradient id="gpaGrad"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+                <div class="profile-gpa-section" id="gpaSection" style="display:none;">
+                    <div class="gpa-premium">
+                        <div class="gpa-ring-premium">
+                            <svg viewBox="0 0 100 100" class="gpa-premium-svg">
+                                <circle cx="50" cy="50" r="44" stroke="rgba(139,92,246,0.06)" stroke-width="6" fill="none"/>
+                                <circle cx="50" cy="50" r="44" stroke="url(#gpaPremiumGrad)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="276.46" id="gpaCircle"/>
+                                <defs><linearGradient id="gpaPremiumGrad"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
                             </svg>
-                            <div class="gpa-text">
-                                <span id="gpaValue" class="gpa-value">--</span>
-                                <span class="gpa-label">المعدل</span>
+                            <div class="gpa-premium-text">
+                                <span id="gpaValue" class="gpa-premium-num">--</span>
+                                <span class="gpa-premium-lbl">المعدل</span>
                             </div>
                         </div>
-                        <div class="gpa-info">
-                            <h4 class="gpa-title">المعدل التراكمي</h4>
-                            <p id="gpaLabel" class="gpa-desc">---</p>
+                        <div class="gpa-premium-info">
+                            <h4 class="gpa-premium-title">المعدل التراكمي</h4>
+                            <p id="gpaLabel" class="gpa-premium-desc">---</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="verify-action-row" id="verifyActionRow">
-                    <a href="security-verification.html" class="btn btn-primary verify-btn" id="verifyBtn">
+                <div class="profile-action" id="verifyActionRow">
+                    <a href="security-verification.html" class="btn profile-action-btn" id="verifyBtn">
                         <i class="fas fa-shield-halved"></i>
                         <span>طلب التحقق من الهوية</span>
                     </a>
                 </div>
 
-                <div class="activities-section">
-                    <input type="checkbox" id="activitiesToggle" class="activities-toggle-input">
-                    <label for="activitiesToggle" class="activities-header">
-                        <div class="activities-header-left">
+                <div class="profile-collapse">
+                    <input type="checkbox" id="activitiesToggle" class="collapse-input">
+                    <label for="activitiesToggle" class="collapse-header">
+                        <div class="collapse-header-right">
                             <i class="fas fa-brain"></i>
                             <span>النشاطات والمهارات</span>
                         </div>
-                        <div class="activities-header-arrow">
+                        <div class="collapse-header-icon">
                             <i class="fas fa-chevron-down"></i>
                         </div>
                     </label>
-                    <div class="activities-body">
-                        <div class="activities-empty">
+                    <div class="collapse-body">
+                        <div class="collapse-empty">
                             <i class="fas fa-inbox"></i>
                             <p>لا توجد نشاطات مسجلة حالياً. سيتم تحديث هذا القسم قريباً بناءً على إنجازاتك في الكلية.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="forgot-row">
-                    <label for="fingerprintToggle" class="forgot-link">
+                <div class="profile-foot">
+                    <label for="fingerprintToggle" class="profile-foot-link">
                         <i class="fas fa-fingerprint"></i>
                         <span>نسيت رمز الدخول؟</span>
                     </label>
@@ -182,6 +187,9 @@
         <div class="fp-modal">
             <label for="fingerprintToggle" class="fp-close"><i class="fas fa-times"></i></label>
             
+            <input type="checkbox" id="fpSuccessTrigger" hidden>
+            <input type="checkbox" id="fpShowReset" hidden>
+            
             <div class="fp-stage" id="fpStageFingerprint">
                 <div class="fp-ring-container">
                     <div class="fp-ring fp-ring-1"></div>
@@ -199,7 +207,6 @@
                 </label>
             </div>
 
-            <input type="checkbox" id="fpSuccessTrigger" hidden>
             <div class="fp-stage" id="fpStageSuccess">
                 <div class="fp-success-ring">
                     <div class="fp-success-icon">
@@ -210,7 +217,6 @@
                 <p class="fp-subtitle">يجري تجهيز واجهة إعادة التعيين...</p>
             </div>
 
-            <input type="checkbox" id="fpShowReset" hidden>
             <div class="fp-stage" id="fpStageReset">
                 <div class="fp-reset-form">
                     <div class="fp-reset-header">
@@ -260,18 +266,21 @@
                 const data = JSON.parse(session);
                 document.getElementById('sidebarName').innerText = data.name;
                 document.getElementById('sidebarId').innerText = data.id;
-                document.getElementById('studentFullName').childNodes[0].textContent = data.name + ' ';
+                document.getElementById('studentNameSpan').textContent = data.name;
                 document.getElementById('studentIdBadge').innerText = data.id;
+                document.title = data.name + ' | ملفي الأكاديمي | بوابة النخبة';
 
                 const img = document.getElementById('profileAvatarImg');
                 const icon = document.getElementById('profileAvatarIcon');
-                img.onerror = function() { img.style.display = 'none'; icon.style.display = ''; };
+                const container = document.getElementById('profileAvatarContainer');
                 if (data.id === '24090111005') {
-                    img.src = 'abdulrahman.jpg';
-                    img.style.display = '';
+                    img.style.display = 'none';
                     icon.style.display = 'none';
+                    container.style.background = 'url(abdulrahman.jpg) center/cover no-repeat';
                 } else {
-                    img.src = '';
+                    img.style.display = 'none';
+                    icon.style.display = '';
+                    container.style.background = '';
                 }
 
                 var isVerified = VerificationSystem.isVerified(data.id);
@@ -280,16 +289,22 @@
                 if (isVerified) {
                     document.getElementById('verifiedBadge').style.display = 'inline-flex';
                     document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-check-circle"></i><span>تم التحقق بنجاح</span>';
-                    document.getElementById('verifyBtn').className = 'btn verify-btn btn-success';
+                    document.getElementById('verifyBtn').className = 'btn profile-action-btn verified';
                     document.getElementById('verifyBtn').href = '#';
                     document.getElementById('verifyBtn').onclick = function(e) { e.preventDefault(); };
+                    document.getElementById('verifiedBadge').onclick = function(e) {
+                        e.stopPropagation();
+                        if (typeof showToast === 'function') {
+                            showToast('موثّق من الجامعة', 'success');
+                        }
+                    };
                 } else if (req && req.status === 'pending') {
                     document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-clock"></i><span>طلبك قيد المراجعة</span>';
-                    document.getElementById('verifyBtn').style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+                    document.getElementById('verifyBtn').style.cssText = 'background: linear-gradient(135deg, #f59e0b, #d97706) !important; border: none !important; color: #fff !important; box-shadow: 0 4px 20px rgba(245,158,11,0.15) !important;';
                     document.getElementById('verifyBtn').href = 'security-verification.html';
                 } else if (req && req.status === 'rejected') {
                     document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-redo"></i><span>تم رفض الطلب - أعد المحاولة</span>';
-                    document.getElementById('verifyBtn').style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+                    document.getElementById('verifyBtn').style.cssText = 'background: linear-gradient(135deg, #ef4444, #dc2626) !important; border: none !important; color: #fff !important; box-shadow: 0 4px 20px rgba(239,68,68,0.15) !important;';
                     document.getElementById('verifyBtn').href = 'security-verification.html';
                 }
 

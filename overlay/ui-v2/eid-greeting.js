@@ -31,7 +31,7 @@ class EidGreeting {
     var logos = document.querySelectorAll('img[src*="logo.png"], img[src*="logo"], .sidebar-logo, .splash-logo, .app-logo-login, .id-logo');
     logos.forEach(function(img) {
       img.setAttribute('src', eidLogo);
-      img.setAttribute('srcset', '');
+      img.removeAttribute('srcset');
     });
   }
 

@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="mt-20">
-                    <a href="#" onclick="localStorage.removeItem('student_session');window.location.href='login.html'" class="nav-link" style="color: var(--error);">
+                    <a href="#" onclick="handleLogout()" class="nav-link" style="color: var(--error);">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>تسجيل الخروج</span>
                     </a>
@@ -123,6 +123,39 @@
     <script src="notifications.js"></script>
 
     <script src="app.js"></script>
+    <script>
+    (function fillDashboard() {
+        try {
+            var session = JSON.parse(localStorage.getItem('student_session') || '{}');
+            if (!session || !session.id) return;
+            var students = JSON.parse(localStorage.getItem('elite_students') || '[]');
+            var rec = students.find(function(s) { return s.id === session.id; }) || session;
+            var e = function(id) { return document.getElementById(id); };
+            if (e('studentName')) e('studentName').innerText = rec.name || session.name;
+            if (e('studentIdDisplay')) e('studentIdDisplay').innerText = rec.id || session.id;
+            if (e('studentDept')) e('studentDept').innerText = 'تقنية المعلومات';
+            if (e('lastLoginDisplay')) e('lastLoginDisplay').innerText = new Date().toLocaleString('ar-EG');
+            if (e('idCardNum')) e('idCardNum').innerText = rec.id || session.id;
+            if (e('studentAvatar')) e('studentAvatar').src = 'logo.png';
+            if (e('idCardAvatar')) e('idCardAvatar').src = 'logo.png';
+            if (typeof QRCode !== 'undefined' && e('qrcode')) {
+                try { new QRCode(e('qrcode'), { text: rec.id || session.id, width: 52, height: 52 }); } catch (qrErr) {}
+            }
+            if (e('activityLogContainer')) {
+                var log = JSON.parse(localStorage.getItem('elite_activity_log') || '[]');
+                var recent = log.filter(function(l) { return l.studentId === session.id; }).slice(-5);
+                var container = e('activityLogContainer');
+                if (recent.length) {
+                    container.innerHTML = recent.reverse().map(function(l) {
+                        return '<div class="activity-item"><i class="fas fa-circle" style="font-size:0.4rem;color:var(--primary);flex-shrink:0"></i><span style="font-size:0.82rem;color:var(--text-muted);flex:1">' + l.action + '</span><small style="font-size:0.7rem;color:var(--text-muted);opacity:0.5">' + l.time + '</small></div>';
+                    }).join('');
+                } else {
+                    container.innerHTML = '<div class="activity-item" style="justify-content:center;opacity:0.5"><span style="font-size:0.82rem;color:var(--text-muted)">لا توجد نشاطات بعد</span></div>';
+                }
+            }
+        } catch (fillErr) { console.warn('dashboard fill:', fillErr); }
+    })();
+    </script>
     <script src="bridge/overlay-engine.js"></script>
 </body>
 </html>

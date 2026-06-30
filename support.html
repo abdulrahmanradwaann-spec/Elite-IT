@@ -11,7 +11,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="overlay/themes/glassmorphism-3.css">
     <link rel="stylesheet" href="polish-overlay.css">
-    <style>.card-master, .card-master:hover { transform: none !important; }</style>
 </head>
 <body>
     <div class="bg-glow glow-1"></div>
@@ -59,103 +58,109 @@
                 <p class="header-sub">نساعدك في حل أي مشكلة خلال 24 ساعة</p>
             </header>
 
-            <div style="max-width: 900px;">
-                <div class="card-master" id="newTicketCard">
-                    <div class="section-bar">
-                        <div class="section-bar-icon" style="background: linear-gradient(135deg,rgba(139,92,246,0.15),rgba(6,182,212,0.08));color:var(--primary);">
+            <div class="support-wrap">
+                <div class="support-accent"></div>
+
+                <div class="support-form-section">
+                    <div class="support-form-head">
+                        <div class="support-form-icon">
                             <i class="fas fa-headset"></i>
                         </div>
                         <div>
-                            <h3>بلاغ دعم فني</h3>
-                            <p>صنّف مشكلتك وسنرسلها لفريق الدعم</p>
+                            <h3 class="support-form-title">بلاغ دعم فني</h3>
+                            <p class="support-form-desc">صنّف مشكلتك وسنرسلها لفريق الدعم</p>
                         </div>
                     </div>
 
-                    <div class="form-grid">
-                        <div>
-                            <label class="input-label">نوع الطلب</label>
-                            <select id="ticketType" class="input-field">
-                                <option value="Bug">خطأ تقني (Bug)</option>
-                                <option value="Account">مشكلة حساب / تسجيل دخول</option>
-                                <option value="Inquiry">استفسار عام</option>
-                                <option value="Feature">اقتراح تطوير</option>
-                            </select>
+                    <div class="support-form-grid">
+                        <div class="support-field">
+                            <label class="support-label">نوع الطلب</label>
+                            <div class="support-select-wrap">
+                                <select id="ticketType" class="support-select">
+                                    <option value="Bug">خطأ تقني (Bug)</option>
+                                    <option value="Account">مشكلة حساب / تسجيل دخول</option>
+                                    <option value="Inquiry">استفسار عام</option>
+                                    <option value="Feature">اقتراح تطوير</option>
+                                </select>
+                                <i class="fas fa-chevron-down support-select-arrow"></i>
+                            </div>
                         </div>
-                        <div>
-                            <label class="input-label">الأولوية</label>
-                            <select id="ticketPriority" class="input-field">
-                                <option value="normal">عادية</option>
-                                <option value="urgent">عاجلة</option>
-                            </select>
+                        <div class="support-field">
+                            <label class="support-label">الأولوية</label>
+                            <div class="support-select-wrap">
+                                <select id="ticketPriority" class="support-select">
+                                    <option value="normal">عادية</option>
+                                    <option value="urgent">عاجلة</option>
+                                </select>
+                                <i class="fas fa-chevron-down support-select-arrow"></i>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="input-label">عنوان المشكلة</label>
-                        <input type="text" id="ticketSubject" class="input-field" placeholder="مثال: خطأ في عرض الدرجات">
+                    <div class="support-field">
+                        <label class="support-label">عنوان المشكلة</label>
+                        <input type="text" id="ticketSubject" class="support-input" placeholder="مثال: خطأ في عرض الدرجات">
                     </div>
 
-                    <div class="form-group">
-                        <label class="input-label">وصف المشكلة</label>
-                        <textarea id="ticketDesc" class="input-field" rows="4" placeholder="اشرح مشكلتك بالتفصيل... ما الذي حدث؟ ما المتوقع أن يحدث؟ ما الخطوات التي اتخذتها؟"></textarea>
+                    <div class="support-field">
+                        <label class="support-label">وصف المشكلة</label>
+                        <textarea id="ticketDesc" class="support-textarea" rows="4" placeholder="اشرح مشكلتك بالتفصيل... ما الذي حدث؟ ما المتوقع أن يحدث؟ ما الخطوات التي اتخذتها؟"></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label class="input-label">معلومات إضافية <span class="optional-tag">اختياري</span></label>
-                        <input type="text" id="ticketExtra" class="input-field" placeholder="رقم المتصفح، إصدار النظام، أو أي تفاصيل أخرى">
+                    <div class="support-field">
+                        <label class="support-label">معلومات إضافية <span class="support-optional">اختياري</span></label>
+                        <input type="text" id="ticketExtra" class="support-input" placeholder="رقم المتصفح، إصدار النظام، أو أي تفاصيل أخرى">
                     </div>
 
-                    <button class="btn btn-primary btn-block" id="submitTicketBtn">
+                    <button class="support-submit" id="submitTicketBtn">
                         <i class="fas fa-paper-plane"></i>
                         <span>إرسال بلاغ الدعم</span>
                     </button>
                 </div>
 
-                <div class="card-master" id="ticketsListCard" style="margin-top:20px;">
-                    <div class="section-bar">
-                        <div class="section-bar-icon" style="background: linear-gradient(135deg,rgba(16,185,129,0.15),rgba(6,182,212,0.08));color:#10b981;">
+                <div class="support-tickets-section">
+                    <div class="support-tickets-head">
+                        <div class="support-tickets-icon">
                             <i class="fas fa-ticket"></i>
                         </div>
                         <div>
-                            <h3>سجل البلاغات</h3>
-                            <p id="ticketCount">0 بلاغ</p>
+                            <h3 class="support-tickets-title">سجل البلاغات</h3>
+                            <p class="support-tickets-count" id="ticketCount">0 بلاغ</p>
                         </div>
                     </div>
-                    <div id="ticketsContainer"></div>
+                    <div id="ticketsContainer" class="support-tickets-list"></div>
                 </div>
 
-                <div class="card-master" style="margin-top:20px;">
-                    <div class="sla-card">
-                        <div class="sla-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div>
-                            <h4 class="sla-title">زمن الاستجابة</h4>
-                            <p class="sla-desc">يتم إرسال البلاغ مباشرة لفريق الدعم الفني عبر البريد الإلكتروني</p>
-                        </div>
+                <div class="support-sla-card">
+                    <div class="sla-premium-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h4 class="sla-premium-title">زمن الاستجابة</h4>
+                        <p class="sla-premium-desc">يتم إرسال البلاغ مباشرة لفريق الدعم الفني عبر البريد الإلكتروني</p>
                     </div>
                 </div>
 
-                <div class="card-master" style="margin-top:20px;">
-                    <div class="section-bar">
-                        <div class="section-bar-icon" style="background: rgba(6,182,212,0.1);color:#06b6d4;">
-                            <i class="fas fa-info-circle"></i>
-                        </div>
-                        <h4 style="font-weight:800;font-size:0.95rem;margin:0;">كيف يعمل النظام؟</h4>
+                <div class="support-steps">
+                    <div class="support-step">
+                        <div class="support-step-badge">1</div>
+                        <div class="support-step-text">اصنف مشكلتك واكتب التفاصيل</div>
                     </div>
-                    <div class="step-grid">
-                        <div class="step-item">
-                            <div class="step-num">1</div>
-                            <div class="step-text">اصنف مشكلتك واكتب التفاصيل</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-num">2</div>
-                            <div class="step-text">يتم إعداد البلاغ تلقائياً كرسالة بريد</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-num">3</div>
-                            <div class="step-text">أرسل البريد وسنرد خلال 24 ساعة</div>
-                        </div>
+                    <div class="support-step-connector">
+                        <div class="support-step-line"></div>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="support-step">
+                        <div class="support-step-badge">2</div>
+                        <div class="support-step-text">يتم إعداد البلاغ تلقائياً</div>
+                    </div>
+                    <div class="support-step-connector">
+                        <div class="support-step-line"></div>
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <div class="support-step">
+                        <div class="support-step-badge">3</div>
+                        <div class="support-step-text">أرسل البريد وسنرد خلال 24 ساعة</div>
                     </div>
                 </div>
             </div>
@@ -268,7 +273,7 @@
             var extra = document.getElementById('ticketExtra').value.trim();
 
             document.querySelectorAll('.field-error').forEach(function(e) { e.remove(); });
-            document.querySelectorAll('.input-field.error').forEach(function(e) { e.classList.remove('error'); });
+            document.querySelectorAll('.support-input.error, .support-textarea.error').forEach(function(e) { e.classList.remove('error'); });
 
             var hasError = false;
             if (!subject) {
@@ -328,88 +333,80 @@
 
             if (!tickets.length) {
                 var empty = document.createElement('div');
-                empty.className = 'activities-empty';
-                empty.style.padding = '30px 20px';
-                var emptyIcon = document.createElement('i');
-                emptyIcon.className = 'fas fa-inbox';
-                emptyIcon.style.fontSize = '2rem';
-                empty.appendChild(emptyIcon);
-                var emptyText = document.createElement('p');
-                emptyText.style.cssText = 'font-size:0.85rem;margin:12px 0 0;';
-                emptyText.textContent = 'لا توجد بلاغات بعد';
-                empty.appendChild(emptyText);
+                empty.className = 'support-empty';
+                empty.innerHTML = '<i class="fas fa-inbox"></i><p>لا توجد بلاغات بعد</p>';
                 container.appendChild(empty);
                 return;
             }
 
             tickets.forEach(function(t) {
                 var card = document.createElement('div');
-                card.className = 'ticket-card';
+                card.className = 'support-ticket-card';
 
-                var header = document.createElement('div');
-                header.className = 'ticket-header';
+                var top = document.createElement('div');
+                top.className = 'support-ticket-top';
 
-                var leftPart = document.createElement('div');
-                leftPart.className = 'ticket-left';
+                var left = document.createElement('div');
+                left.className = 'support-ticket-left';
 
-                var typeIcon = document.createElement('span');
-                typeIcon.className = 'ticket-type-icon';
+                var iconWrap = document.createElement('span');
+                iconWrap.className = 'support-ticket-type';
                 var c = TYPE_COLORS[t.type] || 'var(--primary)';
-                typeIcon.style.cssText = 'background:' + c + '15;color:' + c + ';';
-                typeIcon.innerHTML = '<i class="fas ' + (TYPE_ICONS[t.type] || 'fa-circle') + '"></i>';
-                leftPart.appendChild(typeIcon);
+                iconWrap.style.cssText = 'background:' + c + '15;color:' + c + ';';
+                iconWrap.innerHTML = '<i class="fas ' + (TYPE_ICONS[t.type] || 'fa-circle') + '"></i>';
+                left.appendChild(iconWrap);
 
-                var title = document.createElement('span');
-                title.className = 'ticket-title';
-                title.textContent = t.subject;
-                leftPart.appendChild(title);
-                header.appendChild(leftPart);
+                var titleSpan = document.createElement('span');
+                titleSpan.className = 'support-ticket-subject';
+                titleSpan.textContent = t.subject;
+                left.appendChild(titleSpan);
+                top.appendChild(left);
 
-                var rightPart = document.createElement('div');
-                rightPart.className = 'ticket-right';
+                var right = document.createElement('div');
+                right.className = 'support-ticket-right';
 
-                var statusBadge = document.createElement('span');
+                var statusSpan = document.createElement('span');
                 var sColor = STATUS_COLORS[t.status] || 'var(--primary)';
-                statusBadge.className = 'ticket-status';
-                statusBadge.style.cssText = 'background:' + sColor + '15;color:' + sColor + ';';
-                statusBadge.textContent = STATUS_LABELS[t.status] || t.status;
-                rightPart.appendChild(statusBadge);
+                statusSpan.className = 'support-ticket-status';
+                statusSpan.style.cssText = 'background:' + sColor + '15;color:' + sColor + ';';
+                statusSpan.textContent = STATUS_LABELS[t.status] || t.status;
+                right.appendChild(statusSpan);
 
                 var dateSpan = document.createElement('span');
-                dateSpan.className = 'ticket-date';
+                dateSpan.className = 'support-ticket-date';
                 dateSpan.textContent = t.date;
-                rightPart.appendChild(dateSpan);
-                header.appendChild(rightPart);
+                right.appendChild(dateSpan);
+                top.appendChild(right);
 
-                card.appendChild(header);
+                card.appendChild(top);
 
-                var desc = document.createElement('p');
-                desc.className = 'ticket-desc';
-                desc.textContent = t.description.length > 150 ? t.description.substring(0, 150) + '...' : t.description;
-                card.appendChild(desc);
+                var body = document.createElement('p');
+                body.className = 'support-ticket-body';
+                body.textContent = t.description.length > 150 ? t.description.substring(0, 150) + '...' : t.description;
+                card.appendChild(body);
 
-                var meta = document.createElement('div');
-                meta.className = 'ticket-meta';
+                var foot = document.createElement('div');
+                foot.className = 'support-ticket-foot';
 
-                var typeEl = document.createElement('span');
-                typeEl.className = 'ticket-meta-tag';
+                var tag = document.createElement('span');
+                tag.className = 'support-ticket-tag';
                 var c2 = TYPE_COLORS[t.type] || 'var(--primary)';
-                typeEl.style.cssText = 'background:' + c2 + '10;color:' + c2 + ';';
-                typeEl.textContent = TYPE_LABELS[t.type] || t.type;
-                meta.appendChild(typeEl);
+                tag.style.cssText = 'background:' + c2 + '10;color:' + c2 + ';';
+                tag.textContent = TYPE_LABELS[t.type] || t.type;
+                foot.appendChild(tag);
 
-                var prioEl = document.createElement('span');
-                prioEl.className = 'ticket-meta-priority';
-                prioEl.innerHTML = '<i class="fas fa-flag" style="margin-left:3px;color:' + (t.priority === 'urgent' ? '#ef4444' : 'rgba(161,161,170,0.3)') + ';"></i>';
-                prioEl.appendChild(document.createTextNode(PRIORITY_LABELS[t.priority] || 'عادية'));
-                meta.appendChild(prioEl);
+                var flag = document.createElement('span');
+                flag.className = 'support-ticket-flag';
+                flag.innerHTML = '<i class="fas fa-flag" style="margin-left:4px;color:' + (t.priority === 'urgent' ? '#ef4444' : 'rgba(161,161,170,0.25)') + ';"></i>';
+                flag.appendChild(document.createTextNode(PRIORITY_LABELS[t.priority] || 'عادية'));
+                foot.appendChild(flag);
 
-                var idEl = document.createElement('span');
-                idEl.className = 'ticket-meta-id';
-                idEl.textContent = t.id;
-                meta.appendChild(idEl);
+                var tid = document.createElement('span');
+                tid.className = 'support-ticket-id';
+                tid.textContent = t.id;
+                foot.appendChild(tid);
 
-                card.appendChild(meta);
+                card.appendChild(foot);
                 container.appendChild(card);
             });
         }
