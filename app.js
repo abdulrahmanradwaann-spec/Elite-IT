@@ -98,6 +98,8 @@ window.addEventListener('appinstalled', () => {
 });
 
 const PROTECTED_PAGES = ['student.html', 'dashboard.html', 'admin.html', 'admin-notifications.html'];
+const ADMIN_PAGES = ['admin.html', 'admin-notifications.html'];
+const DEFAULT_ADMIN_PASSWORD = 'admin123';
 const RESTRICTED_PAGES = {
     'courses.html': 'access_courses',
     'support.html': 'access_support'
@@ -124,8 +126,19 @@ function getPermissions() {
 function checkSession() {
     var session = null;
     try { session = localStorage.getItem('student_session'); } catch (e) {}
+    var adminSession = null;
+    try { adminSession = localStorage.getItem('elite_admin_session'); } catch (e) {}
     const path = window.location.pathname.split('/').pop() || 'index.html';
-    if (PROTECTED_PAGES.includes(path) && !session) {
+
+    if (ADMIN_PAGES.includes(path)) {
+        if (!adminSession) {
+            /* For admin pages, allow access only if admin session exists */
+            /* The admin.html itself will show an inline login if no session */
+            return;
+        }
+    }
+
+    if (PROTECTED_PAGES.includes(path) && !session && path !== 'admin.html' && path !== 'admin-notifications.html') {
         window.location.href = 'login.html';
         return;
     }
@@ -294,10 +307,7 @@ function updateVerificationBadges() {
 
     if (isVerified) {
         var targets = [
-            { id: 'sidebarName', mode: 'inside' },
-            { id: 'welcomeName', mode: 'after' },
-            { id: 'studentFullName', mode: 'inside' },
-            { id: 'idCardName', mode: 'inside' }
+            { id: 'studentFullName', mode: 'inside' }
         ];
 
         targets.forEach(function(t) {
@@ -356,4 +366,32 @@ window.handleLogout = function() {
     localStorage.removeItem('elite_permissions');
     showToast('تم تسجيل الخروج بنجاح', 'success');
     setTimeout(() => window.location.href = 'login.html', 1000);
+};
+
+/* ===== Admin Authentication ===== */
+window.adminLogin = function(password) {
+    if (password === DEFAULT_ADMIN_PASSWORD) {
+        var session = { isAdmin: true, name: 'المشرف', loginTime: new Date().toISOString() };
+        try { localStorage.setItem('elite_admin_session', JSON.stringify(session)); } catch (e) {}
+        return { success: true };
+    }
+    return { success: false, error: 'كلمة مرور المشرف غير صحيحة' };
+};
+
+window.adminLogout = function() {
+    try { localStorage.removeItem('elite_admin_session'); } catch (e) {}
+    showToast('تم تسجيل خروج المشرف', 'success');
+    setTimeout(function() { window.location.href = 'index.html'; }, 1000);
+};
+
+window.isAdminLoggedIn = function() {
+    try {
+        var s = JSON.parse(localStorage.getItem('elite_admin_session') || 'null');
+        return s && s.isAdmin === true;
+    } catch (e) { return false; }
+};
+
+/* Make updateVerificationBadges publicly callable for cross-page sync */
+window.refreshVerificationBadges = function() {
+    updateVerificationBadges();
 };

@@ -5,10 +5,10 @@
 
 :root {
     /* 2026 Master Colors */
-    --neon-purple: #8b5cf6;
+    --neon-purple: #4f6ef7;
     --neon-blue: #3b82f6;
-    --neon-cyan: #06b6d4;
-    --neon-emerald: #10b981;
+    --neon-cyan: #d4a373;
+    --neon-emerald: #22c55e;
     
     /* Premium Gradients */
     --grad-premium: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
@@ -85,7 +85,7 @@
 .card-master:hover {
     transform: translateY(-10px) scale(1.02);
     border-color: var(--primary);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 20px 40px rgba(79, 110, 247, 0.2);
 }
 
 /* Language Switcher Styling */

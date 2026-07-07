@@ -260,6 +260,38 @@
     <script src="app.js"></script>
     <script src="verification.js"></script>
     <script>
+        function updateVerificationUI(data) {
+            var isVerified = VerificationSystem.isVerified(data.id);
+            var req = VerificationSystem.getStudentRequest(data.id);
+
+            if (isVerified) {
+                document.getElementById('verifiedBadge').style.display = 'inline-flex';
+                document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-check-circle"></i><span>تم التحقق بنجاح</span>';
+                document.getElementById('verifyBtn').className = 'btn profile-action-btn verified';
+                document.getElementById('verifyBtn').href = '#';
+                document.getElementById('verifyBtn').onclick = function(e) { e.preventDefault(); };
+                document.getElementById('verifiedBadge').onclick = function(e) {
+                    e.stopPropagation();
+                    if (typeof showToast === 'function') showToast('موثّق من الجامعة', 'success');
+                };
+            } else if (req && req.status === 'pending') {
+                document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-clock"></i><span>طلبك قيد المراجعة</span>';
+                document.getElementById('verifyBtn').style.cssText = 'background: linear-gradient(135deg, #f59e0b, #d97706) !important; border: none !important; color: #fff !important; box-shadow: 0 4px 20px rgba(245,158,11,0.15) !important;';
+                document.getElementById('verifyBtn').href = 'security-verification.html';
+            } else if (req && req.status === 'rejected') {
+                document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-redo"></i><span>تم رفض الطلب - أعد المحاولة</span>';
+                document.getElementById('verifyBtn').style.cssText = 'background: linear-gradient(135deg, #ef4444, #dc2626) !important; border: none !important; color: #fff !important; box-shadow: 0 4px 20px rgba(239,68,68,0.15) !important;';
+                document.getElementById('verifyBtn').href = 'security-verification.html';
+            } else {
+                document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-shield-halved"></i><span>طلب التحقق من الهوية</span>';
+                document.getElementById('verifyBtn').className = 'btn profile-action-btn';
+                document.getElementById('verifyBtn').href = 'security-verification.html';
+                document.getElementById('verifyBtn').onclick = null;
+            }
+            /* Sync badges via app.js */
+            if (typeof window.refreshVerificationBadges === 'function') window.refreshVerificationBadges();
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const session = localStorage.getItem('student_session');
             if (session) {
@@ -274,39 +306,18 @@
                 const icon = document.getElementById('profileAvatarIcon');
                 const container = document.getElementById('profileAvatarContainer');
                 if (data.id === '24090111005') {
-                    img.style.display = 'none';
+                    img.removeAttribute('style');
+                    img.src = 'abdulrahman.jpg';
                     icon.style.display = 'none';
-                    container.style.background = 'url(abdulrahman.jpg) center/cover no-repeat';
+                    container.style.background = '';
                 } else {
                     img.style.display = 'none';
+                    img.src = '';
                     icon.style.display = '';
                     container.style.background = '';
                 }
 
-                var isVerified = VerificationSystem.isVerified(data.id);
-                var req = VerificationSystem.getStudentRequest(data.id);
-
-                if (isVerified) {
-                    document.getElementById('verifiedBadge').style.display = 'inline-flex';
-                    document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-check-circle"></i><span>تم التحقق بنجاح</span>';
-                    document.getElementById('verifyBtn').className = 'btn profile-action-btn verified';
-                    document.getElementById('verifyBtn').href = '#';
-                    document.getElementById('verifyBtn').onclick = function(e) { e.preventDefault(); };
-                    document.getElementById('verifiedBadge').onclick = function(e) {
-                        e.stopPropagation();
-                        if (typeof showToast === 'function') {
-                            showToast('موثّق من الجامعة', 'success');
-                        }
-                    };
-                } else if (req && req.status === 'pending') {
-                    document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-clock"></i><span>طلبك قيد المراجعة</span>';
-                    document.getElementById('verifyBtn').style.cssText = 'background: linear-gradient(135deg, #f59e0b, #d97706) !important; border: none !important; color: #fff !important; box-shadow: 0 4px 20px rgba(245,158,11,0.15) !important;';
-                    document.getElementById('verifyBtn').href = 'security-verification.html';
-                } else if (req && req.status === 'rejected') {
-                    document.getElementById('verifyBtn').innerHTML = '<i class="fas fa-redo"></i><span>تم رفض الطلب - أعد المحاولة</span>';
-                    document.getElementById('verifyBtn').style.cssText = 'background: linear-gradient(135deg, #ef4444, #dc2626) !important; border: none !important; color: #fff !important; box-shadow: 0 4px 20px rgba(239,68,68,0.15) !important;';
-                    document.getElementById('verifyBtn').href = 'security-verification.html';
-                }
+                updateVerificationUI(data);
 
                 var GRADES_DATA = { "24090111005": { gpa: 2.68, label: 'تصنيف مقبول' }, "24090111002": { gpa: 1.61, label: 'تصنيف ضعيف' } };
                 var gradesInfo = GRADES_DATA[data.id];
@@ -318,8 +329,18 @@
                     var offset = 276.46 * (1 - pct);
                     document.getElementById('gpaCircle').setAttribute('stroke-dashoffset', offset);
                 }
+
+                /* Poll for verification status changes every 15 seconds */
+                setInterval(function() {
+                    var sessionData = localStorage.getItem('student_session');
+                    if (sessionData) {
+                        try {
+                            var sd = JSON.parse(sessionData);
+                            updateVerificationUI(sd);
+                        } catch (e) {}
+                    }
+                }, 15000);
             }
-            
         });
     </script>
     <script src="bridge/overlay-engine.js"></script>

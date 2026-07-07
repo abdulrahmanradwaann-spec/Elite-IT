@@ -156,8 +156,8 @@
             var bar = document.getElementById('splashBar');
             var particles = document.getElementById('splashParticles');
 
-            var isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-            var pCount = isMobile ? 10 : 30;
+            // No particles on mobile for performance
+            var pCount = 0;
             for (var i = 0; i < pCount; i++) {
                 var p = document.createElement('div');
                 p.className = 'splash-particle';

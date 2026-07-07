@@ -458,6 +458,12 @@
                         <span>رقم الطلب: <strong id="requestId">---</strong></span>
                         <span>التاريخ: <strong id="requestDate">---</strong></span>
                     </div>
+                    <div id="cancelRequestContainer" style="display:none;margin-top:16px;">
+                        <button class="v-btn v-btn-secondary" onclick="cancelPendingRequest()">
+                            <i class="fas fa-ban"></i>
+                            <span>إلغاء الطلب</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -556,6 +562,7 @@
     </div>
 
     <script src="verification.js"></script>
+    <script src="app.js"></script>
     <script>
         var currentScreen = 1;
         var selfieDataUrl = null;
@@ -565,7 +572,8 @@
         function initVerification() {
             var session = VerificationSystem.getSession();
             if (!session || !session.id) {
-                goToScreen(1);
+                showToast('يرجى تسجيل الدخول أولاً', 'error');
+                setTimeout(function() { window.location.href = 'login.html'; }, 1500);
                 return;
             }
             if (VerificationSystem.isVerified(session.id)) {
@@ -578,14 +586,25 @@
                 return;
             }
             if (existing && existing.status === 'rejected') {
-                document.querySelector('#screen7 .v-reject-reasons').innerHTML = '';
-                (existing.rejectionReasons || ['لم نتمكن من التحقق من هويتك']).forEach(function(reason) {
+                /* Clear all hardcoded rejection reasons from screen 7 HTML */
+                var reasonsContainer = document.querySelector('#screen7 .v-reject-reasons');
+                reasonsContainer.innerHTML = '';
+                var reasons = (existing.rejectionReasons && existing.rejectionReasons.length) ? existing.rejectionReasons : ['لم نتمكن من التحقق من هويتك'];
+                reasons.forEach(function(reason) {
                     var item = document.createElement('div');
                     item.className = 'v-reject-item';
-                    item.innerHTML = '<i class="fas fa-face-frown"></i><div><span class="v-reject-cause">' + reason + '</span><span class="v-reject-fix">تأكد من وضوح الصورة وإعادة المحاولة</span></div>';
-                    document.querySelector('#screen7 .v-reject-reasons').appendChild(item);
+                    item.innerHTML = '<i class="fas fa-face-frown"></i><div><span class="v-reject-cause">' + escapeHtml(reason) + '</span><span class="v-reject-fix">تأكد من وضوح الصورة وإعادة المحاولة</span></div>';
+                    reasonsContainer.appendChild(item);
                 });
+                goToScreen(7);
+                return;
             }
+        }
+
+        function escapeHtml(str) {
+            var div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
         }
 
         function showAlreadyVerified() {
@@ -598,8 +617,8 @@
         function showPendingStatus(request) {
             document.querySelectorAll('.verify-screen').forEach(function(s) { s.classList.remove('active'); });
             document.getElementById('screen5').classList.add('active');
-            document.getElementById('requestId').textContent = request.id;
-            document.getElementById('requestDate').textContent = request.submittedDate + ' ' + request.submittedTime;
+            document.getElementById('requestId').textContent = request.id || '---';
+            document.getElementById('requestDate').textContent = (request.submittedDate || '') + ' ' + (request.submittedTime || '');
             document.getElementById('processingStatus').textContent = 'طلبك قيد المراجعة من فريق الدعم الفني';
             document.querySelectorAll('.v-proc-step').forEach(function(el) {
                 el.classList.remove('active');
@@ -608,6 +627,10 @@
             });
             var circle = document.querySelector('.v-progress-circle');
             if (circle) circle.style.strokeDashoffset = '169.64';
+            document.querySelector('#screen5 .v-title').textContent = 'تم إرسال طلبك';
+            /* Show cancel button for pending requests */
+            var cancelContainer = document.getElementById('cancelRequestContainer');
+            if (cancelContainer) cancelContainer.style.display = 'block';
         }
 
         function goToScreen(n) {
@@ -811,72 +834,85 @@
             goToScreen(5);
 
             var session = VerificationSystem.getSession();
-            var studentId = '---';
-            if (session && session.id) {
-                studentId = session.id;
-            }
-
-            var result = VerificationSystem.createRequest(selfieDataUrl, idDataUrl, {
-                name: session ? session.name : 'طالب',
-                id: studentId,
-                university: 'القرآن الكريم والعلوم الإسلامية'
-            });
-
-            if (!result.success) {
-                showToast('خطأ: ' + result.error, 'error');
-                goToScreen(3);
-                return;
-            }
-
-            lastRequestId = result.requestId;
-            document.getElementById('requestId').textContent = result.requestId;
-            document.getElementById('requestDate').textContent = new Date().toLocaleDateString('ar-EG') + ' ' + new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
-
-            var steps = ['procStep1','procStep2','procStep3','procStep4'];
-            var msgs = ['تحليل ملامح الوجه...','استخراج بيانات البطاقة...','التحقق من قاعدة البيانات...','حساب مؤشر الثقة...'];
-            var circle = document.querySelector('.v-progress-circle');
-            var offsets = [254.47, 169.64, 84.82, 0];
-
-            steps.forEach(function(s, i) {
-                setTimeout(function() {
-                    document.getElementById('processingStatus').textContent = msgs[i];
-                    steps.forEach(function(ss, j) {
-                        var el = document.getElementById(ss);
-                        if (j < i) { el.classList.add('done'); el.querySelector('i').className = 'fas fa-check'; }
-                        else if (j === i) { el.classList.add('active'); el.querySelector('i').className = 'fas fa-circle-notch fa-spin'; }
-                    });
-                    if (circle) circle.style.strokeDashoffset = offsets[i];
-                }, (i + 1) * 1200);
-            });
+            var studentId = (session && session.id) ? session.id : '---';
 
             setTimeout(function() {
-                steps.forEach(function(s) {
-                    var el = document.getElementById(s);
-                    el.classList.add('done');
-                    el.classList.remove('active');
-                    el.querySelector('i').className = 'fas fa-check';
+                var result = VerificationSystem.createRequest(selfieDataUrl, idDataUrl, {
+                    name: session ? session.name : 'طالب',
+                    id: studentId,
+                    university: 'القرآن الكريم والعلوم الإسلامية'
                 });
-                document.getElementById('processingStatus').textContent = 'تم إرسال الطلب! سيتم المراجعة خلال 60 دقيقة';
-                showPendingStatus({
-                    id: lastRequestId,
-                    submittedDate: new Date().toLocaleDateString('ar-EG'),
-                    submittedTime: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' })
+
+                if (!result.success) {
+                    showToast('خطأ: ' + result.error, 'error');
+                    goToScreen(4);
+                    return;
+                }
+
+                lastRequestId = result.requestId;
+                document.getElementById('requestId').textContent = result.requestId;
+                document.getElementById('requestDate').textContent = new Date().toLocaleDateString('ar-EG') + ' ' + new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+
+                var steps = ['procStep1','procStep2','procStep3','procStep4'];
+                var msgs = ['تحليل ملامح الوجه...','استخراج بيانات البطاقة...','التحقق من قاعدة البيانات...','حساب مؤشر الثقة...'];
+                var circle = document.querySelector('.v-progress-circle');
+                var offsets = [254.47, 169.64, 84.82, 0];
+
+                steps.forEach(function(s, i) {
+                    setTimeout(function() {
+                        document.getElementById('processingStatus').textContent = msgs[i];
+                        steps.forEach(function(ss, j) {
+                            var el = document.getElementById(ss);
+                            if (j < i) { el.classList.add('done'); el.querySelector('i').className = 'fas fa-check'; }
+                            else if (j === i) { el.classList.add('active'); el.querySelector('i').className = 'fas fa-circle-notch fa-spin'; }
+                        });
+                        if (circle) circle.style.strokeDashoffset = offsets[i];
+                    }, (i + 1) * 1200);
                 });
-                document.querySelector('#screen5 .v-title').textContent = 'تم إرسال طلبك';
-            }, 5500);
+
+                setTimeout(function() {
+                    steps.forEach(function(s) {
+                        var el = document.getElementById(s);
+                        el.classList.add('done');
+                        el.classList.remove('active');
+                        el.querySelector('i').className = 'fas fa-check';
+                    });
+                    var session2 = VerificationSystem.getSession();
+                    var req = VerificationSystem.getStudentRequest(session2 ? session2.id : '');
+                    if (req && req.status === 'pending') {
+                        showPendingStatus(req);
+                    } else {
+                        document.getElementById('processingStatus').textContent = 'تم إرسال الطلب! سيتم المراجعة خلال 60 دقيقة';
+                    }
+                }, 5500);
+            }, 300);
         }
 
-        function showToast(msg, type) {
-            var t = document.createElement('div');
-            t.className = 'toast show';
-            t.style.borderColor = type === 'error' ? 'var(--error)' : 'var(--success)';
-            t.style.color = type === 'error' ? 'var(--error)' : 'var(--text-main)';
-            t.textContent = msg;
-            document.body.appendChild(t);
-            setTimeout(function() { t.classList.remove('show'); setTimeout(function() { t.remove(); }, 400); }, 3000);
+        function cancelPendingRequest() {
+            var session = VerificationSystem.getSession();
+            if (!session || !session.id) return;
+            if (!confirm('هل تريد إلغاء طلب التوثيق الحالي؟')) return;
+            var result = VerificationSystem.cancelRequest(session.id);
+            if (result.success) {
+                showToast('تم إلغاء طلب التوثيق', 'success');
+                goToScreen(1);
+            } else {
+                showToast(result.error || 'فشل إلغاء الطلب', 'error');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            if (typeof window.showToast !== 'function') {
+                window.showToast = function(msg, type) {
+                    var t = document.createElement('div');
+                    t.className = 'toast show';
+                    t.style.borderColor = type === 'error' ? 'var(--error)' : 'var(--success)';
+                    t.style.color = type === 'error' ? 'var(--error)' : 'var(--text-main)';
+                    t.textContent = msg;
+                    document.body.appendChild(t);
+                    setTimeout(function() { t.classList.remove('show'); setTimeout(function() { t.remove(); }, 400); }, 3000);
+                };
+            }
             initVerification();
         });
     </script>
